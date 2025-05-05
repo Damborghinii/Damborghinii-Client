@@ -1,60 +1,56 @@
-import { DefaultTheme } from "@emotion/react";
-
-declare module "@emotion/react" {
-  export interface DefaultTheme {
-    color: {
-      neutral: {
-        B70: string;
-        B60: string;
-        B50: string;
-        B40: string;
-        B30: string;
-        B20: string;
-        B10: string;
-        B00: string;
-        white: string;
-      };
-      primary: {
-        P60: string;
-        P50: string;
-        P40: string;
-        P30: string;
-        P20: string;
-        P10: string;
-        P00: string;
-      };
-      secondary: {
-        S60: string;
-        S50: string;
-        S40: string;
-        S30: string;
-        S20: string;
-        S10: string;
-      };
-      warning: {
-        R30: string;
-        R00: string;
-        W30: string;
-        W20: string;
-        W10: string;
-        W00: string;
-      };
+export interface DefaultTheme {
+  color: {
+    neutral: {
+      B70: string;
+      B60: string;
+      B50: string;
+      B40: string;
+      B30: string;
+      B20: string;
+      B10: string;
+      B00: string;
+      white: string;
     };
-    typography: {
-      [key in TypographyKey]: {
-        fontSize: string;
-        fontWeight: number;
-      };
+    primary: {
+      P60: string;
+      P50: string;
+      P40: string;
+      P30: string;
+      P20: string;
+      P10: string;
+      P00: string;
     };
-  }
-
-  type TypographyKey =
-    | `title1-${1 | 2 | 3}`
-    | `body1-${1 | 2 | 3}`
-    | `body2-${1 | 2 | 3}`
-    | `small1-${1 | 2 | 3}`
-    | `small2-${1 | 2 | 3}`;
+    secondary: {
+      S60: string;
+      S50: string;
+      S40: string;
+      S30: string;
+      S20: string;
+      S10: string;
+    };
+    warning: {
+      R30: string;
+      R00: string;
+      W30: string;
+      W20: string;
+      W10: string;
+      W00: string;
+    };
+  };
+  typography: {
+    [key in TypographyKey]: {
+      fontSize: string;
+      fontWeight: number;
+    };
+  };
 }
+
+type TypographyKey =
+  | `title1-${1 | 2 | 3}`
+  | `body1-${1 | 2 | 3}`
+  | `body2-${1 | 2 | 3}`
+  | `small1-${1 | 2 | 3}`
+  | `small2-${1 | 2 | 3}`;
 
 const theme: DefaultTheme = {
   color: {
