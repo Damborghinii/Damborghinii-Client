@@ -6,6 +6,18 @@ const globalStyle = css`
     font-size: 16px;
   }
 
+  body {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+
+  #root {
+    max-width: 540px;
+    width: 100%;
+  }
+
   html,
   body,
   div,
