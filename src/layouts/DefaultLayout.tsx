@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import styled from "@emotion/styled";
 import BottomNavBar from "../components/common/bottomNavBar/BottomNavBar";
+import theme from "../styles/theme";
 
 const DefaultLayout = () => {
   return (
@@ -24,6 +25,7 @@ const LayoutContainer = styled.div`
   height: 100vh;
   position: relative;
   align-items: center;
+  max-width: 540px;
 `;
 
 const TopBarWrapper = styled.header`
@@ -32,14 +34,17 @@ const TopBarWrapper = styled.header`
   width: 100%;
   max-width: 540px;
   height: 48.8px;
-  z-index: 10;
+  background-color: ${theme.color.neutral.B20};
 `;
 
 const OutletWrapper = styled.section`
   display: flex;
   height: auto;
+  width: 100%;
+  max-width: 540px;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.color.primary.P20};
+  background-color: ${({ theme }) => theme.color.neutral.B00};
+  margin-top: 48.8px;
 `;
 
 const BottomBarWrapper = styled.footer`

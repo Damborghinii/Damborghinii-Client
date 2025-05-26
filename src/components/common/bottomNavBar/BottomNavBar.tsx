@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import bottomAppBarIcons from "../../../assets/icons";
+import { bottomAppBarIcons } from "../../../assets/icons";
 import theme from "../../../styles/theme";
 import { useLocation, useNavigate } from "react-router-dom";
 
