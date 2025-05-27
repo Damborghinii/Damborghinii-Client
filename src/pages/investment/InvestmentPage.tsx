@@ -24,6 +24,7 @@ const InvestmentPage = () => {
           onClose={() => setIsOpen(false)}
         />
       )}
+      <div>선택된 옵션은 {sortOrder}</div>
     </div>
   );
 };
