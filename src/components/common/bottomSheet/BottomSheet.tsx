@@ -45,7 +45,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   onClose,
 }) => {
   const { close: Close } = commonIcons;
-  const [isClosing, setIsClosing] = useState(false);
+  const [isClosing, setIsClosing] = useState<boolean>(false);
   const handleWrapperClick = (e: React.MouseEvent) => e.stopPropagation();
 
   const handleClose = () => {

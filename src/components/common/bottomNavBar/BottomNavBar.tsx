@@ -43,28 +43,35 @@ type TabItem = {
   Icon: React.FC<React.SVGProps<SVGSVGElement>>;
 };
 
+const TAB_LABELS = {
+  INVESTMENT: "투자하기",
+  MY_NFT: "내 NFT",
+  CONTRACT: "대출계약",
+  ADJUSTMENT: "정산관리",
+} as const;
+
 const tabItems: TabItem[] = [
   {
     name: "investment",
-    label: "투자하기",
+    label: TAB_LABELS.INVESTMENT,
     path: "/investment",
     Icon: bottomAppBarIcons.investment_arrow,
   },
   {
     name: "myNft",
-    label: "내 NFT",
+    label: TAB_LABELS.MY_NFT,
     path: "/myNft",
     Icon: bottomAppBarIcons.my_nft,
   },
   {
     name: "contract",
-    label: "대출계약",
+    label: TAB_LABELS.CONTRACT,
     path: "/contract",
     Icon: bottomAppBarIcons.contract,
   },
   {
     name: "adjustment",
-    label: "정산관리",
+    label: TAB_LABELS.ADJUSTMENT,
     path: "/adjustment",
     Icon: bottomAppBarIcons.adjustment_management,
   },

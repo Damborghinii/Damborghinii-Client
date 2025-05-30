@@ -42,7 +42,7 @@ const InteractiveTemplate: React.FC<BottomSheetProps> = ({
   options,
   selected,
 }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState<boolean>(true);
   const [sel, setSel] = useState<string>(selected);
 
   return (
