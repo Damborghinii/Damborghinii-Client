@@ -3,7 +3,7 @@ import { IcBugger, IcHeart, IcSearch, IcLogo } from "../../../assets/svg";
 
 const TopBarContainer = styled.nav`
   width: 100%;
-  padding: 0.5rem 1.25rem;
+  padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
 `;
@@ -17,11 +17,11 @@ const IconCantainer = styled.div`
 export const TopBar: React.FC = () => {
   return (
     <TopBarContainer>
-      <IcLogo width={20} height={20} onClick={() => {}} />
+      <IcLogo width={40} height={40} onClick={() => {}} />
       <IconCantainer>
-        <IcSearch width={14} height={14} onClick={() => {}} />
-        <IcHeart width={14} height={14} onClick={() => {}} />
-        <IcBugger width={14} height={14} onClick={() => {}} />
+        <IcSearch width={20} height={20} onClick={() => {}} />
+        <IcHeart width={20} height={20} onClick={() => {}} />
+        <IcBugger width={20} height={20} onClick={() => {}} />
       </IconCantainer>
     </TopBarContainer>
   );
