@@ -11,7 +11,7 @@ type Story = StoryObj<typeof Button>;
 
 export const PrimaryEnabled: Story = {
   args: {
-    text: "대출 신청",
+    children: "대출 신청",
     variant: "secondary",
     size: "small",
   },
@@ -19,7 +19,7 @@ export const PrimaryEnabled: Story = {
 
 export const PrimaryDisabled: Story = {
   args: {
-    text: "다음",
+    children: "다음",
     variant: "primary",
     size: "big",
   },
@@ -27,7 +27,7 @@ export const PrimaryDisabled: Story = {
 
 export const LinePrimarySmall: Story = {
   args: {
-    text: "삭제",
+    children: "삭제",
     variant: "line-primary",
     size: "small",
   },
@@ -35,7 +35,7 @@ export const LinePrimarySmall: Story = {
 
 export const SecondaryMedium: Story = {
   args: {
-    text: "취소",
+    children: "취소",
     variant: "secondary",
     size: "medium",
   },
@@ -43,7 +43,7 @@ export const SecondaryMedium: Story = {
 
 export const LineSecondaryDisabled: Story = {
   args: {
-    text: "닫기",
+    children: "닫기",
     variant: "line-secondary",
     size: "medium",
     disabled: true,

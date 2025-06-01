@@ -1,7 +1,19 @@
-import React from "react";
+import { useModal } from "../../hooks/useModal";
+import { useDeleteModal } from "../../components/common/modal/DeleteModal";
 
 const MyNftPage = () => {
-  return <div>MyNftPage</div>;
+  const { openModal } = useModal();
+  const deleteModal = useDeleteModal();
+  return (
+    <div
+      onClick={() => {
+        openModal(deleteModal);
+        console.log("here");
+      }}
+    >
+      MyNftPage
+    </div>
+  );
 };
 
 export default MyNftPage;
