@@ -9,7 +9,7 @@ type ButtonVariant =
   | "line-primary"
   | "line-secondary";
 
-type ButtonProps = {
+export type ButtonProps = {
   text: string;
   size?: ButtonSize;
   variant?: ButtonVariant;
