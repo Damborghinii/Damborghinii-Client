@@ -123,4 +123,7 @@ const theme: DefaultTheme = {
   },
 };
 
+export type ColorType = typeof theme.color;
+export type ColorKey = keyof ColorType;
+
 export default theme;

@@ -1,8 +1,7 @@
 {
-  "include": ["src", "types/svg.d.ts"],
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "lib": ["es2017", "dom"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react"
+  }
 }

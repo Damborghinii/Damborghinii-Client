@@ -1,13 +1,18 @@
 import { create } from "zustand";
+import { ModalProps } from "../components/common/modal/Modal";
 
 type ModalStore = {
+  changeModalStatus: (status: boolean) => void;
+  changeModalProps: (newProps: ModalProps | undefined) => void;
   isOpen: boolean;
-  changeModalStatus: () => void;
+  props?: ModalProps;
 };
 
 const useModalStore = create<ModalStore>()((set) => ({
   isOpen: false,
-  changeModalStatus: () => set((state) => ({ isOpen: !state.isOpen })),
+  props: undefined,
+  changeModalStatus: (status) => set(() => ({ isOpen: status })),
+  changeModalProps: (newProps) => set(() => ({ props: newProps })),
 }));
 
 export default useModalStore;
