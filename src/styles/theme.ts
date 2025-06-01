@@ -45,7 +45,7 @@ export interface DefaultTheme {
   };
 }
 
-type TypographyKey =
+export type TypographyKey =
   | `title1-${1 | 2 | 3}`
   | `body1-${1 | 2 | 3}`
   | `body2-${1 | 2 | 3}`

@@ -2,6 +2,7 @@ import { useState } from "react";
 import BottomSheet, {
   Option,
 } from "../../components/common/bottomSheet/BottomSheet";
+import Button from "../../components/common/button/Button";
 
 const MY_OPTIONS: Option[] = [
   { value: "latest", label: "최신순" },
@@ -25,6 +26,7 @@ const InvestmentPage = () => {
         />
       )}
       <div>선택된 옵션은 {sortOrder}</div>
+      <Button text="수정하기" size="medium" variant="line-primary" disabled />
     </div>
   );
 };
