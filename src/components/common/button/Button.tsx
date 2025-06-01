@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import theme from "../../../styles/theme";
 
@@ -9,13 +8,12 @@ type ButtonVariant =
   | "line-primary"
   | "line-secondary";
 
-type ButtonProps = {
-  text: string;
+interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   size?: ButtonSize;
   variant?: ButtonVariant;
   disabled?: boolean;
   onClick?: () => void;
-};
+}
 
 const sizeMap: Record<ButtonSize, { width: string; height: string }> = {
   big: { width: "338px", height: "52px" },
@@ -126,11 +124,11 @@ const StyledButton = styled.button<{
 `;
 
 const Button: React.FC<ButtonProps> = ({
-  text,
   size = "medium",
   variant = "primary",
   disabled = false,
   onClick,
+  children,
 }) => {
   const { width, height } = sizeMap[size];
   const { fontSize, fontWeight } = sizeToTypographyMap[size];
@@ -150,7 +148,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       onClick={onClick}
     >
-      {text}
+      {children}
     </StyledButton>
   );
 };
