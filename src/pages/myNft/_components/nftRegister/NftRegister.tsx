@@ -1,4 +1,4 @@
-import Button from "../../../components/common/button/Button";
+import Button from "../../../../components/common/button/Button";
 import * as S from "./NftRegister.styled";
 
 export const NftRegister: React.FC = () => {
