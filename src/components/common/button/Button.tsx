@@ -12,6 +12,7 @@ type ButtonVariant =
 type ButtonProps = {
   text: string;
   size?: ButtonSize;
+  fullWidth?: boolean;
   variant?: ButtonVariant;
   disabled?: boolean;
   onClick?: () => void;
@@ -105,8 +106,9 @@ const StyledButton = styled.button<{
   backgroundColor: string;
   textColor: string;
   borderColor: string;
+  fullWidth?: boolean;
 }>`
-  width: ${({ width }) => width};
+  width: ${({ fullWidth, width }) => (fullWidth ? "100%" : width)};
   height: ${({ height }) => height};
   font-size: ${({ fontSize }) => fontSize};
   font-weight: ${({ fontWeight }) => fontWeight};
@@ -131,6 +133,7 @@ const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   disabled = false,
   onClick,
+  fullWidth = false,
 }) => {
   const { width, height } = sizeMap[size];
   const { fontSize, fontWeight } = sizeToTypographyMap[size];
@@ -149,6 +152,7 @@ const Button: React.FC<ButtonProps> = ({
       borderColor={borderColor}
       disabled={disabled}
       onClick={onClick}
+      fullWidth={fullWidth}
     >
       {text}
     </StyledButton>
