@@ -1,11 +1,11 @@
-import { css, Theme } from "@emotion/react";
+import { css } from "@emotion/react";
 import { FixedContainerProps } from "./FixedContainer";
 
 export const getFixedContainerStyle = (
   zIndex: FixedContainerProps["zIndex"],
   justifyContent: FixedContainerProps["justifyContent"]
 ) => {
-  return (theme: Theme) => css`
+  return () => css`
     display: flex;
     align-items: center;
     justify-content: ${justifyContent};
