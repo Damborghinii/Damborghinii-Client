@@ -1,19 +1,59 @@
 import { Outlet } from "react-router-dom";
 import styled from "@emotion/styled";
+import BottomNavBar from "../components/common/bottomNavBar/BottomNavBar";
+import theme from "../styles/theme";
+import { TopBar } from "../components/common/topBar/TopBar";
 
 const DefaultLayout = () => {
   return (
-    <OutletWrapper>
-      <Outlet />
-    </OutletWrapper>
+    <LayoutContainer>
+      <TopBarWrapper>
+        <TopBar />
+      </TopBarWrapper>
+      <OutletWrapper>
+        <Outlet />
+      </OutletWrapper>
+      <BottomBarWrapper>
+        <BottomNavBar />
+      </BottomBarWrapper>
+    </LayoutContainer>
   );
 };
 
 export default DefaultLayout;
 
-const OutletWrapper = styled.section`
+const LayoutContainer = styled.div`
   display: flex;
-  height: auto;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.color.primary.P20};
+  min-height: 100vh;
+  align-items: center;
+  max-width: 540px;
+  width: 100%;
+  background-color: ${theme.color.neutral.white};
+`;
+
+const TopBarWrapper = styled.header`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 540px;
+  height: 48.8px;
+  z-index: 999;
+  background-color: ${theme.color.neutral.white};
+`;
+
+const OutletWrapper = styled.section`
+  flex: 1;
+  width: 100%;
+  padding-top: 48.8px;
+  box-sizing: border-box;
+`;
+
+const BottomBarWrapper = styled.footer`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 540px;
+  height: 65.4px;
+  z-index: 10;
 `;

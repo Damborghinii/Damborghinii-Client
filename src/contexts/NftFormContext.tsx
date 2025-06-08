@@ -9,6 +9,10 @@ export type NftFormData = {
   composers: string[];
   lyricists: string[];
   streamingUrls: string[];
+  copyrightRegistered: boolean;
+  copyrightFile: File | null;
+  estimatedPrice: string;
+  image: File | null;
 };
 
 const defaultData: NftFormData = {
@@ -19,6 +23,10 @@ const defaultData: NftFormData = {
   composers: [""],
   lyricists: [""],
   streamingUrls: [""],
+  copyrightRegistered: null,
+  copyrightFile: null,
+  estimatedPrice: "",
+  image: null,
 };
 
 const NftFormContext = createContext<{

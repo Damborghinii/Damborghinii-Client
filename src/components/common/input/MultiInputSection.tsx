@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import theme from "../../../styles/theme";
 import Button from "../../common/button/Button";
@@ -120,7 +119,7 @@ export const MultiInputSection = ({
         </RowWrapper>
       ))}
       <Button
-        text={buttonText}
+        children={buttonText}
         size="medium"
         variant="line-secondary"
         onClick={onAdd}

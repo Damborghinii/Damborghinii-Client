@@ -5,6 +5,8 @@ import Contract from "../icons/contract.svg?react";
 import Close from "../icons/close.svg?react";
 import DigitalArt from "../icons/digitalArt.svg?react";
 import Music from "../icons/music.svg?react";
+import Image from "../icons/image.svg?react";
+import File from "../icons/file.svg?react";
 
 export const commonIcons = {
   close: Close,
@@ -20,4 +22,9 @@ export const bottomAppBarIcons = {
 export const nftIcons = {
   digital_art: DigitalArt,
   music: Music,
+};
+
+export const registerNftIcons = {
+  image: Image,
+  file: File,
 };

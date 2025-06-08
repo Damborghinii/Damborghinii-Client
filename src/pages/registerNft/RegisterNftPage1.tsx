@@ -127,7 +127,7 @@ const RegisterNftPage1 = () => {
         </InputSection>
       </ContentWrapper>
       <Button
-        text="다음"
+        children="다음"
         size="big"
         fullWidth
         disabled={!isFormFilled(formData, ["name", "type"])}

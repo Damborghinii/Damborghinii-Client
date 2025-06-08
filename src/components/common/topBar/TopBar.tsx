@@ -17,11 +17,11 @@ const IconCantainer = styled.div`
 export const TopBar: React.FC = () => {
   return (
     <TopBarContainer>
-      <IcLogo width={20} height={20} onClick={() => {}} />
+      <IcLogo width={40} height={40} onClick={() => {}} />
       <IconCantainer>
-        <IcSearch width={14} height={14} onClick={() => {}} />
-        <IcHeart width={14} height={14} onClick={() => {}} />
-        <IcBugger width={14} height={14} onClick={() => {}} />
+        <IcSearch width={25} height={25} onClick={() => {}} />
+        <IcHeart width={25} height={25} onClick={() => {}} />
+        <IcBugger width={25} height={25} onClick={() => {}} />
       </IconCantainer>
     </TopBarContainer>
   );

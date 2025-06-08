@@ -113,7 +113,7 @@ const StyledButton = styled.button<{
   background-color: ${({ backgroundColor }) => backgroundColor};
   color: ${({ textColor }) => textColor};
   border: 1px solid ${({ borderColor }) => borderColor};
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
 
   display: flex;

@@ -1,11 +1,14 @@
 import { Outlet } from "react-router-dom";
 import styled from "@emotion/styled";
 import theme from "../styles/theme";
+import { TopBar } from "../components/common/topBar/TopBar";
 
 const NoBottomBarLayout = () => {
   return (
     <LayoutContainer>
-      <TopBarWrapper>topbar</TopBarWrapper>
+      <TopBarWrapper>
+        <TopBar />
+      </TopBarWrapper>
       <OutletWrapper>
         <Outlet />
       </OutletWrapper>
@@ -31,7 +34,7 @@ const TopBarWrapper = styled.header`
   width: 100%;
   max-width: 540px;
   height: 48.8px;
-  background-color: ${theme.color.neutral.B20};
+  background-color: ${theme.color.neutral.white};
   z-index: 999;
 `;
 

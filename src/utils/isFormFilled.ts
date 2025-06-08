@@ -1,6 +1,9 @@
-export const isFormFilled = <T extends Record<string, unknown>>(
-  formData: T,
-  keys: (keyof T)[]
-): boolean => {
-  return keys.every((key) => !!formData[key]);
+export const isFormFilled = (
+  formData: Record<string, unknown>,
+  requiredFields: string[]
+) => {
+  return requiredFields.every((key) => {
+    const value = formData[key];
+    return value !== null && value !== undefined && value !== "";
+  });
 };
