@@ -3,9 +3,12 @@ import { IcBugger, IcHeart, IcSearch, IcLogo } from "../../../assets/svg";
 
 const TopBarContainer = styled.nav`
   width: 100%;
-  padding: 0.5rem 1.25rem;
+  padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
+  z-index: 2;
+
+  border-bottom: 1px solid ${({ theme }) => theme.color.neutral.B10};
 `;
 
 const IconCantainer = styled.div`
@@ -19,9 +22,9 @@ export const TopBar: React.FC = () => {
     <TopBarContainer>
       <IcLogo width={40} height={40} onClick={() => {}} />
       <IconCantainer>
-        <IcSearch width={25} height={25} onClick={() => {}} />
-        <IcHeart width={25} height={25} onClick={() => {}} />
-        <IcBugger width={25} height={25} onClick={() => {}} />
+        <IcSearch width={20} height={20} onClick={() => {}} />
+        <IcHeart width={20} height={20} stroke={"#3F3F46"} onClick={() => {}} />
+        <IcBugger width={20} height={20} onClick={() => {}} />
       </IconCantainer>
     </TopBarContainer>
   );

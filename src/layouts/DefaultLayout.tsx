@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { TopBar } from "@components/common/topBar/TopBar";
 import styled from "@emotion/styled";
 import BottomNavBar from "../components/common/bottomNavBar/BottomNavBar";
 import theme from "../styles/theme";
@@ -6,6 +7,7 @@ import { TopBar } from "../components/common/topBar/TopBar";
 
 const DefaultLayout = () => {
   return (
+
     <LayoutContainer>
       <TopBarWrapper>
         <TopBar />

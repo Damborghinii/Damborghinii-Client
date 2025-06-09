@@ -126,6 +126,21 @@ const theme: DefaultTheme = {
 };
 
 export type ColorType = typeof theme.color;
-export type ColorKey = keyof ColorType;
+export type ColorKeyType = keyof ColorType;
+
+export type NeutralType = typeof theme.color.neutral;
+export type NeutralKeyType = keyof NeutralType;
+
+export type PrimaryType = typeof theme.color.primary;
+export type PrimaryKeyType = keyof PrimaryType;
+
+export type SecondaryType = typeof theme.color.secondary;
+export type SecondaryKeyType = keyof SecondaryType;
+
+export type WarningType = typeof theme.color.warning;
+export type WarningKeyType = keyof WarningType;
+
+export type TypographyType = typeof theme.typography;
+export type TypographyKeyType = keyof TypographyType;
 
 export default theme;
