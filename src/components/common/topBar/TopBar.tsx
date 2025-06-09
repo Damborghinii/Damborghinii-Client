@@ -6,6 +6,9 @@ const TopBarContainer = styled.nav`
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
+  z-index: 2;
+
+  border-bottom: 1px solid ${({ theme }) => theme.color.neutral.B10};
 `;
 
 const IconCantainer = styled.div`
@@ -20,7 +23,7 @@ export const TopBar: React.FC = () => {
       <IcLogo width={40} height={40} onClick={() => {}} />
       <IconCantainer>
         <IcSearch width={20} height={20} onClick={() => {}} />
-        <IcHeart width={20} height={20} onClick={() => {}} />
+        <IcHeart width={20} height={20} stroke={"#3F3F46"} onClick={() => {}} />
         <IcBugger width={20} height={20} onClick={() => {}} />
       </IconCantainer>
     </TopBarContainer>

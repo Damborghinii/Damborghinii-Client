@@ -26,7 +26,12 @@ const InvestmentPage = () => {
         />
       )}
       <div>선택된 옵션은 {sortOrder}</div>
-      <Button text="수정하기" size="medium" variant="line-primary" disabled />
+      <Button
+        children="수정하기"
+        size="medium"
+        variant="line-primary"
+        disabled
+      />
     </div>
   );
 };

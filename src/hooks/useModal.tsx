@@ -1,4 +1,4 @@
-import useModalStore from "../store/modalStore";
+import useModalStore from "../stores/modalStore";
 import { ModalProps } from "../components/common/modal/Modal";
 
 export const useModal = () => {
