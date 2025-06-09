@@ -1,5 +1,4 @@
-import { ReactSVGElement, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { ReactSVGElement } from "react";
 
 import { MainModal } from "./Modal";
 import { useModal } from "../../../hooks/useModal";
