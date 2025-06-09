@@ -6,6 +6,7 @@ const TopBarContainer = styled.nav`
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
+  z-index: 2;
 `;
 
 const IconCantainer = styled.div`

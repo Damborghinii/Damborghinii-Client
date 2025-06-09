@@ -1,13 +1,16 @@
+import { IcDown } from "@assets/svg";
 import styled from "@emotion/styled";
 
 interface MainTitleProps {
   mainText: string;
   subText: string;
+  selectedType: string;
 }
 
 export const MainTitle: React.FC<MainTitleProps> = ({
   mainText,
   subText,
+  selectedType,
 }: MainTitleProps) => {
   return (
     <TitleHeader>
@@ -15,6 +18,10 @@ export const MainTitle: React.FC<MainTitleProps> = ({
         <MainText>{mainText}</MainText>
         <SubText>{subText}</SubText>
       </TitleWrapper>
+      <SelectWrapper>
+        {selectedType}
+        <IcDown width={14} height={14} />
+      </SelectWrapper>
     </TitleHeader>
   );
 };
@@ -41,4 +48,15 @@ const SubText = styled.h2`
   ${({ theme }) => theme.typography["body2-1"]}
 
   color : ${({ theme }) => theme.color.primary.P50}
+`;
+
+const SelectWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  min-width: 3rem;
+  padding: 0.25rem;
+
+  ${({ theme }) => theme.typography["small1-3"]}
 `;
