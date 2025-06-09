@@ -48,7 +48,6 @@ const globalStyle = css`
   body {
     line-height: 1.3;
     background-color: "#FFFFFF";
-    margin-bottom: 80px;
   }
 
   ol,

@@ -10,6 +10,7 @@ export interface DefaultTheme {
       B10: string;
       B00: string;
       white: string;
+      black: string;
     };
     primary: {
       P60: string;
@@ -64,6 +65,7 @@ const theme: DefaultTheme = {
       B10: "#E4E4E7",
       B00: "#F4F4F5",
       white: "#FFFFFF",
+      black: "000000",
     },
 
     primary: {

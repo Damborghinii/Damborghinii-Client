@@ -10,6 +10,7 @@ type ButtonVariant =
 
 interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   size?: ButtonSize;
+  fullWidth?: boolean;
   variant?: ButtonVariant;
   disabled?: boolean;
   onClick?: () => void;
@@ -103,15 +104,16 @@ const StyledButton = styled.button<{
   backgroundColor: string;
   textColor: string;
   borderColor: string;
+  fullWidth?: boolean;
 }>`
-  width: ${({ width }) => width};
+  width: ${({ fullWidth, width }) => (fullWidth ? "100%" : width)};
   height: ${({ height }) => height};
   font-size: ${({ fontSize }) => fontSize};
   font-weight: ${({ fontWeight }) => fontWeight};
   background-color: ${({ backgroundColor }) => backgroundColor};
   color: ${({ textColor }) => textColor};
   border: 1px solid ${({ borderColor }) => borderColor};
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
 
   display: flex;
@@ -128,6 +130,7 @@ const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   disabled = false,
   onClick,
+  fullWidth = false,
   children,
 }) => {
   const { width, height } = sizeMap[size];
@@ -147,6 +150,7 @@ const Button: React.FC<ButtonProps> = ({
       borderColor={borderColor}
       disabled={disabled}
       onClick={onClick}
+      fullWidth={fullWidth}
     >
       {children}
     </StyledButton>

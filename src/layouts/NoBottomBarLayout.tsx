@@ -1,13 +1,10 @@
 import { Outlet } from "react-router-dom";
-import { TopBar } from "@components/common/topBar/TopBar";
 import styled from "@emotion/styled";
-import BottomNavBar from "../components/common/bottomNavBar/BottomNavBar";
 import theme from "../styles/theme";
 import { TopBar } from "../components/common/topBar/TopBar";
 
-const DefaultLayout = () => {
+const NoBottomBarLayout = () => {
   return (
-
     <LayoutContainer>
       <TopBarWrapper>
         <TopBar />
@@ -15,14 +12,11 @@ const DefaultLayout = () => {
       <OutletWrapper>
         <Outlet />
       </OutletWrapper>
-      <BottomBarWrapper>
-        <BottomNavBar />
-      </BottomBarWrapper>
     </LayoutContainer>
   );
 };
 
-export default DefaultLayout;
+export default NoBottomBarLayout;
 
 const LayoutContainer = styled.div`
   display: flex;
@@ -40,8 +34,8 @@ const TopBarWrapper = styled.header`
   width: 100%;
   max-width: 540px;
   height: 48.8px;
-  z-index: 999;
   background-color: ${theme.color.neutral.white};
+  z-index: 999;
 `;
 
 const OutletWrapper = styled.section`
@@ -49,13 +43,4 @@ const OutletWrapper = styled.section`
   width: 100%;
   padding-top: 48.8px;
   box-sizing: border-box;
-`;
-
-const BottomBarWrapper = styled.footer`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  max-width: 540px;
-  height: 65.4px;
-  z-index: 10;
 `;
