@@ -7,6 +7,7 @@ import DigitalArt from "../icons/digitalArt.svg?react";
 import Music from "../icons/music.svg?react";
 import Image from "../icons/image.svg?react";
 import File from "../icons/file.svg?react";
+import RegisterLoading from "../icons/register_loading.svg?react";
 
 export const commonIcons = {
   close: Close,
@@ -27,4 +28,5 @@ export const nftIcons = {
 export const registerNftIcons = {
   image: Image,
   file: File,
+  register_loading: RegisterLoading,
 };
