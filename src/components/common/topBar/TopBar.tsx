@@ -23,7 +23,7 @@ export const TopBar: React.FC = () => {
       <IcLogo width={40} height={40} onClick={() => {}} />
       <IconCantainer>
         <IcSearch width={20} height={20} onClick={() => {}} />
-        <IcHeart width={20} height={20} onClick={() => {}} />
+        <IcHeart width={20} height={20} stroke={"#3F3F46"} onClick={() => {}} />
         <IcBugger width={20} height={20} onClick={() => {}} />
       </IconCantainer>
     </TopBarContainer>

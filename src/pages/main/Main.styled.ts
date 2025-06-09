@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 export const MainContainer = styled.div`
+  min-height: calc(100dvh - 3.5rem);
   background-color: ${({ theme }) => theme.color.neutral.B00};
 `;
 

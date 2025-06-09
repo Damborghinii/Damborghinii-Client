@@ -1,13 +1,17 @@
 import type { SVGProps } from "react";
-const SvgIcHeart = (props: SVGProps<SVGSVGElement>) => (
+const SvgIcHeart = ({
+  stroke = "none",
+  fill = "none",
+  ...props
+}: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    fill="none"
+    fill={fill}
     viewBox="0 0 20 21"
     {...props}
   >
     <path
-      stroke="#3F3F46"
+      stroke={stroke}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.3}
