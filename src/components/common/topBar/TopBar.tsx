@@ -7,6 +7,8 @@ const TopBarContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   z-index: 2;
+
+  border-bottom: 1px solid ${({ theme }) => theme.color.neutral.B10};
 `;
 
 const IconCantainer = styled.div`
