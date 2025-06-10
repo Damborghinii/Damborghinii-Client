@@ -31,6 +31,13 @@ export const MainPage: React.FC = () => {
           presentValue={"1.2299ETH"}
           investmentProgressRate={30}
         ></MainLoanCard>
+        <MainLoanCard
+          loanAmount={160000000}
+          interestRate={30}
+          collateralName={"Lil Pudgy #2017"}
+          presentValue={"1.2299ETH"}
+          investmentProgressRate={30}
+        ></MainLoanCard>
       </S.MainCardWrapper>
     </S.MainContainer>
   );
