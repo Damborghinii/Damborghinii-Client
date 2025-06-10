@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { IcBugger, IcHeart, IcSearch, IcLogo } from "../../../assets/svg";
+import { IcLogo } from "@assets/svg";
 import { useNavigate } from "react-router-dom";
 
 const TopBarContainer = styled.nav`
@@ -12,22 +12,11 @@ const TopBarContainer = styled.nav`
   border-bottom: 1px solid ${({ theme }) => theme.color.neutral.B10};
 `;
 
-const IconCantainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-`;
-
 export const TopBar: React.FC = () => {
   const navigate = useNavigate();
   return (
     <TopBarContainer>
       <IcLogo width={40} height={40} onClick={() => navigate("/")} />
-      {/* <IconCantainer>
-        <IcSearch width={20} height={20} onClick={() => {}} />
-        <IcHeart width={20} height={20} stroke={"#3F3F46"} onClick={() => {}} />
-        <IcBugger width={20} height={20} onClick={() => {}} />
-      </IconCantainer> */}
     </TopBarContainer>
   );
 };
