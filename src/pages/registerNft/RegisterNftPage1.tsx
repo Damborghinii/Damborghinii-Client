@@ -8,6 +8,62 @@ import { useNftForm } from "../../contexts/NftFormContext";
 import { isFormFilled } from "../../utils/isFormFilled";
 import { useNavigate } from "react-router-dom";
 
+const RegisterNftPage1 = () => {
+  const { formData, updateForm } = useNftForm();
+  const { digital_art: DigitalArt, music: Music } = nftIcons;
+  const navigate = useNavigate();
+  const handleNext = () => {
+    if (isFormFilled(formData, ["name", "type"])) {
+      navigate("/nft/register/music-basic");
+    }
+  };
+  return (
+    <PageContainer>
+      <ContentWrapper>
+        <ProgressIndicator>
+          <StepIndicator currentStep={1} />
+        </ProgressIndicator>
+        <Title>NFT 기본정보 입력</Title>
+        <InputSection>
+          <InputGroup>
+            <InputTitle>NFT명</InputTitle>
+            <Input
+              placeholder="NFT명을 입력해 주세요"
+              value={formData.nftName}
+              onChange={(e) => updateForm({ nftName: e.target.value })}
+            />
+            <Explaination>설명</Explaination>
+          </InputGroup>
+          <InputGroup>
+            <InputTitle>NFT 유형</InputTitle>
+            <TypeOptionsWrapper>
+              <NftTypeButton
+                selected={formData.nftType === "art"}
+                onClick={() => updateForm({ nftType: "art" })}
+                icon={<DigitalArt />}
+                label="디지털 아트"
+              ></NftTypeButton>
+              <NftTypeButton
+                selected={formData.nftType === "music"}
+                onClick={() => updateForm({ nftType: "music" })}
+                icon={<Music />}
+                label="음악"
+              ></NftTypeButton>
+            </TypeOptionsWrapper>
+          </InputGroup>
+        </InputSection>
+      </ContentWrapper>
+      <Button
+        children="다음"
+        size="big"
+        fullWidth
+        disabled={!isFormFilled(formData, ["name", "type"])}
+        onClick={handleNext}
+      />
+    </PageContainer>
+  );
+};
+
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -80,61 +136,5 @@ const Explaination = styled.label`
   font-weight: ${theme.typography["small1-3"].fontWeight};
   color: ${theme.color.neutral.B30};
 `;
-
-const RegisterNftPage1 = () => {
-  const { formData, updateForm } = useNftForm();
-  const { digital_art: DigitalArt, music: Music } = nftIcons;
-  const navigate = useNavigate();
-  const handleNext = () => {
-    if (isFormFilled(formData, ["name", "type"])) {
-      navigate("/nft/register/music-basic");
-    }
-  };
-  return (
-    <PageContainer>
-      <ContentWrapper>
-        <ProgressIndicator>
-          <StepIndicator currentStep={1} />
-        </ProgressIndicator>
-        <Title>NFT 기본정보 입력</Title>
-        <InputSection>
-          <InputGroup>
-            <InputTitle>NFT명</InputTitle>
-            <Input
-              placeholder="NFT명을 입력해 주세요"
-              value={formData.name}
-              onChange={(e) => updateForm({ name: e.target.value })}
-            />
-            <Explaination>설명</Explaination>
-          </InputGroup>
-          <InputGroup>
-            <InputTitle>NFT 유형</InputTitle>
-            <TypeOptionsWrapper>
-              <NftTypeButton
-                selected={formData.type === "art"}
-                onClick={() => updateForm({ type: "art" })}
-                icon={<DigitalArt />}
-                label="디지털 아트"
-              ></NftTypeButton>
-              <NftTypeButton
-                selected={formData.type === "music"}
-                onClick={() => updateForm({ type: "music" })}
-                icon={<Music />}
-                label="음악"
-              ></NftTypeButton>
-            </TypeOptionsWrapper>
-          </InputGroup>
-        </InputSection>
-      </ContentWrapper>
-      <Button
-        children="다음"
-        size="big"
-        fullWidth
-        disabled={!isFormFilled(formData, ["name", "type"])}
-        onClick={handleNext}
-      />
-    </PageContainer>
-  );
-};
 
 export default RegisterNftPage1;

@@ -6,13 +6,16 @@ import Button from "../../components/common/button/Button";
 import { isFormFilled } from "../../utils/isFormFilled";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { registerNftIcons } from "@assets/icons";
 
 const RegisterNftPage3 = () => {
+  const { file: File } = registerNftIcons;
+
   const { formData, updateForm } = useNftForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const handleNext = () => {
-    if (isFormFilled(formData, ["copyrightRegistered", "estimatedPrice"])) {
+    if (isFormFilled(formData, ["copyrightRegistered"])) {
       navigate("/nft/register/image-upload");
     }
   };
@@ -21,11 +24,10 @@ const RegisterNftPage3 = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       updateForm({ copyrightFile: file });
-      console.log(file);
     }
   };
   return (
@@ -80,6 +82,7 @@ const RegisterNftPage3 = () => {
                     MB
                   </FileSize>
                 </FiteContent>
+                <File />
               </FileContainer>
             )}
             <Button
@@ -184,8 +187,9 @@ const RadioInput = styled.input`
 const FileContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
   width: 230px;
-  height: 47px;
   background-color: ${theme.color.neutral.B00};
   border: 1px solid ${theme.color.neutral.B30};
   border-radius: 4px;
@@ -197,12 +201,16 @@ const FileContainer = styled.div`
 const FiteContent = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: 150px;
   gap: 2px;
 `;
 
 const FileName = styled.span`
   font-size: ${theme.typography["small1-2"].fontSize};
   font-weight: ${theme.typography["small1-2"].fontWeight};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const FileSize = styled.span`

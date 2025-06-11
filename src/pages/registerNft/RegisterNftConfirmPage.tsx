@@ -1,8 +1,53 @@
-import React from "react";
 import styled from "@emotion/styled";
 import theme from "../../styles/theme";
+import Button from "@components/common/button/Button";
+import { useModal } from "@hooks/useModal";
+import { useNavigate } from "react-router-dom";
+
+const dummyData = {
+  nftName: "nft",
+  title: "노래제목",
+  singers: ["가수1", "가수2"],
+  composers: ["작곡가"],
+  lyricists: ["작사가"],
+  streamingUrls: ["음원 url"],
+  isRegistered: true,
+};
+
+const InfoRow = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) => (
+  <TableRow>
+    <Label>{label}</Label>
+    <Value>{children}</Value>
+  </TableRow>
+);
 
 const RegisterNftConfirmPage = () => {
+  const { openModal, closeModal } = useModal();
+  const navigate = useNavigate();
+  const handleLeaveWithoutSave = () => {
+    openModal({
+      title: "저장하지 않고 나가시겠어요?",
+      sub: "등록된 정보가 삭제됩니다",
+      primaryButton: {
+        children: "취소",
+        onClick: closeModal,
+      },
+      secondButton: {
+        children: "확인",
+        onClick: () => {
+          closeModal();
+          navigate("/myNft");
+        },
+      },
+    });
+  };
+
   return (
     <PageContainer>
       <ContentWrapper>
@@ -17,25 +62,55 @@ const RegisterNftConfirmPage = () => {
             <DetailTitle>상세 정보</DetailTitle>
           </DetailTItleWrapper>
           <InfoTable>
+            <InfoRow label="음원/앨범명">{dummyData.title}</InfoRow>
+            <InfoRow label="가수 정보">
+              {dummyData.singers.map((singer, idx) => (
+                <span key={idx}>{singer}</span>
+              ))}
+            </InfoRow>
+            <InfoRow label="작곡가 정보">
+              {dummyData.composers.map((composer, idx) => (
+                <span key={idx}>{composer}</span>
+              ))}
+            </InfoRow>
+            <InfoRow label="작사가 정보">
+              {dummyData.lyricists.map((lyricist, idx) => (
+                <span key={idx}>{lyricist}</span>
+              ))}
+            </InfoRow>
+          </InfoTable>
+          <InfoTable>
+            <InfoRow label="저작권 등록 여부">
+              {dummyData.isRegistered
+                ? "저작권이 등록되어 있는 음원"
+                : "저작권이 등록되지 않은 음원"}
+            </InfoRow>
+            <InfoRow label="저작권 등록증">filename</InfoRow>
+          </InfoTable>
+          <InfoTable>
             <TableRow>
-              <Label>음원/앨범명</Label>
-              <Value>Dissolve</Value>
+              <Label>음원 스트리밍 URL</Label>
             </TableRow>
             <TableRow>
-              <Label>가수 정보</Label>
-              <Value>Dissolve</Value>
-            </TableRow>
-            <TableRow>
-              <Label>작곡가 정보</Label>
-              <Value>Dissolve</Value>
-            </TableRow>
-            <TableRow>
-              <Label>작사가 정보</Label>
-              <Value>Dissolve</Value>
+              <UrlText>
+                {dummyData.streamingUrls.map((streamingUrl, idx) => (
+                  <span key={idx}>{streamingUrl}</span>
+                ))}
+              </UrlText>
             </TableRow>
           </InfoTable>
         </InfoWrapper>
       </ContentWrapper>
+      <ButtonWrapper>
+        <Button children="목록에 저장하기" size="big" fullWidth />
+        <Button
+          children="저장하지 않고 나가기"
+          size="big"
+          fullWidth
+          variant="line-secondary"
+          onClick={handleLeaveWithoutSave}
+        />
+      </ButtonWrapper>
     </PageContainer>
   );
 };
@@ -47,7 +122,7 @@ const PageContainer = styled.div`
   padding: 40px 37px 24px 37px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -81,7 +156,6 @@ const PriceWrapper = styled.div`
   width: 100%;
   padding: 10px 0;
   border-radius: 4px;
-  background-color: ${theme.color.primary.P10};
   margin-bottom: 30px;
 `;
 
@@ -122,6 +196,7 @@ const InfoTable = styled.div`
   border-radius: 4px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 24px;
 `;
 
 const TableRow = styled.div`
@@ -148,4 +223,31 @@ const Value = styled.span`
   font-weight: ${theme.typography["small2-2"].fontWeight};
   color: ${theme.color.neutral.B70};
   padding: 12px 10px;
+  gap: 8px;
+  display: flex;
+  flex-direction: row;
+  > span {
+    font-size: ${theme.typography["small2-2"].fontSize};
+    font-weight: ${theme.typography["small2-2"].fontWeight};
+    color: ${theme.color.neutral.B70};
+  }
+`;
+
+const UrlText = styled.span`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 10px;
+  > span {
+    color: ${theme.color.neutral.B70};
+    font-size: ${theme.typography["small2-2"].fontSize};
+    font-weight: ${theme.typography["small2-2"].fontWeight};
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
 `;
