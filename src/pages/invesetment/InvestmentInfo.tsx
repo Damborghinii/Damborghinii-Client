@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { LoanInfoCard, LoanInfoProps } from "./_components/LoanInfoCard";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
 import { PawnCard } from "./_components/PawnCard";
+import { ProgressRateSection } from "./_components/ProgressRateSection";
 
 export interface CopyrightProps {
   isFold: boolean;
@@ -23,6 +24,12 @@ export interface CopyrightProps {
   streamingUrls: string;
   isRegistered: string;
   registrationDoc: string;
+}
+
+export interface ProgressInfoProps {
+  currentProgress: string;
+  remainingProgress: string;
+  remainingInvestingMoney: string;
 }
 
 export const InvestmentInfo = () => {
@@ -60,6 +67,11 @@ export const InvestmentInfo = () => {
     registrationDoc: "파일 url로 줘야될 거 같은데 될려나?",
   };
 
+  const DUMMY_PROGRESS: ProgressInfoProps = {
+    currentProgress: "30%",
+    remainingProgress: "70%",
+    remainingInvestingMoney: "약 7,000,000원",
+  };
   return (
     <>
       <SubTopBar title={"투자 진행 건"} />
@@ -72,6 +84,7 @@ export const InvestmentInfo = () => {
           onClick={() => setIsFold(!isFold)}
         />
         <HorizontalDivider />
+        <ProgressRateSection {...DUMMY_PROGRESS} />
       </Wrapper>
     </>
   );

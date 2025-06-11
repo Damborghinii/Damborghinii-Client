@@ -29,11 +29,11 @@ export const PawnCard = ({
           </RowFlex>
           <PriceContainer>
             <RowFlex gap="0.25rem">
-              <MainTitle>NFT가치</MainTitle>
+              <MainTitle>NFT</MainTitle>
               <MainContent isBlack={true}>{props.ethPrice}</MainContent>
             </RowFlex>
             <RowFlex gap="0.25rem">
-              <MainTitle>한화가치</MainTitle>
+              <MainTitle>한화</MainTitle>
               <MainContent isBlack={true}>{props.wonPrice}</MainContent>
             </RowFlex>
           </PriceContainer>
