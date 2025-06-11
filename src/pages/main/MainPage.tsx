@@ -1,4 +1,6 @@
 import * as S from "./Main.styled";
+import { useNavigate } from "react-router-dom";
+
 import { MainLoanCard } from "./_components/MainLoanCard";
 
 import { MainTitle } from "./_components/MainTitle";
@@ -6,6 +8,7 @@ import { getSelctedType } from "./_hooks/getSelectedType";
 import { getTotalCount } from "./_hooks/getTotalCount";
 
 export const MainPage: React.FC = () => {
+  const navigate = useNavigate();
   const { selectedType } = getSelctedType();
   const { count } = getTotalCount();
 
@@ -23,6 +26,7 @@ export const MainPage: React.FC = () => {
           collateralName={"Lil Pudgy #2017"}
           presentValue={"1.2299ETH"}
           investmentProgressRate={15}
+          onClick={() => navigate("investment/1")}
         ></MainLoanCard>
         <MainLoanCard
           loanAmount={160000000}
@@ -30,6 +34,7 @@ export const MainPage: React.FC = () => {
           collateralName={"Lil Pudgy #2017"}
           presentValue={"1.2299ETH"}
           investmentProgressRate={30}
+          onClick={() => navigate("investment/2")}
         ></MainLoanCard>
         <MainLoanCard
           loanAmount={160000000}
@@ -37,6 +42,7 @@ export const MainPage: React.FC = () => {
           collateralName={"Lil Pudgy #2017"}
           presentValue={"1.2299ETH"}
           investmentProgressRate={30}
+          onClick={() => navigate("investment/3")}
         ></MainLoanCard>
       </S.MainCardWrapper>
     </S.MainContainer>

@@ -1,23 +1,27 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import BottomNavBar from "../components/common/bottomNavBar/BottomNavBar";
 import theme from "../styles/theme";
 import { TopBar } from "../components/common/topBar/TopBar";
 
 const DefaultLayout = () => {
-  return (
-    <LayoutContainer>
-      <TopBarWrapper>
-        <TopBar />
-      </TopBarWrapper>
-      <OutletWrapper>
-        <Outlet />
-      </OutletWrapper>
-      <BottomBarWrapper>
-        <BottomNavBar />
-      </BottomBarWrapper>
-    </LayoutContainer>
-  );
+  const location = useLocation();
+  if (location.pathname === "" || "myNft" || "contract" || "adjustment") {
+    return (
+      <LayoutContainer>
+        <TopBarWrapper>
+          <TopBar />
+        </TopBarWrapper>
+        <OutletWrapper>
+          <Outlet />
+        </OutletWrapper>
+        <BottomBarWrapper>
+          <BottomNavBar />
+        </BottomBarWrapper>
+      </LayoutContainer>
+    );
+  }
+  return <Outlet />;
 };
 
 export default DefaultLayout;

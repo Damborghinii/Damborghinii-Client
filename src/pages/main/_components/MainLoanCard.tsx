@@ -9,6 +9,7 @@ export interface CardProps {
   collateralName: string;
   presentValue: string;
   investmentProgressRate: number;
+  onClick: () => void;
 }
 
 export const MainLoanCard: React.FC<CardProps> = ({
@@ -17,9 +18,10 @@ export const MainLoanCard: React.FC<CardProps> = ({
   collateralName,
   presentValue,
   investmentProgressRate,
+  onClick,
 }: CardProps) => {
   return (
-    <CardWrapper>
+    <CardWrapper onClick={onClick}>
       <InfoWrapper>
         <TextWrapper>
           <FirstTitleText>대출신청액</FirstTitleText>
