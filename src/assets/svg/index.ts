@@ -4,3 +4,4 @@ export { default as IcSearch } from "./IcSearch";
 export { default as IcLogo } from "./IcLogo";
 export { default as IcPopUp } from "./IcPopUp";
 export { default as IcDown } from "./IcDown";
+export { default as IcArrowBack } from "./IcArrowBack";

@@ -7,76 +7,6 @@ import { MultiInputSection } from "../../components/common/input/MultiInputSecti
 import Button from "../../components/common/button/Button";
 import { useNavigate } from "react-router-dom";
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  padding: 32px 26px 24px 26px;
-  overflow-y: auto;
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 28.8px;
-`;
-
-const ProgressIndicator = styled.div`
-  margin-bottom: 32px;
-`;
-
-const Title = styled.div`
-  font-size: ${theme.typography["title1-2"].fontSize};
-  font-weight: ${theme.typography["title1-2"].fontWeight};
-  margin-bottom: 32px;
-  text-align: center;
-`;
-
-const InputSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  gap: 32px;
-`;
-
-const InputGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const InputTitle = styled.label`
-  font-size: ${theme.typography["body2-2"].fontSize};
-  font-weight: ${theme.typography["body2-2"].fontWeight};
-  color: ${theme.color.neutral.B40};
-  margin-bottom: 8px;
-  margin-right: 8px;
-`;
-
-const Input = styled.input`
-  flex: 1;
-  width: 100%;
-  padding: 8px 3.5px;
-  font-size: ${theme.typography["body1-2"].fontSize};
-  font-weight: ${theme.typography["body1-2"].fontWeight};
-  color: ${theme.color.neutral.B40};
-  border: none;
-  border-bottom: 1px solid ${theme.color.neutral.B20};
-  outline: none;
-
-  &::placeholder {
-    color: ${theme.color.neutral.B20};
-  }
-`;
-
-const Explaination = styled.label`
-  font-size: ${theme.typography["small1-3"].fontSize};
-  font-weight: ${theme.typography["small1-3"].fontWeight};
-  color: ${theme.color.neutral.B30};
-`;
-
 const RegisterNftPage2 = () => {
   const { formData, updateForm } = useNftForm();
   const navigate = useNavigate();
@@ -210,5 +140,75 @@ const RegisterNftPage2 = () => {
     </PageContainer>
   );
 };
+
+const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding: 32px 26px 24px 26px;
+  overflow-y: auto;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 28.8px;
+`;
+
+const ProgressIndicator = styled.div`
+  margin-bottom: 32px;
+`;
+
+const Title = styled.div`
+  font-size: ${theme.typography["title1-2"].fontSize};
+  font-weight: ${theme.typography["title1-2"].fontWeight};
+  margin-bottom: 32px;
+  text-align: center;
+`;
+
+const InputSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 32px;
+`;
+
+const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const InputTitle = styled.label`
+  font-size: ${theme.typography["body2-2"].fontSize};
+  font-weight: ${theme.typography["body2-2"].fontWeight};
+  color: ${theme.color.neutral.B40};
+  margin-bottom: 8px;
+  margin-right: 8px;
+`;
+
+const Input = styled.input`
+  flex: 1;
+  width: 100%;
+  padding: 8px 3.5px;
+  font-size: ${theme.typography["body1-2"].fontSize};
+  font-weight: ${theme.typography["body1-2"].fontWeight};
+  color: ${theme.color.neutral.B40};
+  border: none;
+  border-bottom: 1px solid ${theme.color.neutral.B20};
+  outline: none;
+
+  &::placeholder {
+    color: ${theme.color.neutral.B20};
+  }
+`;
+
+const Explaination = styled.label`
+  font-size: ${theme.typography["small1-3"].fontSize};
+  font-weight: ${theme.typography["small1-3"].fontWeight};
+  color: ${theme.color.neutral.B30};
+`;
 
 export default RegisterNftPage2;
