@@ -1,12 +1,16 @@
 import styled from "@emotion/styled";
 
+import { useState } from "react";
+
 import { SubTopBar } from "@components/common/topBar/SubTopBar";
 import { useParams } from "react-router-dom";
 import { LoanInfoCard, LoanInfoProps } from "./_components/LoanInfoCard";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
 import { PawnCard } from "./_components/PawnCard";
 
-export interface CopyrightInfo {
+export interface CopyrightProps {
+  isFold: boolean;
+  onClick: () => void;
   imageUrl: string;
   name: string;
   type: string;
@@ -22,6 +26,7 @@ export interface CopyrightInfo {
 }
 
 export const InvestmentInfo = () => {
+  const [isFold, setIsFold] = useState<boolean>(false);
   const { investmentId } = useParams();
   console.log(investmentId);
 
@@ -40,29 +45,32 @@ export const InvestmentInfo = () => {
     },
   };
 
-  const DUMMY_COPYRIGHT: { copyright: CopyrightInfo } = {
-    copyright: {
-      imageUrl: "이미지 링크",
-      name: "레전드 nft",
-      type: "음원 NFT",
-      ethPrice: "1.2987ETH",
-      wonPrice: "28,439,433원",
-      title: "강남스타일",
-      singers: "싸이",
-      composers: "내가 어케아노",
-      lyricists: "싸이겠지 뭐",
-      streamingUrls: "대충 유튜브 링크",
-      isRegistered: "저작권이 등록되어 있는 음원",
-      registrationDoc: "파일 url로 줘야될 거 같은데 될려나?",
-    },
+  const DUMMY_COPYRIGHT = {
+    imageUrl: "이미지 링크",
+    name: "레전드 nft",
+    type: "음원 NFT",
+    ethPrice: "1.2987ETH",
+    wonPrice: "28,439,433원",
+    title: "강남스타일",
+    singers: "싸이",
+    composers: "내가 어케아노",
+    lyricists: "싸이겠지 뭐",
+    streamingUrls: "대충 유튜브 링크",
+    isRegistered: "저작권이 등록되어 있는 음원",
+    registrationDoc: "파일 url로 줘야될 거 같은데 될려나?",
   };
+
   return (
     <>
       <SubTopBar title={"투자 진행 건"} />
       <Wrapper>
         <LoanInfoCard {...DUMMY_LOAN} />
         <HorizontalDivider />
-        <PawnCard {...DUMMY_COPYRIGHT.copyright} />
+        <PawnCard
+          {...DUMMY_COPYRIGHT}
+          isFold={isFold}
+          onClick={() => setIsFold(!isFold)}
+        />
         <HorizontalDivider />
       </Wrapper>
     </>
@@ -72,4 +80,5 @@ export const InvestmentInfo = () => {
 const Wrapper = styled.div`
   width: 100%;
   padding: 0 1.875rem;
+  padding-bottom: 2.25rem;
 `;
