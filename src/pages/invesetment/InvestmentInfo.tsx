@@ -3,11 +3,12 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 
 import { SubTopBar } from "@components/common/topBar/SubTopBar";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { LoanInfoCard, LoanInfoProps } from "./_components/LoanInfoCard";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
 import { PawnCard } from "./_components/PawnCard";
 import { ProgressRateSection } from "./_components/ProgressRateSection";
+import Spacer from "@components/common/spacer/Spacer";
 
 export interface CopyrightProps {
   isFold: boolean;
@@ -35,6 +36,9 @@ export interface ProgressInfoProps {
 export const InvestmentInfo = () => {
   const [isFold, setIsFold] = useState<boolean>(false);
   const { investmentId } = useParams();
+
+  const navigate = useNavigate();
+
   console.log(investmentId);
 
   const DUMMY_LOAN: LoanInfoProps = {
@@ -85,6 +89,10 @@ export const InvestmentInfo = () => {
         />
         <HorizontalDivider />
         <ProgressRateSection {...DUMMY_PROGRESS} />
+
+        <Text>투자를 진행하고 매달 이자를 받아보세요!</Text>
+        <Spacer height="0.625rem" />
+        <Button onClick={() => navigate("/")}>투자정보 입력하기</Button>
       </Wrapper>
     </>
   );
@@ -94,4 +102,28 @@ const Wrapper = styled.div`
   width: 100%;
   padding: 0 1.875rem;
   padding-bottom: 2.25rem;
+`;
+
+const Text = styled.h1`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ${({ theme }) => theme.typography["body2-1"]}
+  color: ${({ theme }) => theme.color.neutral.B70};
+`;
+
+const Button = styled.button`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+
+  background-color: ${({ theme }) => theme.color.neutral.B50};
+  border-radius: 0.25rem;
+
+  ${({ theme }) => theme.typography["body1-2"]}
+  color: ${({ theme }) => theme.color.neutral.white};
 `;
