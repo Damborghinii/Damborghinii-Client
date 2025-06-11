@@ -1,23 +1,27 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import BottomNavBar from "../components/common/bottomNavBar/BottomNavBar";
 import theme from "../styles/theme";
 import { TopBar } from "../components/common/topBar/TopBar";
 
 const DefaultLayout = () => {
-  return (
-    <LayoutContainer>
-      <TopBarWrapper>
-        <TopBar />
-      </TopBarWrapper>
-      <OutletWrapper>
-        <Outlet />
-      </OutletWrapper>
-      <BottomBarWrapper>
-        <BottomNavBar />
-      </BottomBarWrapper>
-    </LayoutContainer>
-  );
+  const location = useLocation();
+  if (location.pathname === "" || "myNft" || "contract" || "adjustment") {
+    return (
+      <LayoutContainer>
+        <TopBarWrapper>
+          <TopBar />
+        </TopBarWrapper>
+        <OutletWrapper>
+          <Outlet />
+        </OutletWrapper>
+        <BottomBarWrapper>
+          <BottomNavBar />
+        </BottomBarWrapper>
+      </LayoutContainer>
+    );
+  }
+  return <Outlet />;
 };
 
 export default DefaultLayout;
@@ -37,7 +41,6 @@ const TopBarWrapper = styled.header`
   top: 0;
   width: 100%;
   max-width: 540px;
-  height: 48.8px;
   z-index: 999;
   background-color: ${theme.color.neutral.white};
 `;
@@ -45,7 +48,7 @@ const TopBarWrapper = styled.header`
 const OutletWrapper = styled.section`
   flex: 1;
   width: 100%;
-  padding-top: 48.8px;
+  padding-top: 3.5rem;
   box-sizing: border-box;
 `;
 
@@ -54,6 +57,6 @@ const BottomBarWrapper = styled.footer`
   bottom: 0;
   width: 100%;
   max-width: 540px;
-  height: 65.4px;
+  height: 65px;
   z-index: 10;
 `;

@@ -6,7 +6,6 @@ import NoBottomBarLayout from "../layouts/NoBottomBarLayout";
 
 // pages
 import { MainPage } from "../pages/main/MainPage";
-import InvestmentPage from "../pages/investment/InvestmentPage";
 import MyNftPage from "../pages/myNft/MyNftPage";
 import ContractPage from "../pages/contract/ContractPage";
 import AdjustmentPage from "../pages/adjustment/AdjustmentPage";
@@ -17,6 +16,8 @@ import RegisterNftPage4 from "../pages/registerNft/RegisterNftPage4";
 import ImageCropPage from "../pages/registerNft/ImageCropPage";
 import RegisterLoadingPage from "../pages/registerNft/RegisterLoadingPage";
 import RegisterNftConfirmPage from "../pages/registerNft/RegisterNftConfirmPage";
+import { InvestmentInfo } from "@pages/invesetment/InvestmentInfo";
+import { InvestmentInfoInput } from "@pages/invesetment/InvestmentInfoInput";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,6 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       { path: "", element: <MainPage /> },
-      { path: "investment", element: <InvestmentPage /> },
       { path: "myNft", element: <MyNftPage /> },
       { path: "contract", element: <ContractPage /> },
       { path: "adjustment", element: <AdjustmentPage /> },
@@ -42,6 +42,21 @@ const router = createBrowserRouter([
       { path: "nft/register/confirm", element: <RegisterNftConfirmPage /> },
       { path: "nft/image-crop", element: <ImageCropPage /> },
     ],
+  },
+  {
+    path: "/investment/:investmentId",
+    element: <InvestmentInfo />,
+  },
+  {
+    path: "/investment-input/:investmentId",
+    element: (
+      <InvestmentInfoInput
+        minimumLoanAmount={1000000}
+        maximumLoanAmount={50000000}
+        shareCalculationRatio={5}
+        interestCalculationRatio={2.5}
+      />
+    ),
   },
 ]);
 export default router;

@@ -27,6 +27,7 @@ const LeftSection = styled.div`
   gap: 0.625rem;
   cursor: pointer;
 `;
+
 const SubTopBarTitle = styled.h2`
   padding-top: 0.2rem;
 `;

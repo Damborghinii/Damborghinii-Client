@@ -52,9 +52,9 @@ const TAB_LABELS = {
 
 const tabItems: TabItem[] = [
   {
-    name: "investment",
+    name: "",
     label: TAB_LABELS.INVESTMENT,
-    path: "/investment",
+    path: "/",
     Icon: bottomAppBarIcons.investment_arrow,
   },
   {
@@ -106,7 +106,7 @@ const BottomNavBar = () => {
 
   const currentTab =
     tabItems.find((item) => location.pathname.startsWith(item.path))?.name ||
-    "investment";
+    "";
   const handleTabClick = (path: string) => {
     navigate(path);
   };
