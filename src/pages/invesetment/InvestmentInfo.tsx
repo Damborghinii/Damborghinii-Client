@@ -78,7 +78,7 @@ export const InvestmentInfo = () => {
   };
   return (
     <>
-      <SubTopBar title={"투자 진행 건"} />
+      <SubTopBar title={"투자 진행건"} />
       <Wrapper>
         <LoanInfoCard {...DUMMY_LOAN} />
         <HorizontalDivider />
@@ -92,7 +92,9 @@ export const InvestmentInfo = () => {
 
         <Text>투자를 진행하고 매달 이자를 받아보세요!</Text>
         <Spacer height="0.625rem" />
-        <Button onClick={() => navigate("/")}>투자정보 입력하기</Button>
+        <Button onClick={() => navigate(`/investment-input/${investmentId}`)}>
+          투자정보 입력하기
+        </Button>
       </Wrapper>
     </>
   );
@@ -110,7 +112,7 @@ const Text = styled.h1`
   justify-content: center;
   align-items: center;
 
-  ${({ theme }) => theme.typography["body2-1"]}
+  ${({ theme }) => theme.typography["body1-1"]}
   color: ${({ theme }) => theme.color.neutral.B70};
 `;
 

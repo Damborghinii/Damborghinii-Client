@@ -17,6 +17,7 @@ import ImageCropPage from "../pages/registerNft/ImageCropPage";
 import RegisterLoadingPage from "../pages/registerNft/RegisterLoadingPage";
 import RegisterNftConfirmPage from "../pages/registerNft/RegisterNftConfirmPage";
 import { InvestmentInfo } from "@pages/invesetment/InvestmentInfo";
+import { InvestmentInfoInput } from "@pages/invesetment/InvestmentInfoInput";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: "/investment/:investmentId",
     element: <InvestmentInfo />,
+  },
+  {
+    path: "/investment-input/:investmentId",
+    element: <InvestmentInfoInput />,
   },
 ]);
 export default router;
