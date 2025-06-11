@@ -5,6 +5,7 @@ import { MainContent } from "./_components/Text";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
 import { useState } from "react";
 import Spacer from "@components/common/spacer/Spacer";
+import { useNavigate } from "react-router-dom";
 
 export interface LoanCalculationRule {
   minimumLoanAmount: number;
@@ -42,6 +43,8 @@ export const InvestmentInfoInput = ({
     investorAmount === 0 ? 0 : investorAmount / (shareCalculationRatio * 100);
   const monthlyProfit =
     investorAmount === 0 ? 0 : sharePercent * interestCalculationRatio;
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -136,7 +139,9 @@ export const InvestmentInfoInput = ({
               위 내용을 모두 확인했습니다.
             </CheckLabel>
           </CheckWrapper>
-          <Button disabled={!checked}>투자하기</Button>
+          <Button disabled={!checked} onClick={() => navigate("/")}>
+            투자하기
+          </Button>
         </NoticeWrapper>
       </Wrapper>
     </>

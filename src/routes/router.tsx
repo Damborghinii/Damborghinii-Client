@@ -49,7 +49,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/investment-input/:investmentId",
-    element: <InvestmentInfoInput />,
+    element: (
+      <InvestmentInfoInput
+        minimumLoanAmount={1000000}
+        maximumLoanAmount={50000000}
+        shareCalculationRatio={5}
+        interestCalculationRatio={2.5}
+      />
+    ),
   },
 ]);
 export default router;

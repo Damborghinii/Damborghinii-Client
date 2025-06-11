@@ -42,8 +42,8 @@ export const InvestmentInfo = () => {
   console.log(investmentId);
 
   const DUMMY_LOAN: LoanInfoProps = {
-    loanAmount: "1000원",
-    monthlyInterest: "300원",
+    loanAmount: "160000000",
+    monthlyInterest: "4000000원",
     repaymentMethod: "만기상환방식",
     annualInterestRate: "30%",
     totalRepaymentAmount: "0원",
