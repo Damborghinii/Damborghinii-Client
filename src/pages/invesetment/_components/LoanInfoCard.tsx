@@ -4,6 +4,7 @@ import Spacer from "@components/common/spacer/Spacer";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
 
 import { InvestmentTitle } from "./InvestmentTitle";
+import { MainTitle, MainContent, SubContent, SubTitle } from "./Text";
 
 export interface LoanInfoProps {
   loanAmount: string;
@@ -27,12 +28,12 @@ export const LoanInfoCard = (props: LoanInfoProps) => {
       <InfoWrapper>
         <RowWrapper>
           <CardTextWrapper>
-            <CardMainTitle>대출액</CardMainTitle>
-            <CardMainContent>{props.loanAmount}</CardMainContent>
+            <MainTitle>대출액</MainTitle>
+            <MainContent>{props.loanAmount}</MainContent>
           </CardTextWrapper>
           <CardTextWrapper>
-            <CardMainTitle>월 이자</CardMainTitle>
-            <CardMainContent>{props.monthlyInterest}</CardMainContent>
+            <MainTitle>월 이자</MainTitle>
+            <MainContent>{props.monthlyInterest}</MainContent>
           </CardTextWrapper>
         </RowWrapper>
         <Spacer height="0.75rem" />
@@ -42,12 +43,12 @@ export const LoanInfoCard = (props: LoanInfoProps) => {
 
         <RowWrapper>
           <CardTextWrapper>
-            <CardSubTitle>대출 방식</CardSubTitle>
-            <CardSubContent>{props.repaymentMethod}</CardSubContent>
+            <SubTitle>대출 방식</SubTitle>
+            <SubContent>{props.repaymentMethod}</SubContent>
           </CardTextWrapper>
           <CardTextWrapper>
-            <CardSubTitle>연이율</CardSubTitle>
-            <CardSubContent>{props.annualInterestRate}</CardSubContent>
+            <SubTitle>연이율</SubTitle>
+            <SubContent>{props.annualInterestRate}</SubContent>
           </CardTextWrapper>
         </RowWrapper>
 
@@ -55,12 +56,12 @@ export const LoanInfoCard = (props: LoanInfoProps) => {
 
         <RowWrapper>
           <CardTextWrapper>
-            <CardSubTitle>총 납부금액</CardSubTitle>
-            <CardSubContent>{props.totalRepaymentAmount}</CardSubContent>
+            <SubTitle>총 납부금액</SubTitle>
+            <SubContent>{props.totalRepaymentAmount}</SubContent>
           </CardTextWrapper>
           <CardTextWrapper>
-            <CardSubTitle>연체율</CardSubTitle>
-            <CardSubContent>{props.delinquencyRate}</CardSubContent>
+            <SubTitle>연체율</SubTitle>
+            <SubContent>{props.delinquencyRate}</SubContent>
           </CardTextWrapper>
         </RowWrapper>
 
@@ -70,12 +71,12 @@ export const LoanInfoCard = (props: LoanInfoProps) => {
 
         <RowWrapper>
           <CardTextWrapper>
-            <CardSubTitle>대출기간</CardSubTitle>
-            <CardSubContent>{props.loanPeriod}</CardSubContent>
+            <SubTitle>대출기간</SubTitle>
+            <SubContent>{props.loanPeriod}</SubContent>
           </CardTextWrapper>
           <CardTextWrapper>
-            <CardSubTitle>납부회차</CardSubTitle>
-            <CardSubContent>{props.repaymentRounds}</CardSubContent>
+            <SubTitle>납부회차</SubTitle>
+            <SubContent>{props.repaymentRounds}</SubContent>
           </CardTextWrapper>
         </RowWrapper>
 
@@ -84,15 +85,15 @@ export const LoanInfoCard = (props: LoanInfoProps) => {
         <Spacer height="0.75rem" />
 
         <ApplicantWrapper>
-          <CardSubTitle>신청자</CardSubTitle>
+          <SubTitle>신청자</SubTitle>
           <ApplicantDetailInfo>
-            <CardSubTitle>이름</CardSubTitle>
+            <SubTitle>이름</SubTitle>
             <Spacer height="100%" width="0.5rem" />
-            <CardSubContent>{props.applicant.name}</CardSubContent>
+            <SubContent>{props.applicant.name}</SubContent>
             <Spacer height="100%" width="1.25rem" />
-            <CardSubTitle>직업</CardSubTitle>
+            <SubTitle>직업</SubTitle>
             <Spacer height="100%" width="0.5rem" />
-            <CardSubContent>{props.applicant.job}</CardSubContent>
+            <SubContent>{props.applicant.job}</SubContent>
           </ApplicantDetailInfo>
         </ApplicantWrapper>
       </InfoWrapper>
@@ -127,16 +128,6 @@ const ApplicantDetailInfo = styled.div`
   border-radius: 0.375rem;
 `;
 
-const CardSubTitle = styled.h2`
-  ${({ theme }) => theme.typography["small1-3"]};
-  color: ${({ theme }) => theme.color.neutral.B40};
-`;
-
-const CardSubContent = styled.h2`
-  ${({ theme }) => theme.typography["small1-2"]};
-  color: ${({ theme }) => theme.color.neutral.B70};
-`;
-
 const CardTextWrapper = styled.div`
   width: 45%;
   display: flex;
@@ -152,15 +143,4 @@ const RowWrapper = styled.div`
 
   gap: 10%;
   padding-right: 2rem;
-`;
-
-const CardMainTitle = styled.h1`
-  ${({ theme }) => theme.typography["body2-3"]};
-
-  color: ${({ theme }) => theme.color.neutral.B40};
-`;
-
-const CardMainContent = styled.h1`
-  ${({ theme }) => theme.typography["body2-2"]};
-  color: ${({ theme }) => theme.color.primary.P60};
 `;
