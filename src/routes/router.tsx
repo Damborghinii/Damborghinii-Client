@@ -38,9 +38,9 @@ const router = createBrowserRouter([
       { path: "nft/register/music-basic", element: <RegisterNftPage2 /> },
       { path: "nft/register/music-extra", element: <RegisterNftPage3 /> },
       { path: "nft/register/image-upload", element: <RegisterNftPage4 /> },
-      { path: "nft/register/image-crop", element: <ImageCropPage /> },
       { path: "nft/register/loading", element: <RegisterLoadingPage /> },
       { path: "nft/register/confirm", element: <RegisterNftConfirmPage /> },
+      { path: "nft/image-crop", element: <ImageCropPage /> },
     ],
   },
   {

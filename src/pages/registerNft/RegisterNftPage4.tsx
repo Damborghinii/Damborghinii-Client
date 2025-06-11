@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { useNftForm } from "../../contexts/NftFormContext";
 import { isFormFilled } from "../../utils/isFormFilled";
 import { useNavigate } from "react-router-dom";
+import { fileToBase64 } from "src/utils/fileConverter";
 
 const IMAGE_UPLOAD_TEXT = "이미지 업로드";
 
@@ -14,8 +15,12 @@ const RegisterNftPage4 = () => {
   const { formData, updateForm } = useNftForm();
   const navigate = useNavigate();
   const handleNext = () => {
-    if (isFormFilled(formData, ["image"])) {
-      navigate("/nft/register/image-crop");
+    if (!formData.image) return;
+
+    if (formData.croppedBase64) {
+      navigate("/nft/register/confirm");
+    } else {
+      navigate("/nft/image-crop");
     }
   };
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -25,11 +30,21 @@ const RegisterNftPage4 = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      updateForm({ image: file });
+      updateForm({
+        image: file,
+        imageBase64: await fileToBase64(file),
+        croppedImage: null,
+        croppedBase64: null,
+      });
+      e.target.value = "";
     }
+  };
+
+  const handleEditImage = async () => {
+    fileInputRef.current?.click();
   };
 
   return (
@@ -43,19 +58,31 @@ const RegisterNftPage4 = () => {
           <InputGroup>
             <InputTitle>대표 이미지</InputTitle>
             <ImageWrapper>
-              <ImageButtonWrapper onClick={handleUploadClick}>
-                <Image />
-                <span>{IMAGE_UPLOAD_TEXT}</span>
-              </ImageButtonWrapper>
-              <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                accept=".jpeg,.jpg,.png"
-                onChange={handleFileChange}
-              />
+              {formData.croppedBase64 ? (
+                <img
+                  src={formData.croppedBase64}
+                  alt="미리보기"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                  }}
+                  onClick={() => navigate("/nft/image-crop")}
+                />
+              ) : (
+                <ImageButtonWrapper onClick={handleUploadClick}>
+                  <Image />
+                  <span>{IMAGE_UPLOAD_TEXT}</span>
+                </ImageButtonWrapper>
+              )}
             </ImageWrapper>
           </InputGroup>
+          {formData.croppedBase64 && (
+            <EditButtonWrapper>
+              <EditButton onClick={handleEditImage}>이미지 수정</EditButton>
+            </EditButtonWrapper>
+          )}
         </InputSection>
       </ContentWrapper>
       <Button
@@ -64,6 +91,13 @@ const RegisterNftPage4 = () => {
         size="big"
         onClick={handleNext}
         disabled={!isFormFilled(formData, ["image"])}
+      />
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: "none" }}
+        accept=".jpeg,.jpg,.png"
+        onChange={handleFileChange}
       />
     </PageContainer>
   );
@@ -106,6 +140,7 @@ const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-bottom: 16px;
 `;
 
 const InputTitle = styled.label`
@@ -120,7 +155,7 @@ const ImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 0 9px;
+  padding: 9px 9px;
   aspect-ratio: 1 / 1;
   border: 1px solid ${theme.color.neutral.B20};
   border-radius: 8px;
@@ -137,6 +172,21 @@ const ImageButtonWrapper = styled.div`
     font-weight: ${theme.typography["body2-2"].fontSize};
     color: ${theme.color.neutral.B60};
   }
+`;
+
+const EditButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const EditButton = styled.button`
+  ${({ theme }) => theme.typography["body2-2"]}
+  width: 230px;
+  height: 42px;
+  border: 1px solid ${theme.color.neutral.B30};
+  border-radius: 4px;
 `;
 
 export default RegisterNftPage4;

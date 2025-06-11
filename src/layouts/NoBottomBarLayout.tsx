@@ -1,18 +1,27 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import theme from "../styles/theme";
-import { TopBar } from "../components/common/topBar/TopBar";
+import { SubTopBar } from "@components/common/topBar/SubTopBar";
+import { ConfirmButtonProvider } from "src/contexts/ConfirmButtonContext";
 
 const NoBottomBarLayout = () => {
+  const location = useLocation();
+  const isRegisterRoute = location.pathname.startsWith("/nft/register");
+  const isImageCropPage = location.pathname === "/nft/image-crop";
+  const title = isRegisterRoute ? "NFT 등록" : "";
+  const isConfirmButton = isImageCropPage;
+
   return (
-    <LayoutContainer>
-      <TopBarWrapper>
-        <TopBar />
-      </TopBarWrapper>
-      <OutletWrapper>
-        <Outlet />
-      </OutletWrapper>
-    </LayoutContainer>
+    <ConfirmButtonProvider>
+      <LayoutContainer>
+        <TopBarWrapper>
+          <SubTopBar title={title} isConfirmButton={isConfirmButton} />
+        </TopBarWrapper>
+        <OutletWrapper>
+          <Outlet />
+        </OutletWrapper>
+      </LayoutContainer>
+    </ConfirmButtonProvider>
   );
 };
 
