@@ -17,12 +17,12 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const MOCK_LOAN_CALCULATION_RULE: LoanCalculationRule = {
-  minimumLoanAmount: 1000000,
-  maximumLoanAmount: 50000000,
-  shareCalculationRatio: 5,
-  interestCalculationRatio: 2.5,
-};
+// const MOCK_LOAN_CALCULATION_RULE: LoanCalculationRule = {
+//   minimumLoanAmount: 1000000,
+//   maximumLoanAmount: 50000000,
+//   shareCalculationRatio: 5,
+//   interestCalculationRatio: 2.5,
+// };
 
 export const InvestmentInfoInput = ({
   minimumLoanAmount = 1000000,

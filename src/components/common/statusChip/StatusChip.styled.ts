@@ -28,6 +28,7 @@ export const getColorStyle = (
 
 export const getDefaultLayout = () => {
   return css`
+    min-width: 3.5rem;
     max-width: 5rem;
     display: flex;
     justify-content: center;
