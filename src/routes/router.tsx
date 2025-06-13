@@ -18,6 +18,7 @@ import RegisterLoadingPage from "../pages/registerNft/RegisterLoadingPage";
 import RegisterNftConfirmPage from "../pages/registerNft/RegisterNftConfirmPage";
 import { InvestmentInfo } from "@pages/invesetment/InvestmentInfo";
 import { InvestmentInfoInput } from "@pages/invesetment/InvestmentInfoInput";
+import { LoanApply } from "@pages/myNft/pages/LoanApply";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
         interestCalculationRatio={2.5}
       />
     ),
+  },
+  {
+    path: "loan-apply/:loanId",
+    element: <LoanApply />,
   },
 ]);
 export default router;

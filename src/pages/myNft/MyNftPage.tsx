@@ -6,14 +6,17 @@ import { NftRegister } from "./_components/nftRegister/NftRegister";
 import { NftTitle } from "./_components/nftTitle/NftTitle";
 import { NftStatusTab } from "./_components/nftStatusList/NftStatusList";
 import { MainTitle } from "@pages/main/_components/MainTitle";
-import { NftCard } from "./_components/NftCard";
+import { NftCard } from "./pages/NftCard";
 
 import { MyNftType } from "./type/nft";
 import { cardImage } from "@assets/image";
+import { useNavigate } from "react-router-dom";
 
 const MyNftPage = () => {
   // const { openModal } = useModal();
   // const deleteModal = useDeleteModal();
+
+  const navigate = useNavigate();
 
   const MOCK_NFT1: MyNftType = {
     image: cardImage,
@@ -21,7 +24,8 @@ const MyNftPage = () => {
     value: "1.2299ETH",
     nftType: "아트 NFT",
     isRegistered: false,
-    onClick: () => alert("뚝딱뚝딱 공사중"),
+    id: "1",
+    onClick: () => navigate(`/loan-apply/${MOCK_NFT1.id}`),
   };
 
   const MOCK_NFT2: MyNftType = {
@@ -30,6 +34,8 @@ const MyNftPage = () => {
     value: "1.2299ETH",
     nftType: "아트 NFT",
     isRegistered: true,
+    id: "none",
+    onClick: () => console.log("none"),
   };
 
   return (

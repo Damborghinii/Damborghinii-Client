@@ -4,5 +4,6 @@ export interface MyNftType {
   value: string;
   nftType: string;
   isRegistered: boolean;
-  onClick?: () => void;
+  onClick: (id: string) => void;
+  id: string;
 }
