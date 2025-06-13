@@ -3,6 +3,7 @@ import { IcArrowBack } from "@assets/svg";
 import { useNavigate } from "react-router-dom";
 import theme from "@styles/theme";
 import { useConfirmButton } from "src/contexts/ConfirmButtonContext";
+import { useNftForm } from "src/contexts/NftFormContext";
 
 interface SubTopBarProps {
   title?: string;
@@ -39,11 +40,18 @@ const ConfirmButton = styled.div`
 
 export const SubTopBar = ({ title, isConfirmButton }: SubTopBarProps) => {
   const navigate = useNavigate();
+  const { resetForm } = useNftForm();
   const { onConfirmClick } = useConfirmButton();
+  const handleBack = () => {
+    if (location.pathname === "/nft/register/basic") {
+      resetForm();
+    }
+    navigate(-1);
+  };
   return (
     <SubTopBarContainer>
       <LeftSection>
-        <IcArrowBack width={12} height={12} onClick={() => navigate(-1)} />
+        <IcArrowBack width={12} height={12} onClick={handleBack} />
         {title && <SubTopBarTitle>{title}</SubTopBarTitle>}
       </LeftSection>
       {isConfirmButton && onConfirmClick && (

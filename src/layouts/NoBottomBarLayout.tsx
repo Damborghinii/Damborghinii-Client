@@ -52,4 +52,5 @@ const OutletWrapper = styled.section`
   width: 100%;
   padding-top: 48.8px;
   box-sizing: border-box;
+  overflow-y: auto;
 `;
