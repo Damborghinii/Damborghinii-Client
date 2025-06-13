@@ -19,6 +19,7 @@ import RegisterNftConfirmPage from "../pages/registerNft/RegisterNftConfirmPage"
 import { InvestmentInfo } from "@pages/invesetment/InvestmentInfo";
 import { InvestmentInfoInput } from "@pages/invesetment/InvestmentInfoInput";
 import { LoanApply } from "@pages/myNft/pages/LoanApply";
+import { LoanInfoInput } from "@pages/myNft/pages/LoanInfoInput";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: "loan-apply/:loanId",
     element: <LoanApply />,
+  },
+  {
+    path: "loan-info-input/:loanId",
+    element: <LoanInfoInput />,
   },
 ]);
 export default router;
