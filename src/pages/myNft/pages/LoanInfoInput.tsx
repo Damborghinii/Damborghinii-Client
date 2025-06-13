@@ -3,6 +3,7 @@ import { NoticeSection } from "../_components/NoticeSection";
 import { SubTopBar } from "@components/common/topBar/SubTopBar";
 import { PriceInputSection } from "../_components/PriceInputSection";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const INTEREST_RATE = 0.3;
 const MONTHS_IN_YEAR = 12;
@@ -15,6 +16,8 @@ interface ButtonProps {
 }
 
 export const LoanInfoInput = () => {
+  const { loanId } = useParams();
+  const navigate = useNavigate();
   const [loanAmount, setLoanAmount] = useState<number>(0);
   const [round, setRound] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
@@ -64,7 +67,10 @@ export const LoanInfoInput = () => {
             setRound(e.target.value)
           }
         />
-        <Button disabled={isDisabled} onClick={() => alert("공사중")}>
+        <Button
+          disabled={isDisabled}
+          onClick={() => navigate(`/loan-confirm/${loanId}`)}
+        >
           최종 정보 확인
         </Button>
       </SectionWrapper>
@@ -82,7 +88,6 @@ const MainWrapper = styled.div`
 const Title = styled.h1`
   width: 100%;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
 
   ${({ theme }) => theme.typography["body1-1"]}
