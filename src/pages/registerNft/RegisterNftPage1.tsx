@@ -13,10 +13,11 @@ const RegisterNftPage1 = () => {
   const { digital_art: DigitalArt, music: Music } = nftIcons;
   const navigate = useNavigate();
   const handleNext = () => {
-    if (isFormFilled(formData, ["name", "type"])) {
+    if (isFormFilled(formData, ["nftName", "nftType"])) {
       navigate("/nft/register/music-basic");
     }
   };
+  console.log(formData);
   return (
     <PageContainer>
       <ContentWrapper>
@@ -57,7 +58,7 @@ const RegisterNftPage1 = () => {
         children="다음"
         size="big"
         fullWidth
-        disabled={!isFormFilled(formData, ["name", "type"])}
+        disabled={!isFormFilled(formData, ["nftName", "nftType"])}
         onClick={handleNext}
       />
     </PageContainer>

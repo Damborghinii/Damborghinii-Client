@@ -5,16 +5,24 @@ import theme from "./styles/theme";
 import router from "./routes/router";
 import { NftFormProvider } from "./contexts/NftFormContext";
 import ModalProvider from "./components/common/modal/ModalProvider";
+import { SignUpFormProvider } from "./contexts/SignUpFormContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Global styles={globalStyle} />
-      <NftFormProvider>
-        <RouterProvider router={router} />
-      </NftFormProvider>
-      <ModalProvider />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <Global styles={globalStyle} />
+        <SignUpFormProvider>
+          <NftFormProvider>
+            <RouterProvider router={router} />
+          </NftFormProvider>
+          <ModalProvider />
+        </SignUpFormProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 

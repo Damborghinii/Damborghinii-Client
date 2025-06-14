@@ -13,7 +13,7 @@ const RegisterNftPage2 = () => {
   const handleNext = () => {
     if (
       isFormFilled(formData, [
-        "songTitle",
+        "title",
         "singers",
         "composers",
         "lyricists",
@@ -35,8 +35,8 @@ const RegisterNftPage2 = () => {
             <InputTitle>음원/앨범명</InputTitle>
             <Input
               placeholder="음원/앨범명을 입력해 주세요"
-              value={formData.songTitle}
-              onChange={(e) => updateForm({ songTitle: e.target.value })}
+              value={formData.title}
+              onChange={(e) => updateForm({ title: e.target.value })}
             />
             <Explaination style={{ marginTop: "8px" }}>설명</Explaination>
           </InputGroup>
@@ -128,7 +128,7 @@ const RegisterNftPage2 = () => {
         fullWidth
         disabled={
           !isFormFilled(formData, [
-            "songTitle",
+            "title",
             "singers",
             "composers",
             "lyricists",
@@ -146,6 +146,7 @@ const PageContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  min-height: 100vh;
   padding: 32px 26px 24px 26px;
   overflow-y: auto;
 `;

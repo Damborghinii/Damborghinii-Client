@@ -3,16 +3,17 @@ import theme from "../../styles/theme";
 import Button from "@components/common/button/Button";
 import { useModal } from "@hooks/useModal";
 import { useNavigate } from "react-router-dom";
+import { useNftForm } from "src/contexts/NftFormContext";
 
-const dummyData = {
-  nftName: "nft",
-  title: "노래제목",
-  singers: ["가수1", "가수2"],
-  composers: ["작곡가"],
-  lyricists: ["작사가"],
-  streamingUrls: ["음원 url"],
-  isRegistered: true,
-};
+// const dummyData = {
+//   nftName: "nft",
+//   title: "노래제목",
+//   singers: ["가수1", "가수2"],
+//   composers: ["작곡가"],
+//   lyricists: ["작사가"],
+//   streamingUrls: ["음원 url"],
+//   isRegistered: true,
+// };
 
 const InfoRow = ({
   label,
@@ -29,6 +30,7 @@ const InfoRow = ({
 
 const RegisterNftConfirmPage = () => {
   const { openModal, closeModal } = useModal();
+  const { formData, resetForm } = useNftForm();
   const navigate = useNavigate();
   const handleLeaveWithoutSave = () => {
     openModal({
@@ -42,6 +44,7 @@ const RegisterNftConfirmPage = () => {
         children: "확인",
         onClick: () => {
           closeModal();
+          resetForm();
           navigate("/myNft");
         },
       },
@@ -51,41 +54,60 @@ const RegisterNftConfirmPage = () => {
   return (
     <PageContainer>
       <ContentWrapper>
-        <Title>뭐시기 ・ 음원 NFT</Title>
-        <ImageWrapper></ImageWrapper>
+        <Title>{formData.title} ・ 음원 NFT</Title>
+        <ImageWrapper>
+          <img
+            src={formData.croppedBase64 ?? undefined}
+            alt="미리보기"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "8px",
+            }}
+          />
+        </ImageWrapper>
         <PriceWrapper>
-          <ETHPrice>최종 가치:</ETHPrice>
-          <KRWPrice>한화 가치:</KRWPrice>
+          <ETHPrice>최종 가치: 0.03 ETH</ETHPrice>
+          <KRWPrice>한화 가치: 114000 원</KRWPrice>
         </PriceWrapper>
         <InfoWrapper>
           <DetailTItleWrapper>
             <DetailTitle>상세 정보</DetailTitle>
           </DetailTItleWrapper>
           <InfoTable>
-            <InfoRow label="음원/앨범명">{dummyData.title}</InfoRow>
+            <InfoRow label="음원/앨범명">{formData.title}</InfoRow>
             <InfoRow label="가수 정보">
-              {dummyData.singers.map((singer, idx) => (
+              {/* {dummyData.singers.map((singer, idx) => (
                 <span key={idx}>{singer}</span>
-              ))}
+              ))} */}
+              {formData.singers}
             </InfoRow>
             <InfoRow label="작곡가 정보">
-              {dummyData.composers.map((composer, idx) => (
+              {/* {dummyData.composers.map((composer, idx) => (
                 <span key={idx}>{composer}</span>
-              ))}
+              ))} */}
+              {formData.composers}
             </InfoRow>
             <InfoRow label="작사가 정보">
-              {dummyData.lyricists.map((lyricist, idx) => (
+              {/* {dummyData.lyricists.map((lyricist, idx) => (
                 <span key={idx}>{lyricist}</span>
-              ))}
+              ))} */}
+              {formData.lyricists}
             </InfoRow>
           </InfoTable>
           <InfoTable>
             <InfoRow label="저작권 등록 여부">
-              {dummyData.isRegistered
+              {/* {dummyData.isRegistered
+                ? "저작권이 등록되어 있는 음원"
+                : "저작권이 등록되지 않은 음원"} */}
+              {formData.copyrightRegistered
                 ? "저작권이 등록되어 있는 음원"
                 : "저작권이 등록되지 않은 음원"}
             </InfoRow>
-            <InfoRow label="저작권 등록증">filename</InfoRow>
+            <InfoRow label="저작권 등록증">
+              {formData.copyrightFileName ?? "등록된 파일 없음"}
+            </InfoRow>
           </InfoTable>
           <InfoTable>
             <TableRow>
@@ -93,9 +115,10 @@ const RegisterNftConfirmPage = () => {
             </TableRow>
             <TableRow>
               <UrlText>
-                {dummyData.streamingUrls.map((streamingUrl, idx) => (
+                {/* {dummyData.streamingUrls.map((streamingUrl, idx) => (
                   <span key={idx}>{streamingUrl}</span>
-                ))}
+                ))} */}
+                <span>{formData.streamingUrls}</span>
               </UrlText>
             </TableRow>
           </InfoTable>
