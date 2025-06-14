@@ -27,17 +27,17 @@ export const NftCard = ({
         <S.ColumnFlex gap="0.5rem">
           <S.CardTitle>{nftName}</S.CardTitle>
           <S.RowFlex>
-            <S.SmallText>현재가치</S.SmallText>
+            <S.NewSmallText>현재가치</S.NewSmallText>
             <Spacer width="0.25rem" height="100%" />
-            <S.SmallText isBlack={true}>{value}</S.SmallText>
+            <S.NewSmallText isBlack={true}>{value}</S.NewSmallText>
             <Spacer width="0.75rem" height="100%" />
-            <S.SmallText>유형</S.SmallText>
+            <S.NewSmallText>유형</S.NewSmallText>
             <Spacer width="0.25rem" height="100%" />
-            <S.SmallText isBlack={true}>{nftType}</S.SmallText>
+            <S.NewSmallText isBlack={true}>{nftType}</S.NewSmallText>
           </S.RowFlex>
         </S.ColumnFlex>
         <StatusChip variant={statusType}>
-          {isRegistered ? "투자진행중" : "등록"}
+          {isRegistered ? "진행중" : "등록"}
         </StatusChip>
       </S.RowFlex>
       {!isRegistered && (

@@ -2,6 +2,12 @@ import { css } from "@emotion/react";
 import "pretendard/dist/web/variable/pretendardvariable.css";
 
 const globalStyle = css`
+  @media (max-width: 390px) {
+    html {
+      font-size: 80%;
+    }
+  }
+
   * {
     font-family: "Pretendard", "system-ui", "-apple-system",
       "BlinkMacSystemFont", "Open Sans", "Helvetica Neue", sans-serif;

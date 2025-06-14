@@ -24,7 +24,7 @@ export const EntryWrapper = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.color.neutral.B00};
 
-  padding-bottom: 2rem;
+  padding-bottom: 5rem;
 `;
 
 export const NftCardContainer = styled.div`
@@ -60,6 +60,12 @@ export const CardTitle = styled.h1`
 
 export const SmallText = styled.h2<SmallTextProps>`
   ${({ theme }) => theme.typography["small1-3"]}
+  color: ${({ theme, isBlack }) =>
+    isBlack ? theme.color.neutral.B70 : theme.color.neutral.B40};
+`;
+
+export const NewSmallText = styled.h2<SmallTextProps>`
+  ${({ theme }) => theme.typography["small2-3"]}
   color: ${({ theme, isBlack }) =>
     isBlack ? theme.color.neutral.B70 : theme.color.neutral.B40};
 `;
