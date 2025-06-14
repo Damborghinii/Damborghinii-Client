@@ -4,20 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { MainLoanCard } from "./_components/MainLoanCard";
 
 import { MainTitle } from "./_components/MainTitle";
-import { getSelctedType } from "./_hooks/getSelectedType";
 import { getTotalCount } from "./_hooks/getTotalCount";
 
 export const MainPage: React.FC = () => {
   const navigate = useNavigate();
-  const { selectedType } = getSelctedType();
   const { count } = getTotalCount();
   return (
     <S.MainContainer>
-      <MainTitle
-        mainText="전체 투자 진행건"
-        subText={count}
-        selectedType={selectedType}
-      />
+      <MainTitle mainText="전체 투자 진행건" subText={count} />
       <S.MainCardWrapper>
         <MainLoanCard
           loanAmount={160000000}

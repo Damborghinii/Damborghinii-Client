@@ -1,5 +1,11 @@
 import styled from "@emotion/styled";
-import { MainContent, MainTitle, SubTitle } from "./Text";
+import {
+  MainContent,
+  MainTitle,
+  NewMainContent,
+  NewMainTitle,
+  SubTitle,
+} from "./Text";
 import Spacer from "@components/common/spacer/Spacer";
 import { cardImage } from "@assets/image";
 import { CopyrightProps } from "../InvestmentInfo";
@@ -29,12 +35,12 @@ export const PawnCard = ({
           </RowFlex>
           <PriceContainer>
             <RowFlex gap="0.25rem">
-              <MainTitle>NFT</MainTitle>
-              <MainContent isBlack={true}>{props.ethPrice}</MainContent>
+              <NewMainTitle>NFT</NewMainTitle>
+              <NewMainContent isBlack={true}>{props.ethPrice}</NewMainContent>
             </RowFlex>
             <RowFlex gap="0.25rem">
-              <MainTitle>한화</MainTitle>
-              <MainContent isBlack={true}>{props.wonPrice}</MainContent>
+              <NewMainTitle>한화</NewMainTitle>
+              <NewMainContent isBlack={true}>{props.wonPrice}</NewMainContent>
             </RowFlex>
           </PriceContainer>
         </ColumnFlex>

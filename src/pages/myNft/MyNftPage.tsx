@@ -49,6 +49,10 @@ const MyNftPage = () => {
           <NftCard {...MOCK_NFT1} />
           <NftCard {...MOCK_NFT2} />
           <NftCard {...MOCK_NFT2} />
+          <NftCard {...MOCK_NFT2} />
+          <NftCard {...MOCK_NFT2} />
+          <NftCard {...MOCK_NFT2} />
+          <NftCard {...MOCK_NFT2} />
         </S.NftCardContainer>
       </S.EntryWrapper>
     </S.MyNftWrapper>

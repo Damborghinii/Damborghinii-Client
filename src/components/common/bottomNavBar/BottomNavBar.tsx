@@ -46,7 +46,6 @@ type TabItem = {
 const TAB_LABELS = {
   INVESTMENT: "투자하기",
   MY_NFT: "내 NFT",
-  CONTRACT: "대출계약",
   ADJUSTMENT: "정산관리",
 } as const;
 
@@ -63,12 +62,7 @@ const tabItems: TabItem[] = [
     path: "/myNft",
     Icon: bottomAppBarIcons.my_nft,
   },
-  {
-    name: "contract",
-    label: TAB_LABELS.CONTRACT,
-    path: "/contract",
-    Icon: bottomAppBarIcons.contract,
-  },
+
   {
     name: "adjustment",
     label: TAB_LABELS.ADJUSTMENT,
