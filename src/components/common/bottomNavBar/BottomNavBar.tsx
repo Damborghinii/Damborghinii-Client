@@ -3,6 +3,10 @@ import { bottomAppBarIcons } from "../../../assets/icons";
 import theme from "../../../styles/theme";
 import { useLocation, useNavigate } from "react-router-dom";
 
+interface TextProps {
+  isSelected?: boolean;
+}
+
 const NavBarContainer = styled.div`
   width: 100%;
   display: flex;
@@ -30,10 +34,12 @@ const IconWrapper = styled.div<{ isSelected: boolean }>`
   }
 `;
 
-const TextWrapper = styled.div`
+const TextWrapper = styled.div<TextProps>`
   margin-top: 2px;
-  font-size: ${theme.typography["small2-2"].fontSize};
-  font-weight: ${theme.typography["small2-2"].fontWeight};
+
+  ${({ theme }) => theme.typography["small2-2"]}
+  color: ${({ theme, isSelected }) =>
+    isSelected ? theme.color.neutral.B70 : theme.color.neutral.B40}
 `;
 
 type TabItem = {
@@ -70,51 +76,52 @@ const tabItems: TabItem[] = [
     Icon: bottomAppBarIcons.adjustment_management,
   },
 ];
-
 const NavItem = ({
-  name,
   label,
-  path,
   Icon,
   selected,
   onClick,
 }: {
-  name: string;
   label: string;
   path: string;
   Icon: React.FC<React.SVGProps<SVGSVGElement>>;
   selected: boolean;
-  onClick: (name: string, path: string) => void;
-}) => (
-  <NavItemWrapper onClick={() => onClick(name, path)}>
-    <IconWrapper isSelected={selected}>
-      <Icon />
-    </IconWrapper>
-    <TextWrapper>{label}</TextWrapper>
-  </NavItemWrapper>
-);
+  onClick: () => void;
+}) => {
+  return (
+    <NavItemWrapper onClick={onClick}>
+      <IconWrapper isSelected={selected}>
+        <Icon />
+      </IconWrapper>
+      <TextWrapper isSelected={selected}>{label}</TextWrapper>
+    </NavItemWrapper>
+  );
+};
 
 const BottomNavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // 경로와 정확히 일치하는 걸 우선 찾고, 없으면 startsWith 로 fallback
   const currentTab =
+    tabItems.find((item) => item.path === location.pathname)?.name ||
     tabItems.find((item) => location.pathname.startsWith(item.path))?.name ||
     "";
+
   const handleTabClick = (path: string) => {
     navigate(path);
   };
+
   return (
     <NavBarContainer>
       {tabItems.map((item) => (
         <NavItem
           key={item.name}
-          name={item.name}
           label={item.label}
           path={item.path}
           Icon={item.Icon}
           selected={currentTab === item.name}
-          onClick={handleTabClick}
+          onClick={() => handleTabClick(item.path)}
         />
       ))}
     </NavBarContainer>
