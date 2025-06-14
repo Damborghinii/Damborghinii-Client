@@ -5,17 +5,19 @@ import React from "react";
 
 const { check: Check } = signUpIcons;
 
+type Props = {
+  placeholder: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isIcon?: boolean;
+};
+
 export const SingleInputSection = ({
   placeholder,
   value,
   onChange,
   isIcon,
-}: {
-  placeholder: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  isIcon?: boolean;
-}) => {
+}: Props) => {
   return (
     <InputWrapper>
       <InputSection

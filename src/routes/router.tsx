@@ -20,6 +20,8 @@ import RegisterNftConfirmPage from "../pages/registerNft/RegisterNftConfirmPage"
 import LoginPage from "../pages/login/LoginPage";
 import SignUpPage1 from "../pages/signUp/SignUpPage1";
 import SignUpPage2 from "@pages/signUp/SignUpPage2";
+import SignUpPage3 from "@pages/signUp/SignUpPage3";
+import SignUpPage4 from "@pages/signUp/SignUpPage4";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +51,8 @@ const router = createBrowserRouter([
       //회원가입
       { path: "signup/basic", element: <SignUpPage1 /> },
       { path: "signup/extra", element: <SignUpPage2 /> },
+      { path: "signup/nickname", element: <SignUpPage3 /> },
+      { path: "signup/complete", element: <SignUpPage4 /> },
     ],
   },
   {

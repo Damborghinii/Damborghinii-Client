@@ -5,6 +5,7 @@ export type JobType =
   | "SELF_EMPLOYED"
   | "FREELANCER"
   | "SOLDIER"
+  | "PUBLIC_OFFICIAL"
   | "HOMEMAKER"
   | "PROFESSIONAL"
   | "STUDENT"

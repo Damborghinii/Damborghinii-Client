@@ -1,81 +1,65 @@
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import theme from "@styles/theme";
 import StepIndicator from "@components/stepIndicator/StepIndicator";
-import { SingleInputSection } from "@components/common/input/SingleInputSection";
-import JobTypeButton from "@components/jobTypebutton/JobTypeButton";
-import MaskedInputSection from "@components/common/input/MaskedInputSection";
-import Button from "@components/common/button/Button";
+import theme from "@styles/theme";
 import { useSignUpForm } from "src/contexts/SignUpFormContext";
+import { SingleInputSection } from "@components/common/input/SingleInputSection";
+import Button from "@components/common/button/Button";
 import { isFormFilled } from "src/utils/isFormFilled";
 import { useNavigate } from "react-router-dom";
 
-const SignUpPage2 = () => {
+const SignUpPage3 = () => {
   const { formData, updateForm } = useSignUpForm();
+  const [isValid, setIsValid] = useState<boolean>(true);
+
   const navigate = useNavigate();
   const handleNext = () => {
-    navigate("/signup/nickname");
+    navigate("/signup/complete");
   };
+
+  useEffect(() => {
+    const trimmed = formData.name.trim();
+    if (trimmed === "") {
+      setIsValid(true);
+    } else {
+      const isValidNickname = /^[a-zA-Z0-9가-힣]{1,10}$/.test(trimmed);
+      setIsValid(isValidNickname);
+    }
+  }, [formData.name]);
 
   return (
     <PageContainer>
       <ContentWrapper>
         <ProgressIndicator>
-          <StepIndicator currentStep={2} />
+          <StepIndicator currentStep={3} />
         </ProgressIndicator>
-        <Title>부가정보 입력</Title>
+        <Title>닉네임 입력</Title>
         <InputSection>
           <InputGroup>
-            <InputTitle>생년월일</InputTitle>
-            <InputWrapper>
-              <MaskedInputSection
-                mask="____-__-__"
-                placeholder="YYYY-MM-DD"
-                value={formData.birth}
-                onChange={(e) => updateForm({ birth: e.target.value })}
-              />
-            </InputWrapper>
-          </InputGroup>
-          <InputGroup>
-            <InputTitle>전화번호</InputTitle>
-            <InputWrapper>
-              <MaskedInputSection
-                mask="___-____-____"
-                placeholder="010-XXXX-XXXX"
-                value={formData.phoneNumber}
-                onChange={(e) => updateForm({ phoneNumber: e.target.value })}
-              />
-            </InputWrapper>
-          </InputGroup>
-          <InputGroup>
-            <InputTitle>직업</InputTitle>
-            <JobTypeButton />
-          </InputGroup>
-          <InputGroup>
-            <InputTitle>블록체인 지갑</InputTitle>
+            <InputTitle>닉네임</InputTitle>
             <InputWrapper>
               <SingleInputSection
-                placeholder="이더리움 주소를 입력해 주세요."
-                value={formData.walletAddr}
-                onChange={(e) => updateForm({ walletAddr: e.target.value })}
+                placeholder="닉네임을 입력해 주세요."
+                value={formData.name}
+                onChange={(e) => updateForm({ name: e.target.value })}
               />
             </InputWrapper>
+            <Explaination isValid={isValid}>10자 이내 문자 입력</Explaination>
           </InputGroup>
         </InputSection>
       </ContentWrapper>
       <Button
-        children="다음"
+        children="회원가입"
         size="big"
         fullWidth
+        disabled={!isFormFilled(formData, ["name"])}
         onClick={handleNext}
-        disabled={
-          !isFormFilled(formData, ["birth", "phoneNumber", "job", "walletAddr"])
-        }
       />
     </PageContainer>
   );
 };
 
-export default SignUpPage2;
+export default SignUpPage3;
 
 const PageContainer = styled.div`
   display: flex;
@@ -132,4 +116,11 @@ const InputWrapper = styled.div`
   width: 100%;
   gap: 8px;
   margin-bottom: 8px;
+`;
+
+const Explaination = styled.label<{ isValid: boolean }>`
+  font-size: ${theme.typography["small1-3"].fontSize};
+  font-weight: ${theme.typography["small1-3"].fontWeight};
+  color: ${({ isValid }) =>
+    isValid ? theme.color.neutral.B30 : theme.color.warning.R30};
 `;
