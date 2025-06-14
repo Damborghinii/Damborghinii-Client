@@ -11,7 +11,6 @@ export const MainPage: React.FC = () => {
   const navigate = useNavigate();
   const { selectedType } = getSelctedType();
   const { count } = getTotalCount();
-
   return (
     <S.MainContainer>
       <MainTitle
