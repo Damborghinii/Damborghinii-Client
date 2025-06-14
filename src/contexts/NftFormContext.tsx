@@ -4,7 +4,7 @@ import { fileToBase64, base64ToFile } from "../utils/fileConverter";
 export type NftFormData = {
   nftName: string;
   nftType: "art" | "music" | null;
-  songTitle: string;
+  title: string;
   singers: string[];
   composers: string[];
   lyricists: string[];
@@ -22,7 +22,7 @@ export type NftFormData = {
 const defaultData: NftFormData = {
   nftName: "",
   nftType: null,
-  songTitle: "",
+  title: "",
   singers: [""],
   composers: [""],
   lyricists: [""],

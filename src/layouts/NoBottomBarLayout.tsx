@@ -8,7 +8,8 @@ const NoBottomBarLayout = () => {
   const location = useLocation();
   const isRegisterRoute = location.pathname.startsWith("/nft/register");
   const isImageCropPage = location.pathname === "/nft/image-crop";
-  const title = isRegisterRoute ? "NFT 등록" : "";
+  const isSignupRoute = location.pathname.startsWith("/signup");
+  const title = isRegisterRoute ? "NFT 등록" : isSignupRoute ? "회원가입" : "";
   const isConfirmButton = isImageCropPage;
 
   return (
@@ -52,4 +53,5 @@ const OutletWrapper = styled.section`
   width: 100%;
   padding-top: 48.8px;
   box-sizing: border-box;
+  overflow-y: auto;
 `;
