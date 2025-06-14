@@ -7,3 +7,5 @@ export { default as IcDown } from "./IcDown";
 export { default as IcArrowBack } from "./IcArrowBack";
 export { default as IcArrowDown } from "./IcArrowDown";
 export { default as IcDownload } from "./IcDownload";
+export { default as IcArrowRight } from "./IcArrowRight";
+export { default as IcMoney } from "./IcMoney";
