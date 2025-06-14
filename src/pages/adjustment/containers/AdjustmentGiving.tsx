@@ -16,9 +16,9 @@ export const GivingAdjustment = () => {
           상환예정
           <BodyText>총 1,000,000원</BodyText>
         </RowInfo>
-        <BottomSection expectedMoney="" />
-        <BottomSection expectedMoney="총 1,000,000원" />
-        <BottomSection expectedMoney="총 1,000,000원" />
+        <BottomSection />
+        <BottomSection />
+        <BottomSection />
       </BottomWrapper>
     </Wrapper>
   );

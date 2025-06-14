@@ -8,11 +8,11 @@ interface TextProps {
   color?: string;
 }
 
-export interface BottomSectionProp {
-  expectedMoney: string;
-}
+// export interface BottomSectionProp {
+//   expectedMoney: string;
+// }
 
-export const BottomSection = ({ expectedMoney }: BottomSectionProp) => {
+export const BottomSection = () => {
   return (
     <CardWrapper>
       <RowTextWrapper>
