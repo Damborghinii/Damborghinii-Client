@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { NoticeSection } from "../_components/NoticeSection";
-import { SubTopBar } from "@components/common/topBar/SubTopBar";
 import { PriceInputSection } from "../_components/PriceInputSection";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -39,7 +38,6 @@ export const LoanInfoInput = () => {
 
   return (
     <MainWrapper>
-      <SubTopBar title={"정보 입력"} />
       <NoticeSection isFullScreen={false} hasButton={false} />
       <SectionWrapper>
         <Title>희망하는 대출정보를 입력해 주세요.</Title>

@@ -1,4 +1,3 @@
-import { SubTopBar } from "@components/common/topBar/SubTopBar";
 import styled from "@emotion/styled";
 import { LoanInfo, LoanInfoProps } from "../_components/LoanInfo";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
@@ -24,7 +23,6 @@ const MOCK_LOAN_INFO: LoanInfoProps = {
 export const LoanConfirm = () => {
   return (
     <MainWrapper>
-      <SubTopBar title="대출 확정" />
       <CheckSection>
         <Title>최종 정보를 확인해 주세요.</Title>
         <Spacer height="2.5rem" />

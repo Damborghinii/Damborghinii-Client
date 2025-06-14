@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 
 import { useState } from "react";
 
-import { SubTopBar } from "@components/common/topBar/SubTopBar";
 import { useNavigate, useParams } from "react-router-dom";
 import { LoanInfoCard, LoanInfoProps } from "./_components/LoanInfoCard";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
@@ -77,26 +76,23 @@ export const InvestmentInfo = () => {
     remainingInvestingMoney: "약 7,000,000원",
   };
   return (
-    <>
-      <SubTopBar title={"투자 진행건"} />
-      <Wrapper>
-        <LoanInfoCard {...DUMMY_LOAN} />
-        <HorizontalDivider />
-        <PawnCard
-          {...DUMMY_COPYRIGHT}
-          isFold={isFold}
-          onClick={() => setIsFold(!isFold)}
-        />
-        <HorizontalDivider />
-        <ProgressRateSection {...DUMMY_PROGRESS} />
+    <Wrapper>
+      <LoanInfoCard {...DUMMY_LOAN} />
+      <HorizontalDivider />
+      <PawnCard
+        {...DUMMY_COPYRIGHT}
+        isFold={isFold}
+        onClick={() => setIsFold(!isFold)}
+      />
+      <HorizontalDivider />
+      <ProgressRateSection {...DUMMY_PROGRESS} />
 
-        <Text>투자를 진행하고 매달 이자를 받아보세요!</Text>
-        <Spacer height="0.625rem" />
-        <Button onClick={() => navigate(`/investment-input/${investmentId}`)}>
-          투자정보 입력하기
-        </Button>
-      </Wrapper>
-    </>
+      <Text>투자를 진행하고 매달 이자를 받아보세요!</Text>
+      <Spacer height="0.625rem" />
+      <Button onClick={() => navigate(`/investment-input/${investmentId}`)}>
+        투자정보 입력하기
+      </Button>
+    </Wrapper>
   );
 };
 

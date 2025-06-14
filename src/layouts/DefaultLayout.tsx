@@ -3,9 +3,13 @@ import styled from "@emotion/styled";
 import BottomNavBar from "../components/common/bottomNavBar/BottomNavBar";
 import theme from "../styles/theme";
 import { TopBar } from "../components/common/topBar/TopBar";
+import { useEffect } from "react";
 
 const DefaultLayout = () => {
   const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   if (location.pathname === "" || "myNft" || "contract" || "adjustment") {
     return (
       <LayoutContainer>

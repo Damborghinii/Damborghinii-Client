@@ -3,14 +3,42 @@ import styled from "@emotion/styled";
 import theme from "../styles/theme";
 import { SubTopBar } from "@components/common/topBar/SubTopBar";
 import { ConfirmButtonProvider } from "src/contexts/ConfirmButtonContext";
+import { useEffect } from "react";
 
 const NoBottomBarLayout = () => {
   const location = useLocation();
   const isRegisterRoute = location.pathname.startsWith("/nft/register");
   const isImageCropPage = location.pathname === "/nft/image-crop";
   const isSignupRoute = location.pathname.startsWith("/signup");
-  const title = isRegisterRoute ? "NFT 등록" : isSignupRoute ? "회원가입" : "";
+  const isInvestmentRoute = location.pathname.startsWith("/investment");
+  const isRepayment = location.pathname.startsWith("/repayment");
+  const isGivingCase = location.pathname.startsWith("/servicing");
+  const isLoanApply = location.pathname.startsWith("/loan-apply");
+  const isLoanInput = location.pathname.startsWith("/loan-info-input");
+  const isLoanConfirm = location.pathname.startsWith("/loan-confirm");
+
+  const title = isRegisterRoute
+    ? "NFT 등록"
+    : isSignupRoute
+    ? "회원가입"
+    : isInvestmentRoute
+    ? "투자 진행건"
+    : isRepayment
+    ? "내가 상환받아요"
+    : isGivingCase
+    ? "내가 상환해요"
+    : isLoanApply
+    ? "대출신청"
+    : isLoanInput
+    ? "정보 입력"
+    : isLoanConfirm
+    ? "대출 확정"
+    : "";
   const isConfirmButton = isImageCropPage;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <ConfirmButtonProvider>

@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 
-import { SubTopBar } from "@components/common/topBar/SubTopBar";
 import { PawnCard } from "@pages/invesetment/_components/PawnCard";
 import { useState } from "react";
 import { NoticeSection } from "../_components/NoticeSection";
@@ -27,7 +26,6 @@ export const LoanApply = () => {
 
   return (
     <MainWrapper>
-      <SubTopBar title={"대출 신청"} />
       <SubWrapper>
         <PawnCard
           {...DUMMY_COPYRIGHT}

@@ -31,7 +31,6 @@ import Adjustment from "../pages/adjustment/containers/Adjustment";
 import { AdjustmentReceived } from "@pages/adjustment/containers/AdjustmentReceived";
 import { GivingAdjustment } from "@pages/adjustment/containers/AdjustmentGiving";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -61,47 +60,47 @@ const router = createBrowserRouter([
       { path: "signup/extra", element: <SignUpPage2 /> },
       { path: "signup/nickname", element: <SignUpPage3 /> },
       { path: "signup/complete", element: <SignUpPage4 /> },
-    ],
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/investment/:investmentId",
-    element: <InvestmentInfo />,
-  },
-  {
-    path: "/investment-input/:investmentId",
-    element: (
-      <InvestmentInfoInput
-        minimumLoanAmount={1000000}
-        maximumLoanAmount={50000000}
-        shareCalculationRatio={5}
-        interestCalculationRatio={2.5}
-      />
-    ),
-  },
-  {
-    path: "loan-apply/:loanId",
-    element: <LoanApply />,
-  },
-  {
-    path: "loan-info-input/:loanId",
-    element: <LoanInfoInput />,
-  },
-  {
-    path: "loan-confirm/:loanId",
-    element: <LoanConfirm />,
 
-  },
-  {
-    path: "repayment-received",
-    element: <AdjustmentReceived />,
-  },
-  {
-    path: "servicing-repayment",
-    element: <GivingAdjustment />,
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/investment/:investmentId",
+        element: <InvestmentInfo />,
+      },
+      {
+        path: "/investment-input/:investmentId",
+        element: (
+          <InvestmentInfoInput
+            minimumLoanAmount={1000000}
+            maximumLoanAmount={50000000}
+            shareCalculationRatio={5}
+            interestCalculationRatio={2.5}
+          />
+        ),
+      },
+      {
+        path: "loan-apply/:loanId",
+        element: <LoanApply />,
+      },
+      {
+        path: "loan-info-input/:loanId",
+        element: <LoanInfoInput />,
+      },
+      {
+        path: "loan-confirm/:loanId",
+        element: <LoanConfirm />,
+      },
+      {
+        path: "repayment-received",
+        element: <AdjustmentReceived />,
+      },
+      {
+        path: "servicing-repayment",
+        element: <GivingAdjustment />,
+      },
+    ],
   },
 ]);
 export default router;
