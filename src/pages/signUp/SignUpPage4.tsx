@@ -2,15 +2,15 @@ import { signUpIcons } from "@assets/icons";
 import Button from "@components/common/button/Button";
 import styled from "@emotion/styled";
 import theme from "@styles/theme";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const SignUpPage4 = () => {
   const { signup_complete: SignUpComplete } = signUpIcons;
   const navigate = useNavigate();
   const handleNext = () => {
-    navigate("/investment");
+    navigate("/login");
   };
+
   return (
     <PageContainer>
       <ContentWrapper>
@@ -18,7 +18,7 @@ const SignUpPage4 = () => {
         <SignUpComplete />
       </ContentWrapper>
       <Button
-        children="홈으로 이동"
+        children="로그인하기"
         variant="secondary"
         size="big"
         fullWidth

@@ -1,11 +1,34 @@
 import Button from "@components/common/button/Button";
 import { SingleInputSection } from "@components/common/input/SingleInputSection";
 import styled from "@emotion/styled";
+import useLogin from "@hooks/queries/useLogin";
 import theme from "@styles/theme";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const [loginId, setLoginId] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const { mutate: loginMutate } = useLogin();
+
   const navigate = useNavigate();
+
+  const handleLogin = () => {
+    loginMutate(
+      { loginId, password },
+      {
+        onSuccess: (response) => {
+          localStorage.setItem("accessToken", response.data.accessToken);
+          localStorage.setItem("refreshToken", response.data.refreshToken);
+          navigate("/");
+        },
+        onError: (error) => {
+          console.log("로그인 실패: ", error);
+        },
+      }
+    );
+  };
   const handleClickSignUp = () => {
     navigate("/signup/basic");
   };
@@ -13,11 +36,26 @@ const LoginPage = () => {
     <PageContainer>
       <Title>담보르기니</Title>
       <InputSection>
-        <SingleInputSection placeholder="아이디를 입력해주세요" />
-        <SingleInputSection placeholder="비밀번호를 입력해주세요" />
+        <SingleInputSection
+          placeholder="아이디를 입력해주세요"
+          value={loginId}
+          onChange={(e) => setLoginId(e.target.value)}
+        />
+        <SingleInputSection
+          placeholder="비밀번호를 입력해주세요"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+        />
       </InputSection>
       <ButtonSection>
-        <Button children="로그인" fullWidth variant="secondary" size="big" />
+        <Button
+          children="로그인"
+          fullWidth
+          variant="secondary"
+          size="big"
+          onClick={handleLogin}
+        />
         <Button
           children="회원가입"
           fullWidth

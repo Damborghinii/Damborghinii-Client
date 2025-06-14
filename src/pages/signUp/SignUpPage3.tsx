@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import StepIndicator from "@components/stepIndicator/StepIndicator";
 import theme from "@styles/theme";
@@ -7,14 +7,28 @@ import { SingleInputSection } from "@components/common/input/SingleInputSection"
 import Button from "@components/common/button/Button";
 import { isFormFilled } from "src/utils/isFormFilled";
 import { useNavigate } from "react-router-dom";
+import useSignUp from "@hooks/queries/useSignUp";
 
 const SignUpPage3 = () => {
   const { formData, updateForm } = useSignUpForm();
   const [isValid, setIsValid] = useState<boolean>(true);
-
   const navigate = useNavigate();
+
+  const { mutate: signUpMutate } = useSignUp();
+
   const handleNext = () => {
-    navigate("/signup/complete");
+    signUpMutate(formData, {
+      onSuccess: (response) => {
+        const { accessToken, refreshToken } = response.data;
+
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        navigate("/signup/complete");
+      },
+      onError: (error) => {
+        console.error("회원가입 실패", error);
+      },
+    });
   };
 
   useEffect(() => {

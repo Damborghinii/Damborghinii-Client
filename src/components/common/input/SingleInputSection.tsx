@@ -10,6 +10,7 @@ type Props = {
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isIcon?: boolean;
+  type?: string;
 };
 
 export const SingleInputSection = ({
@@ -17,6 +18,7 @@ export const SingleInputSection = ({
   value,
   onChange,
   isIcon,
+  type,
 }: Props) => {
   return (
     <InputWrapper>
@@ -24,6 +26,7 @@ export const SingleInputSection = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        type={type}
       />
       {isIcon && (
         <IconWrapper>

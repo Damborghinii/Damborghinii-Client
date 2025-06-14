@@ -5,11 +5,13 @@ import styled from "@emotion/styled";
 import useCheckDuplicateId from "@hooks/queries/useCheckDuplicatedId";
 import theme from "@styles/theme";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSignUpForm } from "src/contexts/SignUpFormContext";
 import { isFormFilled } from "src/utils/isFormFilled";
 
 const SignUpPage1 = () => {
   const { updateForm, formData } = useSignUpForm();
+  const navigate = useNavigate();
 
   const [idMessage, setIdMessage] =
     useState<string>("12자 이하/영문,숫자 포함");
@@ -20,6 +22,8 @@ const SignUpPage1 = () => {
   const [isPasswordValid, setIsPasswordValid] = useState<boolean>(true);
 
   const [pwdCheck, setPwdCheck] = useState<string>("");
+
+  const [isIdChecked, setIsIdChecked] = useState<boolean>(false);
 
   const idRegex = /^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{1,12}$/;
   const pwdRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9])[^\s]{1,20}$/;
@@ -51,10 +55,10 @@ const SignUpPage1 = () => {
     if (!loginId || !isLoginIdValid) return;
     checkId(loginId, {
       onSuccess: (response) => {
-        console.log(response);
         if (response.success) {
           setIdMessage("사용 가능한 아이디입니다.");
           setIsLoginIdValid(true);
+          setIsIdChecked(true);
           updateForm({ loginId: loginId });
         } else {
           setIdMessage("중복된 아이디입니다.");
@@ -69,7 +73,13 @@ const SignUpPage1 = () => {
   };
 
   const isNextButtonEnabled =
-    isFormFilled(formData, ["loginId", "password"]) && password === pwdCheck;
+    isFormFilled(formData, ["loginId", "password"]) &&
+    password === pwdCheck &&
+    isIdChecked;
+
+  const handleNext = () => {
+    navigate("/signup/extra");
+  };
 
   return (
     <PageContainer>
@@ -103,6 +113,7 @@ const SignUpPage1 = () => {
                 placeholder="비밀번호를 입력해 주세요."
                 value={password}
                 onChange={(e) => handlePwdChange(e.target.value)}
+                type="password"
               />
             </InputWrapper>
             <InputWrapper>
@@ -111,6 +122,7 @@ const SignUpPage1 = () => {
                 value={pwdCheck}
                 onChange={(e) => handlePwdCheck(e.target.value)}
                 isIcon={isPasswordMatched}
+                type="password"
               />
             </InputWrapper>
             <Explaination isValid={isPasswordValid}>
@@ -124,6 +136,7 @@ const SignUpPage1 = () => {
         size="big"
         fullWidth
         disabled={!isNextButtonEnabled}
+        onClick={handleNext}
       />
     </PageContainer>
   );
