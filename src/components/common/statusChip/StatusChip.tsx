@@ -7,7 +7,7 @@ import {
 } from "../../../styles/theme";
 
 type StatusChipSizeType = "small" | "big";
-type StatusChipVariantType = "neutral" | "secondary" | "warning";
+export type StatusChipVariantType = "neutral" | "secondary" | "warning";
 
 export type StatusChipColorKeyType =
   | NeutralKeyType

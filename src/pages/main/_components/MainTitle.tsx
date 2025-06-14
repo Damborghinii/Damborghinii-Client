@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 interface MainTitleProps {
   mainText: string;
   subText: string;
-  selectedType: string;
+  selectedType?: string;
 }
 
 export const MainTitle: React.FC<MainTitleProps> = ({
@@ -18,10 +18,12 @@ export const MainTitle: React.FC<MainTitleProps> = ({
         <MainText>{mainText}</MainText>
         <SubText>{subText}</SubText>
       </TitleWrapper>
-      <SelectWrapper>
-        {selectedType}
-        <IcDown width={14} height={14} />
-      </SelectWrapper>
+      {selectedType && (
+        <SelectWrapper>
+          {selectedType}
+          <IcDown width={14} height={14} />
+        </SelectWrapper>
+      )}
     </TitleHeader>
   );
 };

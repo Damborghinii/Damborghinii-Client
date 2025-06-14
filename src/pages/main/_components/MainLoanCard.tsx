@@ -9,6 +9,7 @@ export interface CardProps {
   collateralName: string;
   presentValue: string;
   investmentProgressRate: number;
+  onClick: () => void;
 }
 
 export const MainLoanCard: React.FC<CardProps> = ({
@@ -17,9 +18,10 @@ export const MainLoanCard: React.FC<CardProps> = ({
   collateralName,
   presentValue,
   investmentProgressRate,
+  onClick,
 }: CardProps) => {
   return (
-    <CardWrapper>
+    <CardWrapper onClick={onClick}>
       <InfoWrapper>
         <TextWrapper>
           <FirstTitleText>대출신청액</FirstTitleText>
@@ -105,7 +107,7 @@ const SecondTitleText = styled.h2`
   margin-left: 0.25rem;
 `;
 
-const SecondContentText = styled.h3`
+export const SecondContentText = styled.h3`
   ${({ theme }) => theme.typography["small1-3"]};
   color: ${({ theme }) => theme.color.neutral.B70};
 
@@ -118,12 +120,12 @@ const HorizontalDivider = styled.div`
   background-color: ${({ theme }) => theme.color.neutral.B10};
 `;
 
-const SecondaryText = styled.h2`
+export const SecondaryText = styled.h2`
   ${({ theme }) => theme.typography["small1-2"]};
   color: ${({ theme }) => theme.color.secondary.S60};
 `;
 
-const ProgressBarWrapper = styled.div`
+export const ProgressBarWrapper = styled.div`
   width: 100%;
   height: 0.5rem;
   border-radius: 0.2rem;
@@ -131,7 +133,7 @@ const ProgressBarWrapper = styled.div`
   overflow: hidden;
 `;
 
-const ProgressBarFill = styled.div<{ percentage: number }>`
+export const ProgressBarFill = styled.div<{ percentage: number }>`
   height: 100%;
   width: ${({ percentage }) => `${percentage}%`};
   background-color: ${({ theme }) => theme.color.secondary.S60};
