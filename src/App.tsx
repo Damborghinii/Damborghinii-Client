@@ -1,5 +1,5 @@
 import { ThemeProvider, Global } from "@emotion/react";
-import { RouterProvider, useLocation } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import globalStyle from "./styles/global";
 import theme from "./styles/theme";
 import router from "./routes/router";
@@ -7,7 +7,6 @@ import { NftFormProvider } from "./contexts/NftFormContext";
 import ModalProvider from "./components/common/modal/ModalProvider";
 import { SignUpFormProvider } from "./contexts/SignUpFormContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
