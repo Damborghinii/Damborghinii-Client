@@ -2,6 +2,7 @@ import Spacer from "@components/common/spacer/Spacer";
 import styled from "@emotion/styled";
 import { IcArrowRight } from "@assets/svg";
 import { useNavigate } from "react-router-dom";
+
 const Adjustment = () => {
   const navigate = useNavigate();
 
