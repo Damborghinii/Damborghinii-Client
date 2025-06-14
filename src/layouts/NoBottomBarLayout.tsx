@@ -71,7 +71,6 @@ const TopBarWrapper = styled.header`
   top: 0;
   width: 100%;
   max-width: 540px;
-  height: 48.8px;
   background-color: ${theme.color.neutral.white};
   z-index: 999;
 `;
@@ -79,7 +78,7 @@ const TopBarWrapper = styled.header`
 const OutletWrapper = styled.section`
   flex: 1;
   width: 100%;
-  padding-top: 48.8px;
+  padding-top: 3.5rem;
   box-sizing: border-box;
   overflow-y: auto;
 `;
