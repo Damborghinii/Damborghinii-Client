@@ -1,7 +1,11 @@
 import { css } from "@emotion/react";
+import "pretendard/dist/web/variable/pretendardvariable.css";
 
 const globalStyle = css`
   * {
+    font-family: "Pretendard", "system-ui", "-apple-system",
+      "BlinkMacSystemFont", "Open Sans", "Helvetica Neue", sans-serif;
+    font-synthesis: none;
     box-sizing: border-box;
     font-size: 16px;
   }
@@ -11,6 +15,7 @@ const globalStyle = css`
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    font-family: "Pretendard Variable", sans-serif;
   }
 
   #root {
