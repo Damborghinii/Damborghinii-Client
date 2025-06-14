@@ -8,7 +8,6 @@ import NoBottomBarLayout from "../layouts/NoBottomBarLayout";
 import { MainPage } from "../pages/main/MainPage";
 import MyNftPage from "../pages/myNft/MyNftPage";
 import ContractPage from "../pages/contract/ContractPage";
-import AdjustmentPage from "../pages/adjustment/AdjustmentPage";
 import RegisterNftPage1 from "../pages/registerNft/RegisterNftPage1";
 import RegisterNftPage2 from "../pages/registerNft/RegisterNftPage2";
 import RegisterNftPage3 from "../pages/registerNft/RegisterNftPage3";
@@ -28,6 +27,9 @@ import { InvestmentInfoInput } from "@pages/invesetment/InvestmentInfoInput";
 import { LoanApply } from "@pages/myNft/pages/LoanApply";
 import { LoanInfoInput } from "@pages/myNft/pages/LoanInfoInput";
 import { LoanConfirm } from "@pages/myNft/pages/LoanConfirm";
+import Adjustment from "../pages/adjustment/containers/Adjustment";
+import { AdjustmentReceived } from "@pages/adjustment/containers/AdjustmentReceived";
+import { GivingAdjustment } from "@pages/adjustment/containers/AdjustmentGiving";
 
 
 const router = createBrowserRouter([
@@ -38,7 +40,7 @@ const router = createBrowserRouter([
       { path: "", element: <MainPage /> },
       { path: "myNft", element: <MyNftPage /> },
       { path: "contract", element: <ContractPage /> },
-      { path: "adjustment", element: <AdjustmentPage /> },
+      { path: "adjustment", element: <Adjustment /> },
     ],
   },
   {
@@ -92,6 +94,14 @@ const router = createBrowserRouter([
     path: "loan-confirm/:loanId",
     element: <LoanConfirm />,
 
+  },
+  {
+    path: "repayment-received",
+    element: <AdjustmentReceived />,
+  },
+  {
+    path: "servicing-repayment",
+    element: <GivingAdjustment />,
   },
 ]);
 export default router;
