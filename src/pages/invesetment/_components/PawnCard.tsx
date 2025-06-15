@@ -28,14 +28,14 @@ export const PawnCard = ({
       <Spacer height="0.5rem" />
       <PawnBadgeWrapper>
         <img
-          src={props.imageUrl ?? cardImage}
+          src={props.imageUrl || cardImage}
           width={65}
           height={65}
-          alt="담보 이미지"
+          alt="담보이미지"
         />
         <ColumnFlex gap="0.5rem">
           <RowFlex gap="0.5rem">
-            <BadgeTitle>{props.name}</BadgeTitle>
+            <BadgeTitle>{props.title}</BadgeTitle>
             <BadgeTypeText>{props.type}</BadgeTypeText>
           </RowFlex>
           <PriceContainer>
@@ -61,7 +61,7 @@ export const PawnCard = ({
           <FoldInnerContainer>
             <RowContainer>
               <MainTitle>음원/앨범명</MainTitle>
-              <MainContent isBlack={true}>{props.title}</MainContent>
+              <MainContent isBlack={true}>{props.musicTitle}</MainContent>
             </RowContainer>
             <HorizontalDivider />
             <RowContainer>

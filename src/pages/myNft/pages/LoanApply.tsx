@@ -1,39 +1,62 @@
 import styled from "@emotion/styled";
 
 import { PawnCard } from "@pages/invesetment/_components/PawnCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NoticeSection } from "../_components/NoticeSection";
 import { useNavigate, useParams } from "react-router-dom";
+import { CopyrightDetail, getLoanInfo, LoanCondition } from "@apis/loan";
 
 export const LoanApply = () => {
-  const DUMMY_COPYRIGHT = {
-    imageUrl: "이미지 링크",
-    name: "레전드 nft",
-    type: "음원 NFT",
-    ethPrice: "1.2987ETH",
-    wonPrice: "28,439,433원",
-    title: "강남스타일",
-    singers: "싸이",
-    composers: "내가 어케아노",
-    lyricists: "싸이겠지 뭐",
-    streamingUrls: "대충 유튜브 링크",
-    isRegistered: "저작권이 등록되어 있는 음원",
-    registrationDoc: "파일 url로 줘야될 거 같은데 될려나?",
-  };
   const [isFold, setIsFold] = useState<boolean>(false);
   const { loanId } = useParams();
   const navigate = useNavigate();
+  const [copyright, setCopyright] = useState<CopyrightDetail | null>(null);
+  const [condition, setCondition] = useState<LoanCondition>({
+    loanType: "",
+    loanPeriod: "",
+    loanAmount: "",
+    interestRate: "",
+    overdueRate: "",
+  });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (loanId) {
+        const res = await getLoanInfo(Number(loanId));
+        if (res.success && res.data) {
+          setCopyright({
+            ...res.data.copyright,
+            musicTitle: res.data.copyright.title,
+          });
+          setCondition({ ...res.data.loanCondition });
+        }
+      }
+    };
+
+    fetchData();
+  }, [loanId]);
   return (
     <MainWrapper>
       <SubWrapper>
         <PawnCard
-          {...DUMMY_COPYRIGHT}
+          imageUrl={copyright?.imageUrl ?? ""}
+          title={copyright?.title ?? ""}
+          type={copyright?.type ?? ""}
+          ethPrice={copyright?.ethPrice ?? ""}
+          wonPrice={copyright?.wonPrice ?? ""}
+          musicTitle={copyright?.musicTitle ?? ""}
+          singers={copyright?.singers ?? ""}
+          composers={copyright?.composers ?? ""}
+          lyricists={copyright?.lyricists ?? ""}
+          streamingUrls={copyright?.streamingUrls ?? ""}
+          isRegistered={copyright?.isRegistered ?? ""}
+          registrationDoc={copyright?.registrationDoc ?? ""}
           isFold={isFold}
           onClick={() => setIsFold(!isFold)}
         />
       </SubWrapper>
       <NoticeSection
+        condition={condition}
         hasButton={true}
         onClick={() => navigate(`/loan-info-input/${loanId}`)}
       />

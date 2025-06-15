@@ -15,11 +15,11 @@ export interface CopyrightProps {
   isFold: boolean;
   onClick: () => void;
   imageUrl: string;
-  name: string;
+  title: string;
   type: string;
   ethPrice: string;
   wonPrice: string;
-  title: string;
+  musicTitle: string;
   singers: string;
   composers: string;
   lyricists: string;
@@ -71,7 +71,6 @@ export const InvestmentInfo = () => {
 
         setCopyright({
           ...copyright,
-          name: copyright.title,
           isFold,
           onClick: () => setIsFold(!isFold),
         });
