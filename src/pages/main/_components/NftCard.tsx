@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 
 import Spacer from "@components/common/spacer/Spacer";
 import StatusChip from "@components/common/statusChip/StatusChip";
-import { MyNftType } from "../type/nft";
+import { MyNftType } from "../../myNft/type/nft";
 import { StatusChipVariantType } from "@components/common/statusChip/StatusChip";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
 

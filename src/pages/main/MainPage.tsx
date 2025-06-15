@@ -5,10 +5,18 @@ import { MainLoanCard } from "./_components/MainLoanCard";
 
 import { MainTitle } from "./_components/MainTitle";
 import { getTotalCount } from "./_hooks/getTotalCount";
+import { useEffect } from "react";
+import { getContracts } from "@apis/investment";
 
 export const MainPage: React.FC = () => {
   const navigate = useNavigate();
   const { count } = getTotalCount();
+  const fetchData = async () => {
+    await getContracts();
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <S.MainContainer>
       <MainTitle mainText="전체 투자 진행건" subText={count} />

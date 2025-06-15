@@ -6,15 +6,24 @@ import { NftRegister } from "./_components/nftRegister/NftRegister";
 import { NftTitle } from "./_components/nftTitle/NftTitle";
 import { NftStatusTab } from "./_components/nftStatusList/NftStatusList";
 import { MainTitle } from "@pages/main/_components/MainTitle";
-import { NftCard } from "./pages/NftCard";
+import { NftCard } from "../main/_components/NftCard";
 
 import { MyNftType } from "./type/nft";
 import { cardImage } from "@assets/image";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getMyLftList } from "@apis/myNft";
 
 const MyNftPage = () => {
   // const { openModal } = useModal();
   // const deleteModal = useDeleteModal();
+
+  const fetchData = async () => {
+    await getMyLftList("ALL");
+  };
+  useEffect(() => {
+    fetchData();
+  });
 
   const navigate = useNavigate();
 
