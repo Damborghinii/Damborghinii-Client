@@ -3,8 +3,18 @@ import styled from "@emotion/styled";
 import { AdjustmentCard } from "../_components/AdjustmentCard";
 import { AdjustmentTab } from "../_components/AdjustmentTabBar";
 import { BottomSection } from "../_components/BottomSection";
+import { useEffect } from "react";
+import { getAdjustmentInfo } from "@apis/adjustment";
 
+// import { AdjustmentParamsType } from "@apis/adjustment";
 export const GivingAdjustment = () => {
+  const fetchData = async () => {
+    await getAdjustmentInfo({ status: "UPCOMING", role: "LENDER" });
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Wrapper>
       <AdjustmentCard balance="1,600원" isReceivedType={false} />
