@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { getContractDetail } from "@apis/investment";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { LoanInfoCard, LoanInfoProps } from "./_components/LoanInfoCard";
@@ -33,6 +35,10 @@ export interface ProgressInfoProps {
 }
 
 export const InvestmentInfo = () => {
+  const [loanInfo, setLoanInfo] = useState<LoanInfoProps | null>(null);
+  const [copyright, setCopyright] = useState<CopyrightProps | null>(null);
+  const [progress, setProgress] = useState<ProgressInfoProps | null>(null);
+
   const [isFold, setIsFold] = useState<boolean>(false);
   const { investmentId } = useParams();
 
@@ -40,52 +46,56 @@ export const InvestmentInfo = () => {
 
   console.log(investmentId);
 
-  const DUMMY_LOAN: LoanInfoProps = {
-    loanAmount: "160000000",
-    monthlyInterest: "4000000원",
-    repaymentMethod: "만기상환방식",
-    annualInterestRate: "30%",
-    totalRepaymentAmount: "0원",
-    delinquencyRate: "5%",
-    loanPeriod: "1년",
-    repaymentRounds: "1회차",
-    applicant: {
-      name: "박세호",
-      job: "학생",
-    },
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!investmentId) return;
 
-  const DUMMY_COPYRIGHT = {
-    imageUrl: "이미지 링크",
-    name: "레전드 nft",
-    type: "음원 NFT",
-    ethPrice: "1.2987ETH",
-    wonPrice: "28,439,433원",
-    title: "강남스타일",
-    singers: "싸이",
-    composers: "내가 어케아노",
-    lyricists: "싸이겠지 뭐",
-    streamingUrls: "대충 유튜브 링크",
-    isRegistered: "저작권이 등록되어 있는 음원",
-    registrationDoc: "파일 url로 줘야될 거 같은데 될려나?",
-  };
+      const res = await getContractDetail(Number(investmentId));
+      if (res.success && res.data) {
+        const { contract, user, copyright, progress: prog } = res.data;
 
-  const DUMMY_PROGRESS: ProgressInfoProps = {
-    currentProgress: "30%",
-    remainingProgress: "70%",
-    remainingInvestingMoney: "약 7,000,000원",
-  };
+        setLoanInfo({
+          loanAmount: contract.loanAmount,
+          monthlyInterest: contract.monthlyInterest,
+          repaymentMethod: contract.loanType,
+          annualInterestRate: contract.interestRate,
+          totalRepaymentAmount: contract.paymentAmount,
+          delinquencyRate: contract.overdueRate,
+          loanPeriod: contract.repaymentPeriod,
+          repaymentRounds: contract.repaymentCount,
+          applicant: {
+            name: user.name,
+            job: user.job,
+          },
+        });
+
+        setCopyright({
+          ...copyright,
+          name: copyright.title,
+          isFold,
+          onClick: () => setIsFold(!isFold),
+        });
+
+        setProgress({
+          currentProgress: prog.currentProgress,
+          remainingProgress: `${
+            100 - parseInt(prog.currentProgress.replace(/[^0-9]/g, ""))
+          }%`,
+          remainingInvestingMoney: prog.remainingInvestingMoney,
+        });
+      }
+    };
+
+    fetchData();
+  }, [investmentId, isFold]);
+
   return (
     <Wrapper>
-      <LoanInfoCard {...DUMMY_LOAN} />
+      {loanInfo && <LoanInfoCard {...loanInfo} />}
       <HorizontalDivider />
-      <PawnCard
-        {...DUMMY_COPYRIGHT}
-        isFold={isFold}
-        onClick={() => setIsFold(!isFold)}
-      />
+      {copyright && <PawnCard {...copyright} />}
       <HorizontalDivider />
-      <ProgressRateSection {...DUMMY_PROGRESS} />
+      {progress && <ProgressRateSection {...progress} />}
 
       <Text>투자를 진행하고 매달 이자를 받아보세요!</Text>
       <Spacer height="0.625rem" />

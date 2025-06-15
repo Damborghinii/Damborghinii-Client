@@ -9,6 +9,7 @@ export interface CardProps {
   collateralName: string;
   presentValue: string;
   investmentProgressRate: number;
+  imageUrl: string;
   onClick: () => void;
 }
 
@@ -18,6 +19,7 @@ export const MainLoanCard: React.FC<CardProps> = ({
   collateralName,
   presentValue,
   investmentProgressRate,
+  imageUrl,
   onClick,
 }: CardProps) => {
   return (
@@ -36,7 +38,7 @@ export const MainLoanCard: React.FC<CardProps> = ({
           style={{
             borderRadius: "0.15rem",
           }}
-          src={cardImage}
+          src={imageUrl ?? cardImage}
           width={16}
           height={16}
         />

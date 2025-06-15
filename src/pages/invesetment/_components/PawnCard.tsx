@@ -27,7 +27,12 @@ export const PawnCard = ({
       <SubTitle>대출 담보</SubTitle>
       <Spacer height="0.5rem" />
       <PawnBadgeWrapper>
-        <img src={cardImage} width={65} height={65} alt="담보 이미지" />
+        <img
+          src={props.imageUrl ?? cardImage}
+          width={65}
+          height={65}
+          alt="담보 이미지"
+        />
         <ColumnFlex gap="0.5rem">
           <RowFlex gap="0.5rem">
             <BadgeTitle>{props.name}</BadgeTitle>
@@ -88,7 +93,7 @@ export const PawnCard = ({
               <SvgIcDownload
                 width={16}
                 height={16}
-                onClick={() => alert("뚝딱뚝딱 공사중")}
+                onClick={() => window.open(props.registrationDoc)}
               />
             </RowContainer>
           </FoldInnerContainer>
@@ -99,7 +104,12 @@ export const PawnCard = ({
             </RowContainer>
             <HorizontalDivider />
             <ColumnContiner>
-              <MainContent isBlack={true}>{props.streamingUrls}</MainContent>
+              <MainContent
+                isBlack={true}
+                onClick={() => window.open(props.streamingUrls)}
+              >
+                {props.streamingUrls}
+              </MainContent>
             </ColumnContiner>
           </FoldInnerContainer>
         </DetailFoldContainer>

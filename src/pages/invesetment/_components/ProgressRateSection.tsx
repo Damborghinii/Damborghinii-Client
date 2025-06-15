@@ -14,10 +14,15 @@ export const ProgressRateSection = (props: ProgressInfoProps) => {
     <Wrapper>
       <InvestmentTitle text="투자 진행률" />
       <Spacer height="1.25rem" />
-      <SecondaryText>{30}%</SecondaryText>
+      <SecondaryText>{props.currentProgress}</SecondaryText>
       <Spacer height="0.5rem" />
       <ProgressBarWrapper>
-        <ProgressBarFill percentage={30} />
+        <ProgressBarFill
+          percentage={parseInt(
+            props.currentProgress.replace(/[^0-9]/g, ""),
+            10
+          )}
+        />
       </ProgressBarWrapper>
       <Spacer height="0.75rem" />
       <BodyText>남은 투자금 {props.remainingInvestingMoney}</BodyText>

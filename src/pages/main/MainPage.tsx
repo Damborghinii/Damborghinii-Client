@@ -32,6 +32,7 @@ export const MainPage: React.FC = () => {
           <MainLoanCard
             key={contract.contractId}
             loanAmount={contract.loanAmount}
+            imageUrl={contract.copyright.imageUrl}
             interestRate={parseInt(
               contract.interestRate.replace(/[^0-9]/g, "")
             )}
