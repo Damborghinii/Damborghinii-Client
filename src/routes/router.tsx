@@ -8,15 +8,20 @@ import NoBottomBarLayout from "../layouts/NoBottomBarLayout";
 import { MainPage } from "../pages/main/MainPage";
 import MyNftPage from "../pages/myNft/MyNftPage";
 import ContractPage from "../pages/contract/ContractPage";
+
+// NFT
 import RegisterNftPage1 from "../pages/registerNft/RegisterNftPage1";
 import RegisterNftPage2 from "../pages/registerNft/RegisterNftPage2";
 import RegisterNftPage3 from "../pages/registerNft/RegisterNftPage3";
 import RegisterNftPage4 from "../pages/registerNft/RegisterNftPage4";
 import ImageCropPage from "../pages/registerNft/ImageCropPage";
-import RegisterLoadingPage from "../pages/registerNft/RegisterLoadingPage";
+import EvaluateLoadingPage from "../pages/registerNft/EvaluateLoadingPage";
 import RegisterNftConfirmPage from "../pages/registerNft/RegisterNftConfirmPage";
 
+// login
 import LoginPage from "../pages/login/LoginPage";
+
+// sign up
 import SignUpPage1 from "../pages/signUp/SignUpPage1";
 import SignUpPage2 from "@pages/signUp/SignUpPage2";
 import SignUpPage3 from "@pages/signUp/SignUpPage3";
@@ -30,6 +35,7 @@ import { LoanConfirm } from "@pages/myNft/pages/LoanConfirm";
 import Adjustment from "../pages/adjustment/containers/Adjustment";
 import { AdjustmentReceived } from "@pages/adjustment/containers/AdjustmentReceived";
 import { GivingAdjustment } from "@pages/adjustment/containers/AdjustmentGiving";
+import RegisterLoadingPage from "@pages/registerNft/RegisterLoadingPage";
 
 const router = createBrowserRouter([
   {
@@ -51,9 +57,16 @@ const router = createBrowserRouter([
       { path: "nft/register/music-basic", element: <RegisterNftPage2 /> },
       { path: "nft/register/music-extra", element: <RegisterNftPage3 /> },
       { path: "nft/register/image-upload", element: <RegisterNftPage4 /> },
-      { path: "nft/register/loading", element: <RegisterLoadingPage /> },
+      {
+        path: "nft/register/evaluate-loading",
+        element: <EvaluateLoadingPage />,
+      },
       { path: "nft/register/confirm", element: <RegisterNftConfirmPage /> },
       { path: "nft/image-crop", element: <ImageCropPage /> },
+      {
+        path: "nft/register/register-loading",
+        element: <RegisterLoadingPage />,
+      },
 
       //회원가입
       { path: "signup/basic", element: <SignUpPage1 /> },

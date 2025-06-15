@@ -17,7 +17,7 @@ const RegisterNftPage1 = () => {
       navigate("/nft/register/music-basic");
     }
   };
-  console.log(formData);
+
   return (
     <PageContainer>
       <ContentWrapper>

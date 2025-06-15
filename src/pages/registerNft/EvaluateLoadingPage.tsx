@@ -2,41 +2,35 @@ import styled from "@emotion/styled";
 import { registerNftIcons } from "../../assets/icons";
 import theme from "../../styles/theme";
 import { useEffect } from "react";
+import useEvaluateNftValue from "@hooks/queries/useEvaluateNftValue";
 import { useNftForm } from "src/contexts/NftFormContext";
 import { useNavigate } from "react-router-dom";
-import useCreateNft from "@hooks/queries/useCreateNft";
 
-const RegisterLoadingPage = () => {
+const EvaluateLoadingPage = () => {
   const { register_loading: RegisterLoading } = registerNftIcons;
-  const { mutate: createNftMutate } = useCreateNft();
-  const nftForm = useNftForm();
+  const { mutate: evaluateValue } = useEvaluateNftValue();
+  const { formData, updateForm } = useNftForm();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const image = nftForm.formData.croppedImage;
-    if (!image) return;
-
-    if (!nftForm.formData.croppedImage) {
-      navigate("/nft/register/confirm");
-      return;
-    }
-
-    createNftMutate(nftForm.formData, {
-      onSuccess: (data) => {
-        if (data.success) {
-          nftForm.resetForm();
-          navigate("/myNft");
-        }
-      },
-      onError: (error) => {
-        console.error("NFT 저장 실패:", error);
-        nftForm.resetForm();
-        navigate("/nft/register/basic");
-      },
-    });
-  }, [createNftMutate, nftForm, navigate]);
-
+    const timer = setTimeout(() => {
+      evaluateValue(formData, {
+        onSuccess: (data) => {
+          updateForm({
+            ethPrice: data.data.ethPrice,
+            wonPrice: data.data.wonPrice,
+          });
+          navigate("/nft/register/confirm");
+        },
+        onError: (error) => {
+          console.error("가치 평가 실패:", error);
+          navigate("/nft/register/image-upload");
+        },
+      });
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [evaluateValue, formData, navigate, updateForm]);
   return (
     <PageContainer>
       <IconWrapper>
@@ -44,14 +38,14 @@ const RegisterLoadingPage = () => {
       </IconWrapper>
 
       <TextWrapper>
-        <MainText>NFT를 등록중 입니다</MainText>
-        <SubText>30초 가량의 시간이 소요됩니다</SubText>
+        <MainText>NFT 가치평가를 진행중입니다</MainText>
+        <SubText>10초 가량의 시간이 소요됩니다</SubText>
       </TextWrapper>
     </PageContainer>
   );
 };
 
-export default RegisterLoadingPage;
+export default EvaluateLoadingPage;
 
 const PageContainer = styled.div`
   width: 100%;

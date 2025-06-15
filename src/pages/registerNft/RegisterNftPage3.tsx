@@ -15,7 +15,7 @@ const RegisterNftPage3 = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const handleNext = () => {
-    if (isFormFilled(formData, ["copyrightRegistered"])) {
+    if (isFormFilled(formData, ["isRegistered"])) {
       navigate("/nft/register/image-upload");
     }
   };
@@ -46,8 +46,8 @@ const RegisterNftPage3 = () => {
                   type="radio"
                   name="copyright"
                   value="yes"
-                  checked={formData.copyrightRegistered === true}
-                  onChange={() => updateForm({ copyrightRegistered: true })}
+                  checked={formData.isRegistered === true}
+                  onChange={() => updateForm({ isRegistered: true })}
                 />
                 예
               </RadioLabel>
@@ -56,10 +56,10 @@ const RegisterNftPage3 = () => {
                   type="radio"
                   name="copyright"
                   value="no"
-                  checked={formData.copyrightRegistered === false}
+                  checked={formData.isRegistered === false}
                   onChange={() =>
                     updateForm({
-                      copyrightRegistered: false,
+                      isRegistered: false,
                       copyrightFile: null,
                     })
                   }
@@ -90,7 +90,7 @@ const RegisterNftPage3 = () => {
               size="medium"
               variant="line-primary"
               onClick={handleUploadClick}
-              disabled={formData.copyrightRegistered !== true}
+              disabled={formData.isRegistered !== true}
             />
             <input
               type="file"
@@ -108,8 +108,8 @@ const RegisterNftPage3 = () => {
         fullWidth
         onClick={handleNext}
         disabled={
-          !isFormFilled(formData, ["copyrightRegistered"]) ||
-          (formData.copyrightRegistered === true && !formData.copyrightFile)
+          !isFormFilled(formData, ["isRegistered"]) ||
+          (formData.isRegistered === true && !formData.copyrightFile)
         }
       />
     </PageContainer>

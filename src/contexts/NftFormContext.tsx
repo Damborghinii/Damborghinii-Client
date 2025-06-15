@@ -9,7 +9,7 @@ export type NftFormData = {
   composers: string[];
   lyricists: string[];
   streamingUrls: string[];
-  copyrightRegistered: boolean | null;
+  isRegistered: boolean | null;
   copyrightFile: File | null;
   copyrightFileName: string | null;
   copyrightBase64: string | null;
@@ -17,6 +17,8 @@ export type NftFormData = {
   imageBase64: string | null;
   croppedImage: File | null;
   croppedBase64: string | null;
+  ethPrice: string;
+  wonPrice: string;
 };
 
 const defaultData: NftFormData = {
@@ -27,7 +29,7 @@ const defaultData: NftFormData = {
   composers: [""],
   lyricists: [""],
   streamingUrls: [""],
-  copyrightRegistered: null,
+  isRegistered: null,
   copyrightFile: null,
   copyrightBase64: null,
   copyrightFileName: null,
@@ -35,6 +37,8 @@ const defaultData: NftFormData = {
   imageBase64: null,
   croppedImage: null,
   croppedBase64: null,
+  ethPrice: "",
+  wonPrice: "",
 };
 
 const NftFormContext = createContext<{
@@ -71,9 +75,10 @@ export const NftFormProvider = ({ children }: { children: ReactNode }) => {
 
     if (data.image) base64Updates.imageBase64 = await fileToBase64(data.image);
 
-    if (data.copyrightFile)
+    if (data.copyrightFile != null) {
       base64Updates.copyrightBase64 = await fileToBase64(data.copyrightFile);
-    base64Updates.copyrightFileName = data.copyrightFile?.name;
+      base64Updates.copyrightFileName = data.copyrightFile.name;
+    }
 
     const updated = { ...formData, ...data, ...base64Updates };
 

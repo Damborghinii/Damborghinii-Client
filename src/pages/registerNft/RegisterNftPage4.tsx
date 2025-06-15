@@ -18,7 +18,7 @@ const RegisterNftPage4 = () => {
     if (!formData.image) return;
 
     if (formData.croppedBase64) {
-      navigate("/nft/register/confirm");
+      navigate("/nft/register/evaluate-loading");
     } else {
       navigate("/nft/image-crop");
     }
