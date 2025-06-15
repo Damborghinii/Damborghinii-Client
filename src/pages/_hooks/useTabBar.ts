@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-export type RepaymentStatus = "scheduledRepayment" | "unpaid" | "repaid";
+export type RepaymentStatus = "UPCOMING" | "OVERDUE" | "REPAID";
 
 export const ADJ_STATUS: Record<RepaymentStatus, string> = {
-  scheduledRepayment: "상환예정",
-  unpaid: "미상환",
-  repaid: "상환완료",
+  UPCOMING: "상환예정",
+  OVERDUE: "미상환",
+  REPAID: "상환완료",
 };
 
 export const useTabBar = () => {
-  const [status, setStatus] = useState<RepaymentStatus>("scheduledRepayment");
+  const [tabstatus, setTabStatus] = useState<RepaymentStatus>("UPCOMING");
 
-  return { status, setStatus };
+  return { tabstatus, setTabStatus };
 };

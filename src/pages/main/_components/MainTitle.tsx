@@ -42,6 +42,7 @@ const TitleWrapper = styled.div`
 `;
 
 const MainText = styled.h1`
+  padding-top: 0.05rem;
   ${({ theme }) => theme.typography["body1-1"]}
 `;
 

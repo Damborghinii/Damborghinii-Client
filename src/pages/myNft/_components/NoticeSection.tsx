@@ -1,13 +1,20 @@
 import styled from "@emotion/styled";
 import Spacer from "@components/common/spacer/Spacer";
+import { LoanCondition } from "@apis/loan";
 
 interface Props {
+  condition: LoanCondition;
   hasButton?: boolean;
   isFullScreen?: boolean;
   onClick?: () => void;
 }
 
+interface WrapperProps {
+  isFullScreen?: boolean;
+}
+
 export const NoticeSection = ({
+  condition,
   isFullScreen = true,
   hasButton,
   onClick,
@@ -24,7 +31,7 @@ export const NoticeSection = ({
       <TextRowWrapper>
         <MainTitleText>대출방식</MainTitleText>
         <div>
-          <MainContentText>만기상환방식</MainContentText>
+          <MainContentText>{condition.loanType}</MainContentText>
           <Spacer height="0.5rem" />
 
           <SubContentText>
@@ -34,16 +41,16 @@ export const NoticeSection = ({
       </TextRowWrapper>
       <TextRowWrapper>
         <MainTitleText>대출기간</MainTitleText>
-        <MainContentText>1년 이하</MainContentText>
+        <MainContentText>{condition.loanPeriod}</MainContentText>
       </TextRowWrapper>
       <TextRowWrapper>
         <MainTitleText>대출액</MainTitleText>
-        <MainContentText>0원 ~ 160,000,000원</MainContentText>
+        <MainContentText>{condition.loanAmount}</MainContentText>
       </TextRowWrapper>
       <TextRowWrapper>
         <MainTitleText>연이율</MainTitleText>
         <div>
-          <MainContentText>30%</MainContentText>
+          <MainContentText>{condition.interestRate}</MainContentText>
           <Spacer height="0.5rem" />
           <SubContentText>
             대출액x0.3%0.12을 매달 월 이자로 지불해요.
@@ -53,7 +60,7 @@ export const NoticeSection = ({
       <TextRowWrapper>
         <MainTitleText>연체율</MainTitleText>
         <div>
-          <MainContentText>5%</MainContentText>
+          <MainContentText>{condition.overdueRate}</MainContentText>
           <Spacer height="0.5rem" />
           <SubContentText>
             이자, 원금 연체 시, 미수금 월 이자, 원금 단위로 상환해야 하는 금액의
@@ -66,7 +73,7 @@ export const NoticeSection = ({
   );
 };
 
-const NoticeWrapper = styled.div<Props>`
+const NoticeWrapper = styled.div<WrapperProps>`
   width: 100%;
   display: flex;
   flex-direction: column;

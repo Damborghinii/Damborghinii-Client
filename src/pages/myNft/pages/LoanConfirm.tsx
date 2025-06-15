@@ -4,6 +4,9 @@ import { HorizontalDivider } from "@components/common/horizontalDivider/Horizont
 import { cardImage } from "@assets/image";
 import Spacer from "@components/common/spacer/Spacer";
 import { ConfirmNoticeSection } from "../_components/ConfirmNoticeSection";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getLoanConfirm, postLoan } from "@apis/loan";
 
 const MOCK_LOAN_INFO: LoanInfoProps = {
   loanAmount: "10,000,000원",
@@ -21,6 +24,43 @@ const MOCK_LOAN_INFO: LoanInfoProps = {
 };
 
 export const LoanConfirm = () => {
+  const { loanId } = useParams();
+  const [loanInfo, setLoanInfo] = useState<LoanInfoProps | null>(null);
+  console.log(loanInfo);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!loanId) return;
+
+      // 예시: amount = 10000000, count = 12 -> 필요에 따라 param 넘기기
+      const res = await getLoanConfirm(
+        Number(loanId),
+        Number(localStorage.getItem("amount")) ?? 10000,
+        Number(localStorage.getItem("count")) ?? 12
+      );
+      if (res.success && res.data) {
+        const { loanCondition, copyright } = res.data;
+
+        setLoanInfo({
+          loanAmount: loanCondition.loanAmount,
+          monthlyInterest: loanCondition.monthlyInterest,
+          repaymentMethod: loanCondition.loanType,
+          annualInterestRate: loanCondition.interestRate,
+          totalRepaymentAmount: loanCondition.totalPayment,
+          delinquencyRate: loanCondition.overdueRate,
+          loanPeriod: loanCondition.loanPeriod,
+          repaymentRounds: loanCondition.repaymentCount,
+          imageUrl: copyright.imageUrl,
+          nftName: copyright.title,
+          nftPrice: copyright.ethPrice,
+          realPrice: copyright.wonPrice,
+        });
+      }
+    };
+
+    fetchData();
+  }, [loanId]);
+
   return (
     <MainWrapper>
       <CheckSection>
@@ -30,7 +70,21 @@ export const LoanConfirm = () => {
         <LoanInfo {...MOCK_LOAN_INFO} />
       </CheckSection>
       <HorizontalDivider />
-      <ConfirmNoticeSection onClick={() => alert("뚝딱뚝딱 공사중")} />
+      <ConfirmNoticeSection
+        onClick={async () => {
+          if (!loanId) return;
+          const confirm = window.confirm("정말 대출을 신청하시겠습니까?");
+          if (!confirm) return;
+
+          await postLoan(
+            Number(loanId),
+            Number(localStorage.getItem("amount")) ?? 10000,
+            Number(localStorage.getItem("count")) ?? 12
+          );
+
+          alert("대출 신청이 완료되었습니다!");
+        }}
+      />
     </MainWrapper>
   );
 };

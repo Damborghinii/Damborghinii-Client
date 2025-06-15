@@ -1,5 +1,11 @@
 import axios from "axios";
 
+export type BaseResponse<T> = {
+  success: boolean;
+  message: string;
+  data?: T;
+};
+
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {

@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 
 import Spacer from "@components/common/spacer/Spacer";
 import StatusChip from "@components/common/statusChip/StatusChip";
-import { MyNftType } from "../type/nft";
+import { MyNftType } from "../../myNft/type/nft";
 import { StatusChipVariantType } from "@components/common/statusChip/StatusChip";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
 
@@ -17,7 +17,7 @@ export const NftCard = ({
   onClick,
   id,
 }: MyNftType) => {
-  const statusType: StatusChipVariantType = isRegistered
+  const statusType: StatusChipVariantType = !isRegistered
     ? "secondary"
     : "neutral";
   return (
@@ -37,10 +37,10 @@ export const NftCard = ({
           </S.RowFlex>
         </S.ColumnFlex>
         <StatusChip variant={statusType}>
-          {isRegistered ? "진행중" : "등록"}
+          {!isRegistered ? "진행중" : "등록"}
         </StatusChip>
       </S.RowFlex>
-      {!isRegistered && (
+      {isRegistered && (
         <>
           <Spacer height="0.625rem" />
           <HorizontalDivider />

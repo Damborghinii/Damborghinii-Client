@@ -2,20 +2,72 @@ import styled from "@emotion/styled";
 import { AdjustmentCard } from "../_components/AdjustmentCard";
 import { AdjustmentTab } from "../_components/AdjustmentTabBar";
 import { BottomSection } from "../_components/BottomSection";
+import { useEffect, useState } from "react";
+import { RepaymentStatus, useTabBar } from "@pages/_hooks/useTabBar";
+import { getAdjustmentInfo, AdjustmentInfo } from "@apis/adjustment";
 
 export const AdjustmentReceived = () => {
+  const { tabstatus, setTabStatus } = useTabBar();
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+
+  const [adjustmentInfo, setAdjustmentInfo] = useState<AdjustmentInfo>({
+    cash: 0,
+    totalContracts: 0,
+    totalAmount: 0,
+    repaymentSchedules: {
+      repaymentScheduleList: [],
+    },
+  });
+  const fetchData = async () => {
+    const res = await getAdjustmentInfo({
+      status: tabstatus,
+      role: "BORROWER",
+    });
+    if (res.success && res.data) {
+      setAdjustmentInfo(res.data);
+      const totalRepaymentAmount =
+        adjustmentInfo.repaymentSchedules.repaymentScheduleList.reduce(
+          (acc, cur) => acc + cur.repaymentAmount,
+          0
+        );
+      console.log(totalRepaymentAmount);
+      setTotalAmount(totalRepaymentAmount);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, [tabstatus]);
+
   return (
     <Wrapper>
-      <AdjustmentCard balance="1,600원" />
-      <AdjustmentTab />
+      <AdjustmentCard
+        balance={`${adjustmentInfo.cash.toLocaleString()}원`}
+        totalContracts={adjustmentInfo.totalContracts.toLocaleString()}
+        totalAmount={adjustmentInfo.totalAmount.toLocaleString()}
+      />
+      <AdjustmentTab
+        tabStatus={tabstatus}
+        onClick={(key) => setTabStatus(key as RepaymentStatus)}
+      />
       <BottomWrapper>
         <RowInfo>
-          상환예정
-          <BodyText>총 1,000,000원</BodyText>
+          {tabstatus === "UPCOMING"
+            ? "상환예정"
+            : tabstatus === "OVERDUE"
+            ? "미상환"
+            : "상환완료"}
+          <BodyText>총 {totalAmount.toLocaleString()}원</BodyText>
         </RowInfo>
-        <BottomSection />
-        <BottomSection />
-        <BottomSection />
+        {adjustmentInfo.repaymentSchedules.repaymentScheduleList.length > 0 &&
+          adjustmentInfo.repaymentSchedules.repaymentScheduleList.map(
+            (item, index) => (
+              <BottomSection
+                status={tabstatus}
+                schedule={item}
+                key={item.repaymentScheduleId || index}
+              />
+            )
+          )}
       </BottomWrapper>
     </Wrapper>
   );
@@ -23,6 +75,7 @@ export const AdjustmentReceived = () => {
 
 const Wrapper = styled.div`
   width: 100%;
+  min-height: 100dvh;
 
   display: flex;
   flex-direction: column;

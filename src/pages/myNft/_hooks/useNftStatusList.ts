@@ -1,16 +1,13 @@
 import { useState } from "react";
-
-export type NftStatusKey = "all" | "register" | "progress" | "contract";
-
-export const NFT_STATUS: Record<NftStatusKey, string> = {
-  all: "전체",
-  register: "등록",
-  progress: "투자진행중",
-  contract: "계약중",
+import { MyNftStatusType } from "@apis/myNft";
+export const NFT_STATUS: Record<MyNftStatusType, string> = {
+  ALL: "전체",
+  REGISTERED: "등록",
+  INVESTING: "투자진행중",
 };
 
-export const useNftStatusList = () => {
-  const [nftStatus, setNftStatus] = useState<NftStatusKey>("all");
+export const useTabBar = () => {
+  const [tabstatus, setTabStatus] = useState<MyNftStatusType>("ALL");
 
-  return { nftStatus, setNftStatus };
+  return { tabstatus, setTabStatus };
 };
