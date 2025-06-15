@@ -2,12 +2,17 @@ import styled from "@emotion/styled";
 import { AdjustmentCard } from "../_components/AdjustmentCard";
 import { AdjustmentTab } from "../_components/AdjustmentTabBar";
 import { BottomSection } from "../_components/BottomSection";
-import { AdjustmentInfo, getAdjustmentInfo } from "@apis/adjustment";
 import { useEffect, useState } from "react";
 import { RepaymentStatus, useTabBar } from "@pages/_hooks/useTabBar";
+import {
+  getAdjustmentInfo,
+  AdjustmentInfo,
+  patchRepaymentContract,
+} from "@apis/adjustment";
 
 export const AdjustmentReceived = () => {
   const { tabstatus, setTabStatus } = useTabBar();
+  const [totalAmount, setTotalAmount] = useState<number>(0);
 
   const [adjustmentInfo, setAdjustmentInfo] = useState<AdjustmentInfo>({
     cash: 0,
@@ -24,6 +29,13 @@ export const AdjustmentReceived = () => {
     });
     if (res.success && res.data) {
       setAdjustmentInfo(res.data);
+      const totalRepaymentAmount =
+        adjustmentInfo.repaymentSchedules.repaymentScheduleList.reduce(
+          (acc, cur) => acc + cur.repaymentAmount,
+          0
+        );
+      console.log(totalRepaymentAmount);
+      setTotalAmount(totalRepaymentAmount);
     }
   };
   useEffect(() => {
@@ -43,35 +55,23 @@ export const AdjustmentReceived = () => {
       />
       <BottomWrapper>
         <RowInfo>
-          상환예정
-          <BodyText>총 1,000,000원</BodyText>
+          {tabstatus === "UPCOMING"
+            ? "상환예정"
+            : tabstatus === "OVERDUE"
+            ? "미상환"
+            : "상환완료"}
+          <BodyText>총 {totalAmount.toLocaleString()}원</BodyText>
         </RowInfo>
         {adjustmentInfo.repaymentSchedules.repaymentScheduleList.length > 0 &&
           adjustmentInfo.repaymentSchedules.repaymentScheduleList.map(
             (item, index) => (
               <BottomSection
+                status={tabstatus}
                 schedule={item}
                 key={item.repaymentScheduleId || index}
               />
             )
           )}
-        <BottomSection
-          schedule={{
-            repaymentScheduleId: 0,
-            totalRepaymentAmount: 1000000,
-            repaymentAmount: 800000,
-            interestRate: 5,
-            lateFee: 0,
-            round: 1,
-            repaymentDate: "2025-06-25",
-            settlementDate: "2025-06-30",
-            relativeDays: "7일 남았어요",
-            nftImageUrl: "", // or placeholder
-            nftName: "Mock NFT #0000",
-            stake: 15,
-            ethPrice: 3500,
-          }}
-        />
       </BottomWrapper>
     </Wrapper>
   );

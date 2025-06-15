@@ -55,13 +55,16 @@ export const getAdjustmentInfo = async ({
   }
 };
 
-export const patchRepaymentContract = async (repaymentScheduleId: number) => {
+export const patchRepaymentContract = async (
+  repaymentScheduleId: number
+): Promise<BaseResponse<null>> => {
   try {
-    const res = await axiosInstance.get(
+    const res = await axiosInstance.patch(
       `/api/v1/me/contracts/${repaymentScheduleId}/repayment`
     );
     console.log(res);
+    return res.data;
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };

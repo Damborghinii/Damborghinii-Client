@@ -23,7 +23,9 @@ export const AdjustmentCard = ({
           <IcMoney width={16} height={16} />
           보유금액 {balance}
         </MoneyTextSection>
-        <Button>{isReceivedType ? "인출하기" : "상환하기"}</Button>
+        <Button onClick={() => alert("서비스 준비 중입니다!")}>
+          {isReceivedType ? "인출하기" : "상환하기"}
+        </Button>
       </MoneySection>
       <DescriptionSection>
         <ColumnTextSection>
