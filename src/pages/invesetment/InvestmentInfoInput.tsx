@@ -2,9 +2,10 @@ import styled from "@emotion/styled";
 
 import { MainContent } from "./_components/Text";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spacer from "@components/common/spacer/Spacer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getContractAmount, InvestmentLimitInfo } from "@apis/investment";
 
 export interface LoanCalculationRule {
   minimumLoanAmount: number;
@@ -23,25 +24,47 @@ interface ButtonProps {
 //   interestCalculationRatio: 2.5,
 // };
 
-export const InvestmentInfoInput = ({
-  minimumLoanAmount = 1000000,
-  maximumLoanAmount = 50000000,
-  shareCalculationRatio = 5,
-  interestCalculationRatio = 2.5,
-}: LoanCalculationRule) => {
+export const InvestmentInfoInput = () => {
+  const [rule, setRule] = useState<InvestmentLimitInfo | null>(null);
+  const { investmentId } = useParams();
+
+  useEffect(() => {
+    const fetchRule = async () => {
+      const res = await getContractAmount(Number(investmentId));
+      if (res.success && res.data) {
+        setRule({
+          minimumLoanAmount: res.data.minimumLoanAmount,
+          maximumLoanAmount: res.data.maximumLoanAmount,
+          shareCalculationRatio: res.data.shareCalculationRatio,
+          interestCalculationRatio: res.data.interestCalculationRatio,
+        });
+      }
+    };
+
+    fetchRule();
+  }, []);
+
   const [investorAmount, setInvestorAmount] = useState<number>(0);
 
   const [checked, setChecked] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const numericString = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 허용
-    const parsed = parseInt(numericString, 10);
-    setInvestorAmount(Number.isNaN(parsed) ? 0 : parsed);
+    const numericString = e.target.value.replace(/[^0-9]/g, "");
+    let parsed: number = parseInt(numericString, 10);
+
+    if (Number.isNaN(parsed)) parsed = 0;
+
+    if (parsed < 0) parsed = 0;
+    if (parsed > 100000000) parsed = 100000000;
+
+    setInvestorAmount(parsed);
   };
-  const sharePercent =
-    investorAmount === 0 ? 0 : investorAmount / (shareCalculationRatio * 100);
-  const monthlyProfit =
-    investorAmount === 0 ? 0 : sharePercent * interestCalculationRatio;
+  const minimumLoanAmount = rule?.minimumLoanAmount ?? 0;
+  const maximumLoanAmount = rule?.maximumLoanAmount ?? 0;
+  const shareCalculationRatio = rule?.shareCalculationRatio ?? 1;
+  const interestCalculationRatio = rule?.interestCalculationRatio ?? 0;
+  const sharePercent = investorAmount * shareCalculationRatio;
+  const monthlyProfit = investorAmount * interestCalculationRatio;
 
   const navigate = useNavigate();
 
@@ -55,6 +78,8 @@ export const InvestmentInfoInput = ({
             <InvestInput
               type="text"
               inputMode="numeric"
+              min={minimumLoanAmount}
+              max={maximumLoanAmount}
               value={
                 investorAmount === 0 ? "" : investorAmount.toLocaleString()
               }

@@ -48,6 +48,13 @@ export type ContractProgress = {
   remainingInvestingMoney: string;
 };
 
+export type InvestmentLimitInfo = {
+  minimumLoanAmount: string;
+  maximumLoanAmount: string;
+  shareCalculationRatio: number;
+  interestCalculationRatio: number;
+};
+
 export const getContracts = async (): Promise<
   BaseResponse<{ contracts: Contract[] }>
 > => {
@@ -77,6 +84,20 @@ export const getContractDetail = async (
     return res.data;
   } catch (err) {
     console.log(err);
+    throw err;
+  }
+};
+
+export const getContractAmount = async (
+  contractId: number
+): Promise<BaseResponse<InvestmentLimitInfo>> => {
+  try {
+    const res = await axiosInstance.get(
+      `/api/v1/contracts/${contractId}/invest`
+    );
+    console.log(res);
+    return res.data;
+  } catch (err) {
     throw err;
   }
 };
