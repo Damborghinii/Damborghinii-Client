@@ -1,3 +1,4 @@
+import { RepaymentSchedule } from "@apis/adjustment";
 import { cardImage } from "@assets/image";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
 import Spacer from "@components/common/spacer/Spacer";
@@ -12,18 +13,25 @@ interface TextProps {
 //   expectedMoney: string;
 // }
 
-export const BottomSection = () => {
+interface BottomSectionProps {
+  schedule: RepaymentSchedule;
+}
+
+export const BottomSection = ({ schedule }: BottomSectionProps) => {
   return (
     <CardWrapper>
       <RowTextWrapper>
         <BodyText color={theme.color.neutral.B70}>총 상환금액</BodyText>
-        <BodyText color={theme.color.neutral.B70}>1,000,000원</BodyText>
+        <BodyText color={theme.color.neutral.B70}>
+          {schedule.totalRepaymentAmount.toLocaleString()}원
+        </BodyText>
       </RowTextWrapper>
       <Spacer height="0.625rem" />
       <RowTextWrapper>
         <SmallText color={theme.color.neutral.B40}>상환액</SmallText>
         <SmallText color={theme.color.neutral.B40}>
-          1,000,000원 / 연이율 5%
+          {schedule.repaymentAmount.toLocaleString()}원 / 연이율
+          {schedule.interestRate}%
         </SmallText>
       </RowTextWrapper>
       <Spacer height="0.625rem" />
@@ -31,7 +39,9 @@ export const BottomSection = () => {
       <Spacer height="0.625rem" />
       <RowTextWrapper>
         <SmallText color={theme.color.neutral.B70}>회차</SmallText>
-        <SmallText color={theme.color.primary.P60}>4회차</SmallText>
+        <SmallText color={theme.color.primary.P60}>
+          {schedule.round}회차
+        </SmallText>
       </RowTextWrapper>
       <Spacer height="0.625rem" />
       <RowTextWrapper>
@@ -43,16 +53,25 @@ export const BottomSection = () => {
           }}
         >
           <SmallText color={theme.color.neutral.B70}>상환일</SmallText>
-          <SmallText color={theme.color.primary.P60}>7일 남았어요</SmallText>
+          <SmallText color={theme.color.primary.P60}>
+            {schedule.relativeDays}
+          </SmallText>
         </div>
-        <SmallText color={theme.color.primary.P60}>2025-06-25</SmallText>
+        <SmallText color={theme.color.primary.P60}>
+          {schedule.repaymentDate}
+        </SmallText>
       </RowTextWrapper>
       <Spacer height="0.625rem" />
       <NftCardWrapper>
-        <img src={cardImage} alt="담보 카드" width={16} height={16} />
+        <img
+          src={schedule.nftImageUrl || cardImage}
+          alt="담보 카드"
+          width={16}
+          height={16}
+        />
         담보
-        <NftText>Lil Pudgy #2017</NftText>내 지분
-        <NftText>n%</NftText>
+        <NftText>{schedule.nftName}</NftText>내 지분
+        <NftText>{schedule.stake}%</NftText>
       </NftCardWrapper>
     </CardWrapper>
   );

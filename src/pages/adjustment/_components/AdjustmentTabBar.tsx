@@ -1,8 +1,4 @@
-import {
-  useTabBar,
-  ADJ_STATUS,
-  RepaymentStatus,
-} from "@pages/_hooks/useTabBar";
+import { ADJ_STATUS, RepaymentStatus } from "@pages/_hooks/useTabBar";
 
 import styled from "@emotion/styled";
 
@@ -10,15 +6,19 @@ interface TitleProps {
   active: boolean;
 }
 
-export const AdjustmentTab: React.FC = () => {
-  const { status, setStatus } = useTabBar();
+interface TabProps {
+  tabStatus: RepaymentStatus;
+  onClick: (key: string) => void;
+}
+
+export const AdjustmentTab = ({ tabStatus, onClick }: TabProps) => {
   return (
     <StatusListWrapper>
       {Object.entries(ADJ_STATUS).map(([key, label]) => (
         <StatusTab
           key={key}
-          active={key === status}
-          onClick={() => setStatus(key as RepaymentStatus)}
+          active={key === tabStatus}
+          onClick={() => onClick(key)}
         >
           {label}
         </StatusTab>

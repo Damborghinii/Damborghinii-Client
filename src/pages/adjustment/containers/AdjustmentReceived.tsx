@@ -2,20 +2,76 @@ import styled from "@emotion/styled";
 import { AdjustmentCard } from "../_components/AdjustmentCard";
 import { AdjustmentTab } from "../_components/AdjustmentTabBar";
 import { BottomSection } from "../_components/BottomSection";
+import { AdjustmentInfo, getAdjustmentInfo } from "@apis/adjustment";
+import { useEffect, useState } from "react";
+import { RepaymentStatus, useTabBar } from "@pages/_hooks/useTabBar";
 
 export const AdjustmentReceived = () => {
+  const { tabstatus, setTabStatus } = useTabBar();
+
+  const [adjustmentInfo, setAdjustmentInfo] = useState<AdjustmentInfo>({
+    cash: 0,
+    totalContracts: 0,
+    totalAmount: 0,
+    repaymentSchedules: {
+      repaymentScheduleList: [],
+    },
+  });
+  const fetchData = async () => {
+    const res = await getAdjustmentInfo({
+      status: tabstatus,
+      role: "BORROWER",
+    });
+    if (res.success && res.data) {
+      setAdjustmentInfo(res.data);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, [tabstatus]);
+
   return (
     <Wrapper>
-      <AdjustmentCard balance="1,600원" />
-      <AdjustmentTab />
+      <AdjustmentCard
+        balance={`${adjustmentInfo.cash.toLocaleString()}원`}
+        totalContracts={adjustmentInfo.totalContracts.toLocaleString()}
+        totalAmount={adjustmentInfo.totalAmount.toLocaleString()}
+      />
+      <AdjustmentTab
+        tabStatus={tabstatus}
+        onClick={(key) => setTabStatus(key as RepaymentStatus)}
+      />
       <BottomWrapper>
         <RowInfo>
           상환예정
           <BodyText>총 1,000,000원</BodyText>
         </RowInfo>
-        <BottomSection />
-        <BottomSection />
-        <BottomSection />
+        {adjustmentInfo.repaymentSchedules.repaymentScheduleList.length > 0 &&
+          adjustmentInfo.repaymentSchedules.repaymentScheduleList.map(
+            (item, index) => (
+              <BottomSection
+                schedule={item}
+                key={item.repaymentScheduleId || index}
+              />
+            )
+          )}
+        <BottomSection
+          schedule={{
+            repaymentScheduleId: 0,
+            totalRepaymentAmount: 1000000,
+            repaymentAmount: 800000,
+            interestRate: 5,
+            lateFee: 0,
+            round: 1,
+            repaymentDate: "2025-06-25",
+            settlementDate: "2025-06-30",
+            relativeDays: "7일 남았어요",
+            nftImageUrl: "", // or placeholder
+            nftName: "Mock NFT #0000",
+            stake: 15,
+            ethPrice: 3500,
+          }}
+        />
       </BottomWrapper>
     </Wrapper>
   );
@@ -23,6 +79,7 @@ export const AdjustmentReceived = () => {
 
 const Wrapper = styled.div`
   width: 100%;
+  min-height: 100dvh;
 
   display: flex;
   flex-direction: column;

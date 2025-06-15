@@ -5,11 +5,15 @@ import theme from "@styles/theme";
 
 export interface MoneyCardProps {
   balance: string;
+  totalContracts: string;
+  totalAmount: string;
   isReceivedType?: boolean;
 }
 
 export const AdjustmentCard = ({
   balance,
+  totalContracts,
+  totalAmount,
   isReceivedType = true,
 }: MoneyCardProps) => {
   return (
@@ -24,7 +28,7 @@ export const AdjustmentCard = ({
       <DescriptionSection>
         <ColumnTextSection>
           <Title>총 보유계약</Title>
-          <Content>0건</Content>
+          <Content>{totalContracts}건</Content>
         </ColumnTextSection>
         <HorizontalDivider
           height="2rem"
@@ -33,7 +37,7 @@ export const AdjustmentCard = ({
         />
         <ColumnTextSection>
           <Title>{isReceivedType ? "상환받을 금액" : "상환할 금액"}</Title>
-          <Content>0원</Content>
+          <Content>{totalAmount}원</Content>
         </ColumnTextSection>
       </DescriptionSection>
     </Wrapper>
