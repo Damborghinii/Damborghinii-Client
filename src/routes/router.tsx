@@ -75,10 +75,6 @@ const router = createBrowserRouter([
       { path: "signup/complete", element: <SignUpPage4 /> },
 
       {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
         path: "/investment/:investmentId",
         element: <InvestmentInfo />,
       },
@@ -114,6 +110,10 @@ const router = createBrowserRouter([
         element: <GivingAdjustment />,
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
   },
 ]);
 export default router;

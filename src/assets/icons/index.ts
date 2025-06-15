@@ -10,6 +10,7 @@ import File from "../icons/file.svg?react";
 import RegisterLoading from "../icons/register_loading.svg?react";
 import Check from "../icons/check_icon.svg?react";
 import SignUpComplete from "../icons/signup_complete.svg?react";
+import Logo from "../icons/logo.svg?react";
 
 export const commonIcons = {
   close: Close,
@@ -36,4 +37,8 @@ export const registerNftIcons = {
 export const signUpIcons = {
   check: Check,
   signup_complete: SignUpComplete,
+};
+
+export const LogoIcons = {
+  logo: Logo,
 };
