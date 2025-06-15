@@ -5,7 +5,11 @@ import { HorizontalDivider } from "@components/common/horizontalDivider/Horizont
 import { useEffect, useState } from "react";
 import Spacer from "@components/common/spacer/Spacer";
 import { useNavigate, useParams } from "react-router-dom";
-import { getContractAmount, InvestmentLimitInfo } from "@apis/investment";
+import {
+  getContractAmount,
+  InvestmentLimitInfo,
+  postContractInvest,
+} from "@apis/investment";
 
 export interface LoanCalculationRule {
   minimumLoanAmount: number;
@@ -16,13 +20,6 @@ export interface LoanCalculationRule {
 interface ButtonProps {
   disabled?: boolean;
 }
-
-// const MOCK_LOAN_CALCULATION_RULE: LoanCalculationRule = {
-//   minimumLoanAmount: 1000000,
-//   maximumLoanAmount: 50000000,
-//   shareCalculationRatio: 5,
-//   interestCalculationRatio: 2.5,
-// };
 
 export const InvestmentInfoInput = () => {
   const [rule, setRule] = useState<InvestmentLimitInfo | null>(null);
@@ -161,7 +158,15 @@ export const InvestmentInfoInput = () => {
             위 내용을 모두 확인했습니다.
           </CheckLabel>
         </CheckWrapper>
-        <Button disabled={!checked} onClick={() => navigate("/")}>
+        <Button
+          disabled={!checked}
+          onClick={async () => {
+            await postContractInvest(Number(investmentId), investorAmount);
+            alert("완료");
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            navigate("/");
+          }}
+        >
           투자하기
         </Button>
       </NoticeWrapper>

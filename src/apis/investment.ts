@@ -101,3 +101,21 @@ export const getContractAmount = async (
     throw err;
   }
 };
+
+export const postContractInvest = async (
+  contractId: number,
+  investment: number
+): Promise<BaseResponse<null>> => {
+  try {
+    const res = await axiosInstance.post(
+      `/api/v1/contracts/${contractId}/invest`,
+      {
+        investment,
+      }
+    );
+    console.log(res);
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
+};
