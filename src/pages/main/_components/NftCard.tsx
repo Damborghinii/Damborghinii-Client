@@ -17,7 +17,7 @@ export const NftCard = ({
   onClick,
   id,
 }: MyNftType) => {
-  const statusType: StatusChipVariantType = isRegistered
+  const statusType: StatusChipVariantType = !isRegistered
     ? "secondary"
     : "neutral";
   return (
@@ -37,10 +37,10 @@ export const NftCard = ({
           </S.RowFlex>
         </S.ColumnFlex>
         <StatusChip variant={statusType}>
-          {isRegistered ? "진행중" : "등록"}
+          {!isRegistered ? "진행중" : "등록"}
         </StatusChip>
       </S.RowFlex>
-      {!isRegistered && (
+      {isRegistered && (
         <>
           <Spacer height="0.625rem" />
           <HorizontalDivider />

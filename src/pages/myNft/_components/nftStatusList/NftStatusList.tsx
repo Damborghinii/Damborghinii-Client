@@ -1,19 +1,21 @@
+import { NFT_STATUS } from "@pages/myNft/_hooks/useNftStatusList";
 import * as S from "./NftStatusList.styled";
-import {
-  useNftStatusList,
-  NFT_STATUS,
-  NftStatusKey,
-} from "../../_hooks/useNftStatusList";
 
-export const NftStatusTab: React.FC = () => {
-  const { nftStatus, setNftStatus } = useNftStatusList();
+import { MyNftStatusType } from "@apis/myNft";
+
+interface TabProps {
+  tabStatus: MyNftStatusType;
+  onClick: (key: string) => void;
+}
+
+export const NftStatusTab = ({ tabStatus, onClick }: TabProps) => {
   return (
     <S.NftStatusListWrapper>
       {Object.entries(NFT_STATUS).map(([key, label]) => (
         <S.NftStatusTab
           key={key}
-          active={key === nftStatus}
-          onClick={() => setNftStatus(key as NftStatusKey)}
+          active={key === tabStatus}
+          onClick={() => onClick(key)}
         >
           {label}
         </S.NftStatusTab>

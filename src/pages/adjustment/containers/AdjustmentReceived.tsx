@@ -4,11 +4,7 @@ import { AdjustmentTab } from "../_components/AdjustmentTabBar";
 import { BottomSection } from "../_components/BottomSection";
 import { useEffect, useState } from "react";
 import { RepaymentStatus, useTabBar } from "@pages/_hooks/useTabBar";
-import {
-  getAdjustmentInfo,
-  AdjustmentInfo,
-  patchRepaymentContract,
-} from "@apis/adjustment";
+import { getAdjustmentInfo, AdjustmentInfo } from "@apis/adjustment";
 
 export const AdjustmentReceived = () => {
   const { tabstatus, setTabStatus } = useTabBar();

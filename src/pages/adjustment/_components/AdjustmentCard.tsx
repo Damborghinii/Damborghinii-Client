@@ -23,9 +23,9 @@ export const AdjustmentCard = ({
           <IcMoney width={16} height={16} />
           보유금액 {balance}
         </MoneyTextSection>
-        <Button onClick={() => alert("서비스 준비 중입니다!")}>
+        {/* <Button onClick={() => alert("서비스 준비 중입니다!")}>
           {isReceivedType ? "인출하기" : "상환하기"}
-        </Button>
+        </Button> */}
       </MoneySection>
       <DescriptionSection>
         <ColumnTextSection>
@@ -74,21 +74,21 @@ const MoneyTextSection = styled.div`
   ${({ theme }) => theme.typography["body2-2"]};
 `;
 
-const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 9.25rem;
-  border-radius: 0.25rem;
+// const Button = styled.button`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   min-width: 9.25rem;
+//   border-radius: 0.25rem;
 
-  padding: 0.625rem 2.25rem;
+//   padding: 0.625rem 2.25rem;
 
-  ${({ theme }) => theme.typography["small1-2"]};
+//   ${({ theme }) => theme.typography["small1-2"]};
 
-  color: ${({ theme }) => theme.color.primary.P60};
-  border: 1px solid ${({ theme }) => theme.color.primary.P40};
-  background-color: ${({ theme }) => theme.color.primary.P00};
-`;
+//   color: ${({ theme }) => theme.color.primary.P60};
+//   border: 1px solid ${({ theme }) => theme.color.primary.P40};
+//   background-color: ${({ theme }) => theme.color.primary.P00};
+// `;
 
 const DescriptionSection = styled.div`
   width: 100%;
