@@ -5,16 +5,6 @@ import { useModal } from "@hooks/useModal";
 import { useNavigate } from "react-router-dom";
 import { useNftForm } from "src/contexts/NftFormContext";
 
-// const dummyData = {
-//   nftName: "nft",
-//   title: "노래제목",
-//   singers: ["가수1", "가수2"],
-//   composers: ["작곡가"],
-//   lyricists: ["작사가"],
-//   streamingUrls: ["음원 url"],
-//   isRegistered: true,
-// };
-
 const InfoRow = ({
   label,
   children,
@@ -51,6 +41,10 @@ const RegisterNftConfirmPage = () => {
     });
   };
 
+  const handleSaveNft = () => {
+    navigate("/nft/register/register-loading");
+  };
+
   return (
     <PageContainer>
       <ContentWrapper>
@@ -68,8 +62,8 @@ const RegisterNftConfirmPage = () => {
           />
         </ImageWrapper>
         <PriceWrapper>
-          <ETHPrice>최종 가치: 0.03 ETH</ETHPrice>
-          <KRWPrice>한화 가치: 114000 원</KRWPrice>
+          <ETHPrice>최종 가치: {formData.ethPrice}</ETHPrice>
+          <KRWPrice>한화 가치: {formData.wonPrice}</KRWPrice>
         </PriceWrapper>
         <InfoWrapper>
           <DetailTItleWrapper>
@@ -77,31 +71,13 @@ const RegisterNftConfirmPage = () => {
           </DetailTItleWrapper>
           <InfoTable>
             <InfoRow label="음원/앨범명">{formData.title}</InfoRow>
-            <InfoRow label="가수 정보">
-              {/* {dummyData.singers.map((singer, idx) => (
-                <span key={idx}>{singer}</span>
-              ))} */}
-              {formData.singers}
-            </InfoRow>
-            <InfoRow label="작곡가 정보">
-              {/* {dummyData.composers.map((composer, idx) => (
-                <span key={idx}>{composer}</span>
-              ))} */}
-              {formData.composers}
-            </InfoRow>
-            <InfoRow label="작사가 정보">
-              {/* {dummyData.lyricists.map((lyricist, idx) => (
-                <span key={idx}>{lyricist}</span>
-              ))} */}
-              {formData.lyricists}
-            </InfoRow>
+            <InfoRow label="가수 정보">{formData.singers}</InfoRow>
+            <InfoRow label="작곡가 정보">{formData.composers}</InfoRow>
+            <InfoRow label="작사가 정보">{formData.lyricists}</InfoRow>
           </InfoTable>
           <InfoTable>
             <InfoRow label="저작권 등록 여부">
-              {/* {dummyData.isRegistered
-                ? "저작권이 등록되어 있는 음원"
-                : "저작권이 등록되지 않은 음원"} */}
-              {formData.copyrightRegistered
+              {formData.isRegistered
                 ? "저작권이 등록되어 있는 음원"
                 : "저작권이 등록되지 않은 음원"}
             </InfoRow>
@@ -115,9 +91,6 @@ const RegisterNftConfirmPage = () => {
             </TableRow>
             <TableRow>
               <UrlText>
-                {/* {dummyData.streamingUrls.map((streamingUrl, idx) => (
-                  <span key={idx}>{streamingUrl}</span>
-                ))} */}
                 <span>{formData.streamingUrls}</span>
               </UrlText>
             </TableRow>
@@ -125,7 +98,12 @@ const RegisterNftConfirmPage = () => {
         </InfoWrapper>
       </ContentWrapper>
       <ButtonWrapper>
-        <Button children="목록에 저장하기" size="big" fullWidth />
+        <Button
+          children="목록에 저장하기"
+          size="big"
+          fullWidth
+          onClick={handleSaveNft}
+        />
         <Button
           children="저장하지 않고 나가기"
           size="big"

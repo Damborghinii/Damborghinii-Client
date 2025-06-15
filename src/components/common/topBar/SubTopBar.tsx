@@ -47,6 +47,9 @@ export const SubTopBar = ({ title, isConfirmButton }: SubTopBarProps) => {
     if (location.pathname === "/nft/register/basic") {
       resetForm();
     }
+    if (location.pathname === "/nft/register/confirm") {
+      navigate("/nft/register/image-upload");
+    }
     navigate(-1);
   };
   return (
