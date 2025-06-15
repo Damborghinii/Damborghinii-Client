@@ -118,7 +118,11 @@ export const LoanInfoInput = () => {
         />
         <Button
           disabled={isDisabled}
-          onClick={() => navigate(`/loan-confirm/${loanId}`)}
+          onClick={() => {
+            localStorage.setItem("amount", loanAmount.toString());
+            localStorage.setItem("count", round.toString());
+            navigate(`/loan-confirm/${loanId}`);
+          }}
         >
           최종 정보 확인
         </Button>
