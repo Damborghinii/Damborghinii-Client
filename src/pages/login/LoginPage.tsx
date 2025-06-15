@@ -5,10 +5,12 @@ import useLogin from "@hooks/queries/useLogin";
 import theme from "@styles/theme";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LogoIcons } from "@assets/icons";
 
 const LoginPage = () => {
   const [loginId, setLoginId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { logo: Logo } = LogoIcons;
 
   const { mutate: loginMutate } = useLogin();
 
@@ -34,7 +36,10 @@ const LoginPage = () => {
   };
   return (
     <PageContainer>
-      <Title>담보르기니</Title>
+      <LogoSection>
+        <Logo />
+        <LogoTitle>Damborghinii</LogoTitle>
+      </LogoSection>
       <InputSection>
         <SingleInputSection
           placeholder="아이디를 입력해주세요"
@@ -49,13 +54,7 @@ const LoginPage = () => {
         />
       </InputSection>
       <ButtonSection>
-        <Button
-          children="로그인"
-          fullWidth
-          variant="secondary"
-          size="big"
-          onClick={handleLogin}
-        />
+        <Button children="로그인" fullWidth size="big" onClick={handleLogin} />
         <Button
           children="회원가입"
           fullWidth
@@ -72,19 +71,31 @@ export default LoginPage;
 
 const PageContainer = styled.div`
   display: flex;
+  position: fixed;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 100%;
+  max-width: 540px;
   height: 100vh;
   background-color: ${theme.color.neutral.white};
-  padding: 0 22px;
+  padding: 0 22px 0 22px;
+  overflow-y: hidden;
 `;
 
-const Title = styled.h1`
-  font-size: 40px;
-  font-weight: 700;
+const LogoSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 50px;
+  gap: 8px;
+`;
+
+const LogoTitle = styled.h2`
+  font-size: 30px;
+  font-weight: 900;
+  color: ${theme.color.primary.P60};
 `;
 
 const InputSection = styled.div`
