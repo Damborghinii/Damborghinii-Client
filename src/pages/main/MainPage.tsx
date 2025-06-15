@@ -4,47 +4,45 @@ import { useNavigate } from "react-router-dom";
 import { MainLoanCard } from "./_components/MainLoanCard";
 
 import { MainTitle } from "./_components/MainTitle";
-import { getTotalCount } from "./_hooks/getTotalCount";
-import { useEffect } from "react";
-import { getContracts } from "@apis/investment";
+import { useEffect, useState } from "react";
+import { Contract, getContracts } from "@apis/investment";
 
 export const MainPage: React.FC = () => {
   const navigate = useNavigate();
-  const { count } = getTotalCount();
+  const [contracts, setContracts] = useState<Contract[]>([]);
   const fetchData = async () => {
-    await getContracts();
+    const res = await getContracts();
+    if (res.success && Array.isArray(res.data?.contracts)) {
+      setContracts(res.data?.contracts);
+    } else {
+      setContracts([]);
+    }
   };
   useEffect(() => {
     fetchData();
   }, []);
   return (
     <S.MainContainer>
-      <MainTitle mainText="전체 투자 진행건" subText={count} />
+      <MainTitle
+        mainText="전체 투자 진행건"
+        subText={`총 ${contracts.length.toString()}건`}
+      />
       <S.MainCardWrapper>
-        <MainLoanCard
-          loanAmount={160000000}
-          interestRate={30}
-          collateralName={"Lil Pudgy #2017"}
-          presentValue={"1.2299ETH"}
-          investmentProgressRate={15}
-          onClick={() => navigate("investment/1")}
-        ></MainLoanCard>
-        <MainLoanCard
-          loanAmount={160000000}
-          interestRate={30}
-          collateralName={"Lil Pudgy #2017"}
-          presentValue={"1.2299ETH"}
-          investmentProgressRate={30}
-          onClick={() => navigate("investment/2")}
-        ></MainLoanCard>
-        <MainLoanCard
-          loanAmount={160000000}
-          interestRate={30}
-          collateralName={"Lil Pudgy #2017"}
-          presentValue={"1.2299ETH"}
-          investmentProgressRate={30}
-          onClick={() => navigate("investment/3")}
-        ></MainLoanCard>
+        {contracts.map((contract) => (
+          <MainLoanCard
+            key={contract.contractId}
+            loanAmount={contract.loanAmount}
+            interestRate={parseInt(
+              contract.interestRate.replace(/[^0-9]/g, "")
+            )}
+            collateralName={contract.copyright.name}
+            presentValue={contract.copyright.ethPrice}
+            investmentProgressRate={parseInt(
+              contract.progress.replace(/[^0-9]/g, "")
+            )}
+            onClick={() => navigate(`investment/${contract.contractId}`)}
+          />
+        ))}
       </S.MainCardWrapper>
     </S.MainContainer>
   );

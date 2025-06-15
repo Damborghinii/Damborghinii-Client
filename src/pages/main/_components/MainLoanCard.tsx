@@ -4,7 +4,7 @@ import theme from "@styles/theme";
 import { cardImage } from "@assets/image";
 
 export interface CardProps {
-  loanAmount: number;
+  loanAmount: string;
   interestRate: number;
   collateralName: string;
   presentValue: string;
@@ -25,7 +25,7 @@ export const MainLoanCard: React.FC<CardProps> = ({
       <InfoWrapper>
         <TextWrapper>
           <FirstTitleText>대출신청액</FirstTitleText>
-          <FirstContentText>{loanAmount}원</FirstContentText>
+          <FirstContentText>{loanAmount}</FirstContentText>
           <FirstTitleText>대출신청액</FirstTitleText>
           <FirstContentText>{interestRate}%</FirstContentText>
         </TextWrapper>
