@@ -16,6 +16,7 @@ const NoBottomBarLayout = () => {
   const isLoanApply = location.pathname.startsWith("/loan-apply");
   const isLoanInput = location.pathname.startsWith("/loan-info-input");
   const isLoanConfirm = location.pathname.startsWith("/loan-confirm");
+  const isNftDetail = location.pathname.startsWith("/nft/detail/");
 
   const title = isRegisterRoute
     ? "NFT 등록"
@@ -33,6 +34,8 @@ const NoBottomBarLayout = () => {
     ? "정보 입력"
     : isLoanConfirm
     ? "대출 확정"
+    : isNftDetail
+    ? "등록된 NFT"
     : "";
   const isConfirmButton = isImageCropPage;
 
