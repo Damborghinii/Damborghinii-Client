@@ -8,5 +8,6 @@ export const API_PATH = {
   NFT: {
     REGISTER_NFT: "/api/v1/nfts",
     EVALUATE_NFT_VALUE: "/api/v1/copyrights/predict",
+    NFT_DETAIL: "/api/v1/copyrights/{copyrightId}",
   },
 };
