@@ -36,6 +36,7 @@ import Adjustment from "../pages/adjustment/containers/Adjustment";
 import { AdjustmentReceived } from "@pages/adjustment/containers/AdjustmentReceived";
 import { GivingAdjustment } from "@pages/adjustment/containers/AdjustmentGiving";
 import RegisterLoadingPage from "@pages/registerNft/RegisterLoadingPage";
+import NftDetailPage from "@pages/myNft/pages/NftDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
       {
         path: "servicing-repayment",
         element: <GivingAdjustment />,
+      },
+      {
+        path: "nft/detail/:nftId",
+        element: <NftDetailPage />,
       },
     ],
   },

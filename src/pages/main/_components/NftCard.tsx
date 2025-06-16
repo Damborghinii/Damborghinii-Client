@@ -7,6 +7,7 @@ import StatusChip from "@components/common/statusChip/StatusChip";
 import { MyNftType } from "../../myNft/type/nft";
 import { StatusChipVariantType } from "@components/common/statusChip/StatusChip";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
+import { useNavigate } from "react-router-dom";
 
 export const NftCard = ({
   image,
@@ -20,8 +21,12 @@ export const NftCard = ({
   const statusType: StatusChipVariantType = !isRegistered
     ? "secondary"
     : "neutral";
+  const navigate = useNavigate();
+  const handleNavigateDetail = (id: string) => {
+    navigate(`/nft/detail/${id}`);
+  };
   return (
-    <CardWrapper>
+    <CardWrapper onClick={() => handleNavigateDetail(id)}>
       <S.RowFlex gap="0.625rem">
         <img src={image} width={40} height={40} />
         <S.ColumnFlex gap="0.5rem">

@@ -67,3 +67,10 @@ export const evaluateNftValue = async (
   );
   return response.data;
 };
+
+export const fetchNftDetail = async (copyrightId: number) => {
+  const response = await axiosInstance.get(
+    API_PATH.NFT.NFT_DETAIL.replace("{copyrightId}", copyrightId.toString())
+  );
+  return response.data;
+};
