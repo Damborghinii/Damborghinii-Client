@@ -32,7 +32,7 @@ const RegisterLoadingPage = () => {
       onError: (error) => {
         console.error("NFT 저장 실패:", error);
         nftForm.resetForm();
-        navigate("/nft/register/basic");
+        navigate("/myNft");
       },
     });
   }, [createNftMutate, nftForm, navigate]);
