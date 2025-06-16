@@ -27,6 +27,7 @@ const MyNftPage = () => {
         nftType: item.type,
         isRegistered: item.status === "REGISTERED",
         id: String(item.copyrightId),
+        contractId: item.contractId,
         onClick: () => {
           if (item.status === "REGISTERED") {
             navigate(`/loan-apply/${item.copyrightId}`);
@@ -65,7 +66,7 @@ const MyNftPage = () => {
         />
         <S.NftCardContainer>
           {nftList.length > 0 &&
-            nftList.map((nft) => <NftCard key={nft.id} {...nft} />)}
+            nftList.map((nft) => <NftCard key={nft.contractId} {...nft} />)}
         </S.NftCardContainer>
       </S.EntryWrapper>
     </S.MyNftWrapper>

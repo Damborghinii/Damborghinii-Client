@@ -9,6 +9,7 @@ export type MyNftStatusType = "REGISTERED" | "INVESTING" | "ALL";
 
 export type CopyrightItem = {
   copyrightId: number;
+  contractId: number;
   imageUrl: string;
   title: string;
   type: string;
