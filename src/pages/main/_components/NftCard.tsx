@@ -26,8 +26,8 @@ export const NftCard = ({
     navigate(`/nft/detail/${id}`);
   };
   return (
-    <CardWrapper onClick={() => handleNavigateDetail(id)}>
-      <S.RowFlex gap="0.625rem">
+    <CardWrapper>
+      <S.RowFlex gap="0.625rem" onClick={() => handleNavigateDetail(id)}>
         <img src={image} width={40} height={40} />
         <S.ColumnFlex gap="0.5rem">
           <S.CardTitle>{nftName}</S.CardTitle>

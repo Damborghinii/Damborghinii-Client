@@ -13,6 +13,7 @@ const LoginPage = () => {
   const { logo: Logo } = LogoIcons;
 
   const { mutate: loginMutate } = useLogin();
+  const [isError, setIsError] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ const LoginPage = () => {
           navigate("/main");
         },
         onError: (error) => {
+          setIsError(true);
           console.log("로그인 실패: ", error);
         },
       }
@@ -53,6 +55,9 @@ const LoginPage = () => {
           type="password"
         />
       </InputSection>
+      {isError && (
+        <Explaination>아이디 혹은 비밀번호를 다시 확인해주세요.</Explaination>
+      )}
       <ButtonSection>
         <Button children="로그인" fullWidth size="big" onClick={handleLogin} />
         <Button
@@ -104,7 +109,7 @@ const InputSection = styled.div`
   flex-direction: column;
   gap: 20px;
   padding-bottom: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 14px;
 `;
 
 const ButtonSection = styled.div`
@@ -112,4 +117,10 @@ const ButtonSection = styled.div`
   flex-direction: column;
   gap: 15px;
   width: 100%;
+`;
+const Explaination = styled.label`
+  font-size: ${theme.typography["small1-3"].fontSize};
+  font-weight: ${theme.typography["small1-3"].fontWeight};
+  color: ${theme.color.warning.R30};
+  margin-bottom: 36px;
 `;
