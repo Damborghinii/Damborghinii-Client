@@ -16,7 +16,6 @@ export const NftCard = ({
   isRegistered,
   onClick,
   id,
-  contractId,
 }: MyNftType) => {
   const statusType: StatusChipVariantType = !isRegistered
     ? "secondary"

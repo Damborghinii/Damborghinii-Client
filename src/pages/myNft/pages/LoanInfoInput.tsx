@@ -32,8 +32,8 @@ export const LoanInfoInput = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (contractId) {
-        const res = await getLoanInfo(Number(contractId));
+      if (loanId) {
+        const res = await getLoanInfo(Number(loanId));
         if (res.success && res.data) {
           setCondition({ ...res.data.loanCondition });
           setData({
@@ -46,7 +46,7 @@ export const LoanInfoInput = () => {
     };
 
     fetchData();
-  }, [contractId]);
+  }, [loanId]);
 
   const handleLoanChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const numericString = e.target.value.replace(/[^0-9]/g, "");
