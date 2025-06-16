@@ -21,8 +21,8 @@ export const LoanApply = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (loanId) {
-        const res = await getLoanInfo(Number(loanId));
+      if (contractId) {
+        const res = await getLoanInfo(Number(contractId));
         if (res.success && res.data) {
           setCopyright({
             ...res.data.copyright,
@@ -34,7 +34,7 @@ export const LoanApply = () => {
     };
 
     fetchData();
-  }, [loanId]);
+  }, [contractId]);
   return (
     <MainWrapper>
       <SubWrapper>
