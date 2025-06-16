@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-binary-expression */
 import styled from "@emotion/styled";
 import { LoanInfo, LoanInfoProps } from "../_components/LoanInfo";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
@@ -6,10 +7,12 @@ import { ConfirmNoticeSection } from "../_components/ConfirmNoticeSection";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getLoanConfirm, postLoan } from "@apis/loan";
+import { useModal } from "@hooks/useModal";
 
 export const LoanConfirm = () => {
   const navigate = useNavigate();
   const { loanId, contractId } = useParams();
+  const { openModal, closeModal } = useModal();
   const [loanInfo, setLoanInfo] = useState<LoanInfoProps>({
     loanAmount: "",
     monthlyInterest: "",
@@ -58,6 +61,33 @@ export const LoanConfirm = () => {
     fetchData();
   }, [contractId]);
 
+  const handleClick = () => {
+    if (!loanId) return;
+
+    openModal({
+      title: "정말 대출을 신청하시겠습니까?",
+      sub: "신청 후에는 수정이 불가능합니다.",
+      primaryButton: {
+        children: "취소",
+        onClick: closeModal,
+      },
+      secondButton: {
+        children: "확인",
+        onClick: async () => {
+          closeModal();
+
+          await postLoan(
+            Number(contractId),
+            Number(localStorage.getItem("amount")) ?? 10000,
+            Number(localStorage.getItem("count")) ?? 12
+          );
+
+          navigate("/myNft");
+        },
+      },
+    });
+  };
+
   return (
     <MainWrapper>
       <CheckSection>
@@ -67,23 +97,7 @@ export const LoanConfirm = () => {
         <LoanInfo {...loanInfo} />
       </CheckSection>
       <HorizontalDivider />
-      <ConfirmNoticeSection
-        onClick={async () => {
-          if (!loanId) return;
-          const confirm = window.confirm("정말 대출을 신청하시겠습니까?");
-          if (!confirm) return;
-
-          await postLoan(
-            Number(contractId),
-            Number(localStorage.getItem("amount")) ?? 10000,
-            Number(localStorage.getItem("count")) ?? 12
-          );
-
-          alert("대출 신청이 완료되었습니다!");
-          await new Promise((resolve) => setTimeout(resolve, 2000));
-          navigate("/myNft");
-        }}
-      />
+      <ConfirmNoticeSection onClick={handleClick} />
     </MainWrapper>
   );
 };

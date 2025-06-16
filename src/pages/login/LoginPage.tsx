@@ -56,7 +56,9 @@ const LoginPage = () => {
         />
       </InputSection>
       {isError && (
-        <Explaination>아이디 혹은 비밀번호를 다시 확인해주세요.</Explaination>
+        <ExplainationWrapper>
+          <Explaination>아이디 혹은 비밀번호를 다시 확인해주세요.</Explaination>
+        </ExplainationWrapper>
       )}
       <ButtonSection>
         <Button children="로그인" fullWidth size="big" onClick={handleLogin} />
@@ -108,7 +110,6 @@ const InputSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding-bottom: 30px;
   margin-bottom: 14px;
 `;
 
@@ -117,6 +118,13 @@ const ButtonSection = styled.div`
   flex-direction: column;
   gap: 15px;
   width: 100%;
+`;
+
+const ExplainationWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: baseline;
 `;
 const Explaination = styled.label`
   font-size: ${theme.typography["small1-3"].fontSize};

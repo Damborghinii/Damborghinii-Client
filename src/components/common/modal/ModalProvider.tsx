@@ -5,8 +5,8 @@ import { useModal } from "../../../hooks/useModal";
 import FixedContainer from "../fixedContainer/FixedContainer";
 
 export interface ModalProps {
-  title: String;
-  subTitle: String;
+  title: string;
+  subTitle: string;
   icon?: ReactSVGElement;
 }
 
