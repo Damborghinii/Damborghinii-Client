@@ -18,10 +18,7 @@ export const ProgressRateSection = (props: ProgressInfoProps) => {
       <Spacer height="0.5rem" />
       <ProgressBarWrapper>
         <ProgressBarFill
-          percentage={parseInt(
-            props.currentProgress.replace(/[^0-9]/g, ""),
-            10
-          )}
+          percentage={parseFloat(props.currentProgress.replace(/[^0-9.]/g, ""))}
         />
       </ProgressBarWrapper>
       <Spacer height="0.75rem" />

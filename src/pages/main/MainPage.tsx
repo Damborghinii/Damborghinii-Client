@@ -38,8 +38,8 @@ export const MainPage: React.FC = () => {
             )}
             collateralName={contract.copyright.name}
             presentValue={contract.copyright.ethPrice}
-            investmentProgressRate={parseInt(
-              contract.progress.replace(/[^0-9]/g, "")
+            investmentProgressRate={parseFloat(
+              contract.progress.replace(/[^0-9.]/g, "")
             )}
             onClick={() => navigate(`/investment/${contract.contractId}`)}
           />
