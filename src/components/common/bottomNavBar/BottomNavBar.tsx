@@ -59,7 +59,7 @@ const tabItems: TabItem[] = [
   {
     name: "",
     label: TAB_LABELS.INVESTMENT,
-    path: "/",
+    path: "/main",
     Icon: bottomAppBarIcons.investment_arrow,
   },
   {

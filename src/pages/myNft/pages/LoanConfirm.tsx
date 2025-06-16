@@ -4,7 +4,7 @@ import { HorizontalDivider } from "@components/common/horizontalDivider/Horizont
 import { cardImage } from "@assets/image";
 import Spacer from "@components/common/spacer/Spacer";
 import { ConfirmNoticeSection } from "../_components/ConfirmNoticeSection";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getLoanConfirm, postLoan } from "@apis/loan";
 
@@ -24,17 +24,18 @@ const MOCK_LOAN_INFO: LoanInfoProps = {
 };
 
 export const LoanConfirm = () => {
-  const { loanId } = useParams();
+  const navigate = useNavigate();
+  const { loanId, contractId } = useParams();
   const [loanInfo, setLoanInfo] = useState<LoanInfoProps | null>(null);
   console.log(loanInfo);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!loanId) return;
+      if (!contractId) return;
 
       // 예시: amount = 10000000, count = 12 -> 필요에 따라 param 넘기기
       const res = await getLoanConfirm(
-        Number(loanId),
+        Number(contractId),
         Number(localStorage.getItem("amount")) ?? 10000,
         Number(localStorage.getItem("count")) ?? 12
       );
@@ -59,7 +60,7 @@ export const LoanConfirm = () => {
     };
 
     fetchData();
-  }, [loanId]);
+  }, [contractId]);
 
   return (
     <MainWrapper>
@@ -77,12 +78,14 @@ export const LoanConfirm = () => {
           if (!confirm) return;
 
           await postLoan(
-            Number(loanId),
+            Number(contractId),
             Number(localStorage.getItem("amount")) ?? 10000,
             Number(localStorage.getItem("count")) ?? 12
           );
 
           alert("대출 신청이 완료되었습니다!");
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          navigate("/myNft");
         }}
       />
     </MainWrapper>

@@ -24,7 +24,7 @@ export const EntryWrapper = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.color.neutral.B00};
 
-  padding-bottom: 5rem;
+  padding-bottom: 7.5rem;
 `;
 
 export const NftCardContainer = styled.div`

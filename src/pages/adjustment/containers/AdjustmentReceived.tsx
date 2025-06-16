@@ -41,9 +41,9 @@ export const AdjustmentReceived = () => {
   return (
     <Wrapper>
       <AdjustmentCard
-        balance={`${adjustmentInfo.cash.toLocaleString()}원`}
-        totalContracts={adjustmentInfo.totalContracts.toLocaleString()}
-        totalAmount={adjustmentInfo.totalAmount.toLocaleString()}
+        balance={`${adjustmentInfo.cash?.toLocaleString()}원`}
+        totalContracts={adjustmentInfo?.totalContracts.toLocaleString()}
+        totalAmount={adjustmentInfo?.totalAmount.toLocaleString()}
       />
       <AdjustmentTab
         tabStatus={tabstatus}
@@ -56,7 +56,7 @@ export const AdjustmentReceived = () => {
             : tabstatus === "OVERDUE"
             ? "미상환"
             : "상환완료"}
-          <BodyText>총 {totalAmount.toLocaleString()}원</BodyText>
+          <BodyText>총 {totalAmount?.toLocaleString()}원</BodyText>
         </RowInfo>
         {adjustmentInfo.repaymentSchedules.repaymentScheduleList.length > 0 &&
           adjustmentInfo.repaymentSchedules.repaymentScheduleList.map(

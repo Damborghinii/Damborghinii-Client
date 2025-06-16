@@ -8,7 +8,7 @@ import { CopyrightDetail, getLoanInfo, LoanCondition } from "@apis/loan";
 
 export const LoanApply = () => {
   const [isFold, setIsFold] = useState<boolean>(false);
-  const { loanId } = useParams();
+  const { loanId, contractId } = useParams();
   const navigate = useNavigate();
   const [copyright, setCopyright] = useState<CopyrightDetail | null>(null);
   const [condition, setCondition] = useState<LoanCondition>({
@@ -58,7 +58,7 @@ export const LoanApply = () => {
       <NoticeSection
         condition={condition}
         hasButton={true}
-        onClick={() => navigate(`/loan-info-input/${loanId}`)}
+        onClick={() => navigate(`/loan-info-input/${loanId}/${contractId}`)}
       />
     </MainWrapper>
   );

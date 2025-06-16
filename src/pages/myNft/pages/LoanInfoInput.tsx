@@ -10,7 +10,7 @@ interface ButtonProps {
 }
 
 export const LoanInfoInput = () => {
-  const { loanId } = useParams();
+  const { loanId, contractId } = useParams();
   const navigate = useNavigate();
   const [loanAmount, setLoanAmount] = useState<number>(0);
   const [round, setRound] = useState<string>("");
@@ -121,7 +121,7 @@ export const LoanInfoInput = () => {
           onClick={() => {
             localStorage.setItem("amount", loanAmount.toString());
             localStorage.setItem("count", round.toString());
-            navigate(`/loan-confirm/${loanId}`);
+            navigate(`/loan-confirm/${loanId}/${contractId}`);
           }}
         >
           최종 정보 확인

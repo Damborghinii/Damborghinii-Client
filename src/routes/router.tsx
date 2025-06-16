@@ -43,6 +43,7 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       { path: "", element: <MainPage /> },
+      { path: "main", element: <MainPage /> },
       { path: "myNft", element: <MyNftPage /> },
       { path: "contract", element: <ContractPage /> },
       { path: "adjustment", element: <Adjustment /> },
@@ -83,15 +84,15 @@ const router = createBrowserRouter([
         element: <InvestmentInfoInput />,
       },
       {
-        path: "loan-apply/:loanId",
+        path: "loan-apply/:loanId/:contractId",
         element: <LoanApply />,
       },
       {
-        path: "loan-info-input/:loanId",
+        path: "loan-info-input/:loanId/:contractId",
         element: <LoanInfoInput />,
       },
       {
-        path: "loan-confirm/:loanId",
+        path: "loan-confirm/:loanId/:contractId",
         element: <LoanConfirm />,
       },
       {
