@@ -10,7 +10,7 @@ interface ButtonProps {
 }
 
 export const LoanInfoInput = () => {
-  const { loanId } = useParams();
+  const { loanId, contractId } = useParams();
   const navigate = useNavigate();
   const [loanAmount, setLoanAmount] = useState<number>(0);
   const [round, setRound] = useState<string>("");
@@ -32,8 +32,8 @@ export const LoanInfoInput = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (loanId) {
-        const res = await getLoanInfo(Number(loanId));
+      if (contractId) {
+        const res = await getLoanInfo(Number(contractId));
         if (res.success && res.data) {
           setCondition({ ...res.data.loanCondition });
           setData({
@@ -46,7 +46,7 @@ export const LoanInfoInput = () => {
     };
 
     fetchData();
-  }, [loanId]);
+  }, [contractId]);
 
   const handleLoanChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const numericString = e.target.value.replace(/[^0-9]/g, "");
@@ -121,7 +121,7 @@ export const LoanInfoInput = () => {
           onClick={() => {
             localStorage.setItem("amount", loanAmount.toString());
             localStorage.setItem("count", round.toString());
-            navigate(`/loan-confirm/${loanId}`);
+            navigate(`/loan-confirm/${loanId}/${contractId}`);
           }}
         >
           최종 정보 확인

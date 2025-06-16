@@ -8,7 +8,7 @@ import { CopyrightDetail, getLoanInfo, LoanCondition } from "@apis/loan";
 
 export const LoanApply = () => {
   const [isFold, setIsFold] = useState<boolean>(false);
-  const { loanId } = useParams();
+  const { loanId, contractId } = useParams();
   const navigate = useNavigate();
   const [copyright, setCopyright] = useState<CopyrightDetail | null>(null);
   const [condition, setCondition] = useState<LoanCondition>({
@@ -21,8 +21,8 @@ export const LoanApply = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (loanId) {
-        const res = await getLoanInfo(Number(loanId));
+      if (contractId) {
+        const res = await getLoanInfo(Number(contractId));
         if (res.success && res.data) {
           setCopyright({
             ...res.data.copyright,
@@ -34,7 +34,7 @@ export const LoanApply = () => {
     };
 
     fetchData();
-  }, [loanId]);
+  }, [contractId]);
   return (
     <MainWrapper>
       <SubWrapper>
@@ -58,7 +58,7 @@ export const LoanApply = () => {
       <NoticeSection
         condition={condition}
         hasButton={true}
-        onClick={() => navigate(`/loan-info-input/${loanId}`)}
+        onClick={() => navigate(`/loan-info-input/${loanId}/${contractId}`)}
       />
     </MainWrapper>
   );

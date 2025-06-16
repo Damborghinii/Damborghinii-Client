@@ -16,6 +16,7 @@ export const NftCard = ({
   isRegistered,
   onClick,
   id,
+  contractId,
 }: MyNftType) => {
   const statusType: StatusChipVariantType = !isRegistered
     ? "secondary"
@@ -45,7 +46,9 @@ export const NftCard = ({
           <Spacer height="0.625rem" />
           <HorizontalDivider />
           <Spacer height="0.625rem" />
-          <RegisterButton onClick={() => onClick(id)}>대출 신청</RegisterButton>
+          <RegisterButton onClick={() => onClick(id.toString())}>
+            대출 신청
+          </RegisterButton>
         </>
       )}
     </CardWrapper>

@@ -30,7 +30,7 @@ const MyNftPage = () => {
         contractId: item.contractId,
         onClick: () => {
           if (item.status === "REGISTERED") {
-            navigate(`/loan-apply/${item.copyrightId}`);
+            navigate(`/loan-apply/${item.copyrightId}/${item.contractId}`);
           } else {
             console.log(`상태: ${item.status} → 대출신청 불가`);
           }
