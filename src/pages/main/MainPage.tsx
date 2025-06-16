@@ -41,7 +41,7 @@ export const MainPage: React.FC = () => {
             investmentProgressRate={parseInt(
               contract.progress.replace(/[^0-9]/g, "")
             )}
-            onClick={() => navigate(`investment/${contract.contractId}`)}
+            onClick={() => navigate(`/investment/${contract.contractId}`)}
           />
         ))}
       </S.MainCardWrapper>
