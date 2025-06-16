@@ -93,12 +93,6 @@ const NoticeList = styled.ul`
   }
 `;
 
-const CheckWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-`;
-
 const CheckBox = styled.input`
   width: 1rem;
   height: 1rem;
@@ -106,6 +100,7 @@ const CheckBox = styled.input`
   border-radius: 0.2rem;
   appearance: none;
   cursor: pointer;
+  position: relative; /* ⬅️ ::after 기준점 */
 
   &:checked {
     background-color: ${({ theme }) => theme.color.primary.P50};
@@ -114,9 +109,12 @@ const CheckBox = styled.input`
 
   &:checked::after {
     content: "✔";
-    display: block;
-    text-align: center;
-    font-size: 0.75rem;
+
+    position: absolute; /* ⬅️ 위치 제어 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.5rem;
     color: white;
   }
 `;
@@ -143,4 +141,10 @@ const Button = styled.button<ButtonProps>`
 
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   transition: background-color 0.2s ease-in-out;
+`;
+
+const CheckWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 `;

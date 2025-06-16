@@ -302,6 +302,7 @@ const CheckBox = styled.input`
   border-radius: 0.2rem;
   appearance: none;
   cursor: pointer;
+  position: relative; /* ⬅️ ::after 기준점 */
 
   &:checked {
     background-color: ${({ theme }) => theme.color.primary.P50};
@@ -310,9 +311,12 @@ const CheckBox = styled.input`
 
   &:checked::after {
     content: "✔";
-    display: block;
-    text-align: center;
-    font-size: 0.75rem;
+
+    position: absolute; /* ⬅️ 위치 제어 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.5rem;
     color: white;
   }
 `;
