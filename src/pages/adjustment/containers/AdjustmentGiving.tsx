@@ -45,9 +45,9 @@ export const GivingAdjustment = () => {
   return (
     <Wrapper>
       <AdjustmentCard
-        balance={`${adjustmentInfo.cash.toLocaleString()}원`}
-        totalContracts={adjustmentInfo.totalContracts.toLocaleString()}
-        totalAmount={adjustmentInfo.totalAmount.toLocaleString()}
+        balance={`${adjustmentInfo.cash?.toLocaleString()}원`}
+        totalContracts={adjustmentInfo?.totalContracts.toLocaleString()}
+        totalAmount={adjustmentInfo?.totalAmount.toLocaleString()}
         isReceivedType={false}
       />
       <AdjustmentTab
@@ -62,7 +62,7 @@ export const GivingAdjustment = () => {
             ? "미상환"
             : "상환완료"}
           <BodyText>
-            총 {adjustmentInfo.totalAmount.toLocaleString()}원
+            총 {adjustmentInfo?.totalAmount.toLocaleString()}원
           </BodyText>
         </RowInfo>
         {adjustmentInfo.repaymentSchedules.repaymentScheduleList.length > 0 &&

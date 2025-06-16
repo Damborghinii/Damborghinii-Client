@@ -43,6 +43,7 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       { path: "", element: <MainPage /> },
+      { path: "main", element: <MainPage /> },
       { path: "myNft", element: <MyNftPage /> },
       { path: "contract", element: <ContractPage /> },
       { path: "adjustment", element: <Adjustment /> },

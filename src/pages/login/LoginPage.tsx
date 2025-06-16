@@ -23,7 +23,7 @@ const LoginPage = () => {
         onSuccess: (response) => {
           localStorage.setItem("accessToken", response.data.accessToken);
           localStorage.setItem("refreshToken", response.data.refreshToken);
-          navigate("/");
+          navigate("/main");
         },
         onError: (error) => {
           console.log("로그인 실패: ", error);
