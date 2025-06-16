@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 import Spacer from "@components/common/spacer/Spacer";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
+import { cardImage } from "@assets/image";
 
 import { SubContent, SubTitle } from "@pages/invesetment/_components/Text";
 
@@ -42,7 +43,7 @@ export const LoanInfo = (props: LoanInfoProps) => {
           </CardTextWrapper>
           <CardTextWrapper>
             <SubTitle>연이율</SubTitle>
-            <SubContent>{"30%"}</SubContent>
+            <SubContent>{props.annualInterestRate}</SubContent>
           </CardTextWrapper>
         </RowWrapper>
         <Spacer height="0.75rem" />
@@ -61,7 +62,7 @@ export const LoanInfo = (props: LoanInfoProps) => {
         <RowWrapper>
           <CardTextWrapper>
             <SubTitle>연체율</SubTitle>
-            <SubContent>{props.annualInterestRate}</SubContent>
+            <SubContent>{props.delinquencyRate}</SubContent>
           </CardTextWrapper>
         </RowWrapper>
 
@@ -86,7 +87,12 @@ export const LoanInfo = (props: LoanInfoProps) => {
         <SubTitle>대출 담보</SubTitle>
         <Spacer height="0.5rem" />
         <LoanWrapper>
-          <img src={props.imageUrl} alt="담보 사진" width={18} height={18} />
+          <img
+            src={props.imageUrl || cardImage}
+            alt="담보 사진"
+            width={18}
+            height={18}
+          />
           <SubContent
             style={{
               paddingTop: "0.1rem",

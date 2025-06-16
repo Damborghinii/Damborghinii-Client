@@ -1,39 +1,35 @@
 import styled from "@emotion/styled";
 import { LoanInfo, LoanInfoProps } from "../_components/LoanInfo";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
-import { cardImage } from "@assets/image";
 import Spacer from "@components/common/spacer/Spacer";
 import { ConfirmNoticeSection } from "../_components/ConfirmNoticeSection";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getLoanConfirm, postLoan } from "@apis/loan";
 
-const MOCK_LOAN_INFO: LoanInfoProps = {
-  loanAmount: "10,000,000원",
-  monthlyInterest: "250,000원",
-  repaymentMethod: "만기일시상환",
-  annualInterestRate: "30%",
-  totalRepaymentAmount: "13,000,000원",
-  delinquencyRate: "5%",
-  loanPeriod: "1년",
-  repaymentRounds: "12회차",
-  imageUrl: cardImage,
-  nftName: "Lil Pudgy #2017",
-  nftPrice: "2299ETH",
-  realPrice: "28,495,433원",
-};
-
 export const LoanConfirm = () => {
   const navigate = useNavigate();
   const { loanId, contractId } = useParams();
-  const [loanInfo, setLoanInfo] = useState<LoanInfoProps | null>(null);
+  const [loanInfo, setLoanInfo] = useState<LoanInfoProps>({
+    loanAmount: "",
+    monthlyInterest: "",
+    repaymentMethod: "",
+    annualInterestRate: "",
+    totalRepaymentAmount: "",
+    delinquencyRate: "",
+    loanPeriod: "",
+    repaymentRounds: "",
+    imageUrl: "",
+    nftName: "",
+    nftPrice: "",
+    realPrice: "",
+  });
   console.log(loanInfo);
 
   useEffect(() => {
     const fetchData = async () => {
       if (!contractId) return;
 
-      // 예시: amount = 10000000, count = 12 -> 필요에 따라 param 넘기기
       const res = await getLoanConfirm(
         Number(contractId),
         Number(localStorage.getItem("amount")) ?? 10000,
@@ -43,18 +39,18 @@ export const LoanConfirm = () => {
         const { loanCondition, copyright } = res.data;
 
         setLoanInfo({
-          loanAmount: loanCondition.loanAmount,
-          monthlyInterest: loanCondition.monthlyInterest,
-          repaymentMethod: loanCondition.loanType,
-          annualInterestRate: loanCondition.interestRate,
-          totalRepaymentAmount: loanCondition.totalPayment,
-          delinquencyRate: loanCondition.overdueRate,
-          loanPeriod: loanCondition.loanPeriod,
-          repaymentRounds: loanCondition.repaymentCount,
-          imageUrl: copyright.imageUrl,
-          nftName: copyright.title,
-          nftPrice: copyright.ethPrice,
-          realPrice: copyright.wonPrice,
+          loanAmount: loanCondition.loanAmount ?? "",
+          monthlyInterest: loanCondition.monthlyInterest ?? "",
+          repaymentMethod: loanCondition.loanType ?? "",
+          annualInterestRate: loanCondition.interestRate ?? "",
+          totalRepaymentAmount: loanCondition.totalPayment ?? "",
+          delinquencyRate: loanCondition.overdueRate ?? "",
+          loanPeriod: loanCondition.loanPeriod ?? "",
+          repaymentRounds: loanCondition.repaymentCount ?? "",
+          imageUrl: copyright.imageUrl ?? "",
+          nftName: copyright.title ?? "",
+          nftPrice: copyright.ethPrice ?? "",
+          realPrice: copyright.wonPrice ?? "",
         });
       }
     };
@@ -68,7 +64,7 @@ export const LoanConfirm = () => {
         <Title>최종 정보를 확인해 주세요.</Title>
         <Spacer height="2.5rem" />
 
-        <LoanInfo {...MOCK_LOAN_INFO} />
+        <LoanInfo {...loanInfo} />
       </CheckSection>
       <HorizontalDivider />
       <ConfirmNoticeSection
@@ -102,7 +98,6 @@ const MainWrapper = styled.div`
 const Title = styled.h1`
   width: 100%;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
 
   ${({ theme }) => theme.typography["body1-1"]}

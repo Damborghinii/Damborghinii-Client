@@ -3,6 +3,7 @@ import theme from "@styles/theme";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchNftDetail } from "@apis/nft";
+import SvgIcDownload from "@assets/svg/IcDownload";
 
 type NftDetailType = {
   copyrightId: number;
@@ -85,8 +86,11 @@ const RegisterNftConfirmPage = () => {
                 : "저작권이 등록되지 않은 음원"}
             </InfoRow>
             <InfoRow label="저작권 등록증">
-              다운로드 넣으삼요
-              {detail.registrationDoc ?? "등록된 파일 없음"}
+              <SvgIcDownload
+                width={16}
+                height={16}
+                onClick={() => window.open(detail.registrationDoc)}
+              />
             </InfoRow>
           </InfoTable>
           <InfoTable>
@@ -94,7 +98,7 @@ const RegisterNftConfirmPage = () => {
               <Label>음원 스트리밍 URL</Label>
             </TableRow>
             <TableRow>
-              <UrlText>
+              <UrlText onClick={() => window.open(detail.streamingUrls)}>
                 <span>{detail.streamingUrls}</span>
               </UrlText>
             </TableRow>

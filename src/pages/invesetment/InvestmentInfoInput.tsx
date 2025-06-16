@@ -191,7 +191,6 @@ const InvestWrapper = styled.div`
 const Title = styled.h1`
   width: 100%;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
 
   ${({ theme }) => theme.typography["body1-1"]}
@@ -215,7 +214,7 @@ const InvestInput = styled.input`
   width: 100%;
 
   width: 100%;
-  padding-right: 2rem; /* '원'이 들어갈 공간 확보 */
+  padding-right: 2rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 
@@ -302,7 +301,7 @@ const CheckBox = styled.input`
   border-radius: 0.2rem;
   appearance: none;
   cursor: pointer;
-  position: relative; /* ⬅️ ::after 기준점 */
+  position: relative;
 
   &:checked {
     background-color: ${({ theme }) => theme.color.primary.P50};
@@ -312,7 +311,7 @@ const CheckBox = styled.input`
   &:checked::after {
     content: "✔";
 
-    position: absolute; /* ⬅️ 위치 제어 */
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

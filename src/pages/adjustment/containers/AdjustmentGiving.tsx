@@ -72,14 +72,20 @@ export const GivingAdjustment = () => {
                 status={tabstatus}
                 schedule={item}
                 key={item.repaymentScheduleId || index}
-                onClick={async () => {
-                  const confirm = window.confirm("상환하시겠습니까?");
-                  if (confirm) {
-                    await patchRepaymentContract(item.repaymentScheduleId);
-                    setUpdateFlag(!updateFlag);
-                    alert("상환이 완료되었습니다.");
-                  }
-                }}
+                onClick={
+                  tabstatus === "UPCOMING" || tabstatus === "OVERDUE"
+                    ? async () => {
+                        const confirm = window.confirm("상환하시겠습니까?");
+                        if (confirm) {
+                          await patchRepaymentContract(
+                            item.repaymentScheduleId
+                          );
+                          setUpdateFlag(!updateFlag);
+                          alert("상환이 완료되었습니다.");
+                        }
+                      }
+                    : undefined
+                }
               />
             )
           )}
