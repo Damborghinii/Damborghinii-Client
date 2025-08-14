@@ -3,10 +3,10 @@ import theme from "../../../styles/theme";
 
 type ButtonSize = "big" | "medium" | "small";
 type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "line-primary"
-  | "line-secondary";
+  | "primary" // Button 1
+  | "secondary" // Button 2
+  | "line-primary" // Button 3
+  | "line-secondary"; // Button 4
 
 interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   size?: ButtonSize;
@@ -53,9 +53,9 @@ const styleMap: Record<
       borderColor: theme.color.primary.P50,
     },
     disabled: {
-      backgroundColor: theme.color.primary.P30,
-      textColor: theme.color.neutral.white,
-      borderColor: theme.color.primary.P30,
+      backgroundColor: theme.color.primary.P20,
+      textColor: theme.color.neutral.B10,
+      borderColor: "transparent",
     },
   },
   secondary: {
@@ -65,33 +65,33 @@ const styleMap: Record<
       borderColor: theme.color.neutral.B50,
     },
     disabled: {
-      backgroundColor: theme.color.neutral.B30,
-      textColor: theme.color.neutral.white,
-      borderColor: theme.color.neutral.B30,
+      backgroundColor: theme.color.neutral.B20,
+      textColor: theme.color.neutral.B10,
+      borderColor: "transparent",
     },
   },
   "line-primary": {
     enabled: {
-      backgroundColor: theme.color.primary.P00,
+      backgroundColor: theme.color.neutral.B00,
       textColor: theme.color.primary.P60,
-      borderColor: theme.color.primary.P40,
+      borderColor: "transparent",
     },
     disabled: {
-      backgroundColor: theme.color.primary.P00,
+      backgroundColor: theme.color.neutral.B00,
       textColor: theme.color.primary.P30,
-      borderColor: theme.color.primary.P30,
+      borderColor: "transparent",
     },
   },
   "line-secondary": {
     enabled: {
       backgroundColor: theme.color.neutral.B00,
-      textColor: theme.color.neutral.B60,
-      borderColor: theme.color.neutral.B30,
+      textColor: theme.color.primary.P60,
+      borderColor: "transparent",
     },
     disabled: {
       backgroundColor: theme.color.neutral.B00,
-      textColor: theme.color.neutral.B30,
-      borderColor: theme.color.neutral.B20,
+      textColor: theme.color.primary.P30,
+      borderColor: "transparent",
     },
   },
 };
