@@ -5,12 +5,10 @@ import useLogin from "@hooks/queries/useLogin";
 import theme from "@styles/theme";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LogoIcons } from "@assets/icons";
 
 const LoginPage = () => {
   const [loginId, setLoginId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { logo: Logo } = LogoIcons;
 
   const { mutate: loginMutate } = useLogin();
   const [isError, setIsError] = useState<boolean>(false);
@@ -38,10 +36,10 @@ const LoginPage = () => {
   };
   return (
     <PageContainer>
-      <LogoSection>
-        <Logo />
-        <LogoTitle>Damborghinii</LogoTitle>
-      </LogoSection>
+      <TitleSection>
+        <Title>로그인</Title>
+        <SubTitle>로그인 후 더 많은 서비스를 이용해 보세요.</SubTitle>
+      </TitleSection>
       <InputSection>
         <SingleInputSection
           placeholder="아이디를 입력해주세요"
@@ -90,19 +88,25 @@ const PageContainer = styled.div`
   overflow-y: hidden;
 `;
 
-const LogoSection = styled.div`
+const TitleSection = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
   margin-bottom: 50px;
   gap: 8px;
 `;
 
-const LogoTitle = styled.h2`
-  font-size: 30px;
-  font-weight: 900;
-  color: ${theme.color.primary.P60};
+const Title = styled.h2`
+  font-size: 26px;
+  font-weight: 700;
+  color: ${theme.color.neutral.black};
+`;
+
+const SubTitle = styled.h3`
+  font-size: ${theme.typography["small1-2"].fontSize};
+  font-weight: ${theme.typography["small1-2"].fontWeight};
+  color: ${theme.color.neutral.B30};
 `;
 
 const InputSection = styled.div`
@@ -118,6 +122,7 @@ const ButtonSection = styled.div`
   flex-direction: column;
   gap: 15px;
   width: 100%;
+  margin-top: 50px;
 `;
 
 const ExplainationWrapper = styled.div`

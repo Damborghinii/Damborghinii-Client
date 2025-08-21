@@ -3,13 +3,13 @@ import styled from "@emotion/styled";
 import theme from "@styles/theme";
 import React from "react";
 
-const { check: Check } = signUpIcons;
+const { check: CheckIcon, deny: DenyIcon } = signUpIcons;
 
 type Props = {
   placeholder: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  isIcon?: boolean;
+  iconType?: "check" | "deny";
   type?: string;
 };
 
@@ -17,7 +17,7 @@ export const SingleInputSection = ({
   placeholder,
   value,
   onChange,
-  isIcon,
+  iconType,
   type,
 }: Props) => {
   return (
@@ -28,9 +28,14 @@ export const SingleInputSection = ({
         onChange={onChange}
         type={type}
       />
-      {isIcon && (
+      {iconType === "check" && (
         <IconWrapper>
-          <Check />
+          <CheckIcon />
+        </IconWrapper>
+      )}
+      {iconType === "deny" && (
+        <IconWrapper>
+          <DenyIcon />
         </IconWrapper>
       )}
     </InputWrapper>
