@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import { MainLoanCard } from "./_components/MainLoanCard";
 
-import { MainTitle } from "./_components/MainTitle";
 import { useEffect, useState } from "react";
 import { Contract, getContracts } from "@apis/investment";
+import { IcSearch } from "@assets/svg";
 
 export const MainPage: React.FC = () => {
   const navigate = useNavigate();
   const [contracts, setContracts] = useState<Contract[]>([]);
+  const [inputValue, setInputValue] = useState<string>("");
   const fetchData = async () => {
     const res = await getContracts();
     if (res.success && Array.isArray(res.data?.contracts)) {
@@ -23,10 +24,33 @@ export const MainPage: React.FC = () => {
   }, []);
   return (
     <S.MainContainer>
-      <MainTitle
-        mainText="전체 투자 진행건"
-        subText={`총 ${contracts.length.toString()}건`}
-      />
+      <S.MainSearchContainer>
+        <S.MainSearchItem
+          type="text"
+          name="search"
+          placeholder="음원명, 가수 검색"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setInputValue(e.target.value)
+          }
+          value={inputValue}
+        />
+        <IcSearch
+          width={18}
+          height={18}
+          style={{
+            position: "absolute",
+            top: "12px",
+            right: "2.5rem",
+            cursor: "pointer",
+          }}
+          onClick={
+            inputValue.length > 0
+              ? () => alert("검색 가능")
+              : () => alert("입력 필드를 채워주세요.")
+          }
+        />
+      </S.MainSearchContainer>
+
       <S.MainCardWrapper>
         {contracts.map((contract) => (
           <MainLoanCard
