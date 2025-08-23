@@ -9,3 +9,6 @@ export { default as IcArrowDown } from "./IcArrowDown";
 export { default as IcDownload } from "./IcDownload";
 export { default as IcArrowRight } from "./IcArrowRight";
 export { default as IcMoney } from "./IcMoney";
+export { default as IcHome } from "./IcHome";
+export { default as IcMyMusic } from "./IcMyMusic";
+export { default as IcWallet } from "./IcWallet";

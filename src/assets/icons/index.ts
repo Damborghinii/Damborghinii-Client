@@ -1,4 +1,3 @@
-import InvestmentArrow from "../icons/investment_arrow.svg?react";
 import MyNft from "../icons/my_nft.svg?react";
 import AdjustmentManagement from "../icons/adjustment_management.svg?react";
 import Contract from "../icons/contract.svg?react";
@@ -11,16 +10,16 @@ import RegisterLoading from "../icons/register_loading.svg?react";
 import Check from "../icons/check_icon.svg?react";
 import SignUpComplete from "../icons/signup_complete.svg?react";
 import Logo from "../icons/logo.svg?react";
+import { IcHome, IcMyMusic, IcWallet } from "@assets/svg";
 
 export const commonIcons = {
   close: Close,
 };
 
 export const bottomAppBarIcons = {
-  investment_arrow: InvestmentArrow,
-  my_nft: MyNft,
-  adjustment_management: AdjustmentManagement,
-  contract: Contract,
+  main: IcHome,
+  myMusic: IcMyMusic,
+  wallet: IcWallet,
 };
 
 export const nftIcons = {
