@@ -69,13 +69,13 @@ const theme: DefaultTheme = {
     },
 
     primary: {
-      P60: "#7C4BC9",
-      P50: "#925FD7",
-      P40: "#A679E2",
-      P30: "#C3A3EB",
-      P20: "#DDD0F4",
-      P10: "#F1EBFA",
-      P00: "#FAF5FF",
+      P60: "#2A2A2E",
+      P50: "#3F3F46",
+      P40: "#52525B",
+      P30: "#71717A",
+      P20: "#A1A1AA",
+      P10: "#D4D4D8",
+      P00: "#E4E4E7",
     },
 
     secondary: {
