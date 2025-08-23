@@ -1,7 +1,6 @@
 export { default as IcBugger } from "./IcBugger";
 export { default as IcHeart } from "./IcHeart";
 export { default as IcSearch } from "./IcSearch";
-export { default as IcLogo } from "./IcLogo";
 export { default as IcPopUp } from "./IcPopUp";
 export { default as IcDown } from "./IcDown";
 export { default as IcArrowBack } from "./IcArrowBack";
@@ -9,3 +8,7 @@ export { default as IcArrowDown } from "./IcArrowDown";
 export { default as IcDownload } from "./IcDownload";
 export { default as IcArrowRight } from "./IcArrowRight";
 export { default as IcMoney } from "./IcMoney";
+export { default as IcHome } from "./IcHome";
+export { default as IcMyMusic } from "./IcMyMusic";
+export { default as IcWallet } from "./IcWallet";
+export { default as IcHamburgerButton } from "./IcHamburgerButton";

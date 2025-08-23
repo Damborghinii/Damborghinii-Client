@@ -14,7 +14,6 @@ const NavBarContainer = styled.div`
   align-items: center;
   padding: 12px 0;
   background-color: ${theme.color.neutral.white};
-  border-radius: 20px 20px 0 0;
 `;
 
 const NavItemWrapper = styled.div`
@@ -36,7 +35,6 @@ const IconWrapper = styled.div<{ isSelected: boolean }>`
 
 const TextWrapper = styled.div<TextProps>`
   margin-top: 2px;
-
   ${({ theme }) => theme.typography["small2-2"]}
   color: ${({ theme, isSelected }) =>
     isSelected ? theme.color.neutral.B70 : theme.color.neutral.B40}
@@ -46,34 +44,34 @@ type TabItem = {
   name: string;
   label: string;
   path: string;
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
 };
 
 const TAB_LABELS = {
-  INVESTMENT: "투자하기",
-  MY_NFT: "내 NFT",
+  MAIN: "홈",
+  MY_NFT: "내 음원",
   ADJUSTMENT: "정산관리",
 } as const;
 
 const tabItems: TabItem[] = [
   {
-    name: "",
-    label: TAB_LABELS.INVESTMENT,
+    name: "main",
+    label: TAB_LABELS.MAIN,
     path: "/main",
-    Icon: bottomAppBarIcons.investment_arrow,
+    icon: bottomAppBarIcons.main,
   },
   {
     name: "myNft",
     label: TAB_LABELS.MY_NFT,
     path: "/myNft",
-    Icon: bottomAppBarIcons.my_nft,
+    icon: bottomAppBarIcons.myMusic,
   },
 
   {
     name: "adjustment",
     label: TAB_LABELS.ADJUSTMENT,
     path: "/adjustment",
-    Icon: bottomAppBarIcons.adjustment_management,
+    icon: bottomAppBarIcons.wallet,
   },
 ];
 const NavItem = ({
@@ -91,7 +89,11 @@ const NavItem = ({
   return (
     <NavItemWrapper onClick={onClick}>
       <IconWrapper isSelected={selected}>
-        <Icon />
+        <Icon
+          width={20}
+          height={20}
+          fill={selected ? theme.color.primary.P50 : theme.color.neutral.B20}
+        />
       </IconWrapper>
       <TextWrapper isSelected={selected}>{label}</TextWrapper>
     </NavItemWrapper>
@@ -119,7 +121,7 @@ const BottomNavBar = () => {
           key={item.name}
           label={item.label}
           path={item.path}
-          Icon={item.Icon}
+          Icon={item.icon}
           selected={currentTab === item.name}
           onClick={() => handleTabClick(item.path)}
         />

@@ -10,6 +10,7 @@ import {
   InvestmentLimitInfo,
   postContractInvest,
 } from "@apis/investment";
+import { useModal } from "@hooks/useModal";
 
 export interface LoanCalculationRule {
   minimumLoanAmount: number;
@@ -64,6 +65,7 @@ export const InvestmentInfoInput = () => {
   const monthlyProfit = investorAmount * interestCalculationRatio;
 
   const navigate = useNavigate();
+  const { openModal, closeModal } = useModal();
 
   return (
     <Wrapper>
@@ -161,10 +163,27 @@ export const InvestmentInfoInput = () => {
         <Button
           disabled={!checked}
           onClick={async () => {
-            await postContractInvest(Number(investmentId), investorAmount);
-            alert("완료");
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-            navigate("/");
+            openModal({
+              title: "정말 대출을 신청하시겠습니까?",
+              sub: "신청 후에는 수정이 불가능합니다.",
+              primaryButton: {
+                children: "취소",
+                onClick: closeModal,
+              },
+              secondButton: {
+                children: "확인",
+                onClick: async () => {
+                  closeModal();
+
+                  await postContractInvest(
+                    Number(investmentId),
+                    investorAmount
+                  );
+                  await new Promise((resolve) => setTimeout(resolve, 2000));
+                  navigate("/");
+                },
+              },
+            });
           }}
         >
           투자하기

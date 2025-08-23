@@ -10,12 +10,14 @@ import {
   patchRepaymentContract,
 } from "@apis/adjustment";
 import { RepaymentStatus, useTabBar } from "@pages/_hooks/useTabBar";
+import { useModal } from "@hooks/useModal";
 
 // import { AdjustmentParamsType } from "@apis/adjustment";
 export const GivingAdjustment = () => {
   const { tabstatus, setTabStatus } = useTabBar();
   const [_, setTotalAmount] = useState<number>(0);
   const [updateFlag, setUpdateFlag] = useState<boolean>(false);
+  const { openModal, closeModal } = useModal();
 
   const [adjustmentInfo, setAdjustmentInfo] = useState<AdjustmentInfo>({
     cash: 0,
@@ -75,14 +77,28 @@ export const GivingAdjustment = () => {
                 onClick={
                   tabstatus === "UPCOMING" || tabstatus === "OVERDUE"
                     ? async () => {
-                        const confirm = window.confirm("상환하시겠습니까?");
-                        if (confirm) {
-                          await patchRepaymentContract(
-                            item.repaymentScheduleId
-                          );
-                          setUpdateFlag(!updateFlag);
-                          alert("상환이 완료되었습니다.");
-                        }
+                        openModal({
+                          title: "정말 상환하시겠습니까?",
+                          sub: "신청 후에는 수정이 불가능합니다.",
+                          primaryButton: {
+                            children: "취소",
+                            onClick: closeModal,
+                          },
+                          secondButton: {
+                            children: "확인",
+                            onClick: async () => {
+                              closeModal();
+
+                              await patchRepaymentContract(
+                                item.repaymentScheduleId
+                              );
+                              await new Promise((resolve) =>
+                                setTimeout(resolve, 1000)
+                              );
+                              setUpdateFlag(!updateFlag);
+                            },
+                          },
+                        });
                       }
                     : undefined
                 }
@@ -135,23 +151,3 @@ const BodyText = styled.h2`
 
   color: ${({ theme }) => theme.color.primary.P50}
 `;
-
-/**
-  <BottomSection
-          schedule={{
-            repaymentScheduleId: 0,
-            totalRepaymentAmount: 1000000,
-            repaymentAmount: 800000,
-            interestRate: 5,
-            lateFee: 0,
-            round: 1,
-            repaymentDate: "2025-06-25",
-            settlementDate: "2025-06-30",
-            relativeDays: "7일 남았어요",
-            nftImageUrl: "",
-            nftName: "Mock NFT #0000",
-            stake: 15,
-            ethPrice: 3500,
-          }}
-        />
- */
