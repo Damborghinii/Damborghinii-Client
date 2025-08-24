@@ -4,6 +4,7 @@ import StepIndicator from "@components/stepIndicator/StepIndicator";
 import styled from "@emotion/styled";
 import useCheckDuplicateId from "@hooks/queries/useCheckDuplicatedId";
 import theme from "@styles/theme";
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignUpForm } from "src/contexts/SignUpFormContext";
@@ -17,6 +18,8 @@ const SignUpPage1 = () => {
     useState<string>("12자 이하/영문,숫자 포함");
   const [loginId, setLoginId] = useState<string>("");
   const [isLoginIdValid, setIsLoginIdValid] = useState<boolean>(true);
+
+  const [checkedId, setCheckedId] = useState<string>("");
 
   const [password, setPassword] = useState<string>("");
   const [isPasswordValid, setIsPasswordValid] = useState<boolean>(true);
@@ -32,6 +35,8 @@ const SignUpPage1 = () => {
     setLoginId(value);
     setIsLoginIdValid(value === "" || idRegex.test(value));
     setIdMessage("12자 이하/영문,숫자 포함");
+    setIsIdChecked(false);
+    setCheckedId("");
   };
 
   const handlePwdChange = (value: string) => {
@@ -47,7 +52,11 @@ const SignUpPage1 = () => {
     setPwdCheck(value);
   };
 
-  const isPasswordMatched = password.length > 0 && password === pwdCheck;
+  const getPwdIconType = () => {
+    if (pwdCheck.length === 0) return undefined;
+    if (password === pwdCheck) return "check";
+    return "deny";
+  };
 
   const { mutate: checkId } = useCheckDuplicateId();
 
@@ -55,19 +64,25 @@ const SignUpPage1 = () => {
     if (!loginId || !isLoginIdValid) return;
     checkId(loginId, {
       onSuccess: (response) => {
-        if (response.success) {
-          setIdMessage("사용 가능한 아이디입니다.");
+        if (response.success === true) {
+          setIdMessage("사용할 수 있는 아이디입니다.");
           setIsLoginIdValid(true);
           setIsIdChecked(true);
+          setCheckedId(loginId);
           updateForm({ loginId: loginId });
-        } else {
-          setIdMessage("중복된 아이디입니다.");
-          setIsLoginIdValid(false);
         }
       },
       onError: (error) => {
+        if (axios.isAxiosError(error) && error.response?.status === 409) {
+          setIdMessage("중복된 아이디입니다.");
+          setIsLoginIdValid(false);
+          setIsIdChecked(false);
+          setCheckedId("");
+          return;
+        }
         console.error("중복 확인 에러: ", error);
         setIsLoginIdValid(false);
+        setIdMessage("중복 확인 중 오류가 발생했습니다.");
       },
     });
   };
@@ -75,7 +90,8 @@ const SignUpPage1 = () => {
   const isNextButtonEnabled =
     isFormFilled(formData, ["loginId", "password"]) &&
     password === pwdCheck &&
-    isIdChecked;
+    isIdChecked &&
+    checkedId === loginId;
 
   const handleNext = () => {
     navigate("/signup/extra");
@@ -116,15 +132,17 @@ const SignUpPage1 = () => {
                 type="password"
               />
             </InputWrapper>
-            <InputWrapper>
-              <SingleInputSection
-                placeholder="비밀번호 확인"
-                value={pwdCheck}
-                onChange={(e) => handlePwdCheck(e.target.value)}
-                isIcon={isPasswordMatched}
-                type="password"
-              />
-            </InputWrapper>
+            {isPasswordValid && password.length > 0 && (
+              <InputWrapper>
+                <SingleInputSection
+                  placeholder="비밀번호 확인"
+                  value={pwdCheck}
+                  onChange={(e) => handlePwdCheck(e.target.value)}
+                  iconType={getPwdIconType()}
+                  type="password"
+                />
+              </InputWrapper>
+            )}
             <Explaination isValid={isPasswordValid}>
               20자 이하/영문 대소문자,특수문자, 숫자 포함
             </Explaination>

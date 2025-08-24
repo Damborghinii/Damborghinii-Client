@@ -47,13 +47,13 @@ const SignUpPage3 = () => {
         <ProgressIndicator>
           <StepIndicator currentStep={3} />
         </ProgressIndicator>
-        <Title>닉네임 입력</Title>
+        <Title>이름 입력</Title>
         <InputSection>
           <InputGroup>
-            <InputTitle>닉네임</InputTitle>
+            <InputTitle>이름</InputTitle>
             <InputWrapper>
               <SingleInputSection
-                placeholder="닉네임을 입력해 주세요."
+                placeholder="이름을 입력해 주세요."
                 value={formData.name}
                 onChange={(e) => updateForm({ name: e.target.value })}
               />

@@ -7,8 +7,12 @@ import { useNavigate } from "react-router-dom";
 const SignUpPage4 = () => {
   const { signup_complete: SignUpComplete } = signUpIcons;
   const navigate = useNavigate();
-  const handleNext = () => {
+  const handleLogin = () => {
     navigate("/login");
+  };
+
+  const handleHome = () => {
+    navigate("/");
   };
 
   return (
@@ -17,13 +21,22 @@ const SignUpPage4 = () => {
         <Comment>회원가입이 완료되었습니다!</Comment>
         <SignUpComplete />
       </ContentWrapper>
-      <Button
-        children="로그인하기"
-        variant="secondary"
-        size="big"
-        fullWidth
-        onClick={handleNext}
-      />
+      <ButtonWrapper>
+        <Button
+          children="로그인"
+          variant="secondary"
+          size="big"
+          fullWidth
+          onClick={handleLogin}
+        />
+        <Button
+          children="홈으로 돌아가기"
+          variant="line-primary"
+          size="big"
+          fullWidth
+          onClick={handleHome}
+        />
+      </ButtonWrapper>
     </PageContainer>
   );
 };
@@ -54,4 +67,11 @@ const Comment = styled.h2`
   font-weight: ${theme.typography["title1-2"].fontWeight};
   color: ${theme.color.neutral.black};
   margin-bottom: 45px;
+`;
+
+const ButtonWrapper = styled.div`
+  gap: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
