@@ -11,6 +11,8 @@ import Check from "../icons/check_icon.svg?react";
 import Deny from "../icons/denied_icon.svg?react";
 import SignUpComplete from "../icons/signup_complete.svg?react";
 import Logo from "../icons/logo.svg?react";
+import ArrowDown from "../icons/arrow_down.svg?react";
+import ArrowUp from "../icons/arrow_up.svg?react";
 import { IcHome, IcMyMusic, IcWallet } from "@assets/svg";
 
 export const commonIcons = {
@@ -32,6 +34,8 @@ export const registerNftIcons = {
   image: Image,
   file: File,
   register_loading: RegisterLoading,
+  arrow_down: ArrowDown,
+  arrow_up: ArrowUp,
 };
 
 export const signUpIcons = {

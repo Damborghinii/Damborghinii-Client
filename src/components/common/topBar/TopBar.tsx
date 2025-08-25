@@ -1,7 +1,6 @@
 import { IcHamburgerButton, IcHeart } from "@assets/svg";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import theme from "@styles/theme";
 
 const TopBarContainer = styled.nav`
   width: 100%;

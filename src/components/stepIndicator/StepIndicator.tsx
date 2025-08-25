@@ -6,7 +6,7 @@ type StepIndicatorProps = {
   totalSteps?: number;
 };
 
-const StepIndicator = ({ currentStep, totalSteps = 4 }: StepIndicatorProps) => {
+const StepIndicator = ({ currentStep, totalSteps = 3 }: StepIndicatorProps) => {
   const getMiddleNumber = () => {
     if (currentStep <= 1) return 1;
     if (currentStep >= totalSteps) return totalSteps;

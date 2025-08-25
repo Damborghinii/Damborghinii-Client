@@ -27,7 +27,7 @@ const RegisterNftPage2 = () => {
     <PageContainer>
       <ContentWrapper>
         <ProgressIndicator>
-          <StepIndicator currentStep={2} />
+          <StepIndicator currentStep={1} />
         </ProgressIndicator>
         <Title>음원 기본 정보 입력</Title>
         <InputSection>
@@ -38,12 +38,10 @@ const RegisterNftPage2 = () => {
               value={formData.title}
               onChange={(e) => updateForm({ title: e.target.value })}
             />
-            <Explaination style={{ marginTop: "8px" }}>설명</Explaination>
           </InputGroup>
 
           <MultiInputSection
             title="가수 정보"
-            description="설명"
             placeholder="참여한 가수를 입력해 주세요"
             values={formData.singers}
             buttonText="가수 추가"
@@ -62,7 +60,6 @@ const RegisterNftPage2 = () => {
 
           <MultiInputSection
             title="작곡가 정보"
-            description="설명"
             placeholder="참여한 작곡가를 입력해 주세요"
             values={formData.composers}
             buttonText="작곡가 추가"
@@ -81,7 +78,6 @@ const RegisterNftPage2 = () => {
 
           <MultiInputSection
             title="작사가 정보"
-            description="설명"
             placeholder="참여한 작사가를 입력해 주세요"
             values={formData.lyricists}
             buttonText="작사가 추가"
@@ -100,7 +96,6 @@ const RegisterNftPage2 = () => {
 
           <MultiInputSection
             title="음원 스트리밍 URL"
-            description="설명"
             placeholder="음원이 스트리밍되고 있는 URL을 입력해 주세요"
             values={formData.streamingUrls}
             buttonText="URL 추가"
@@ -204,12 +199,6 @@ const Input = styled.input`
   &::placeholder {
     color: ${theme.color.neutral.B20};
   }
-`;
-
-const Explaination = styled.label`
-  font-size: ${theme.typography["small1-3"].fontSize};
-  font-weight: ${theme.typography["small1-3"].fontWeight};
-  color: ${theme.color.neutral.B30};
 `;
 
 export default RegisterNftPage2;

@@ -4,6 +4,8 @@ import Button from "@components/common/button/Button";
 import { useModal } from "@hooks/useModal";
 import { useNavigate } from "react-router-dom";
 import { useNftForm } from "src/contexts/NftFormContext";
+import { registerNftIcons } from "@assets/icons";
+import { useState } from "react";
 
 const InfoRow = ({
   label,
@@ -21,7 +23,11 @@ const InfoRow = ({
 const RegisterNftConfirmPage = () => {
   const { openModal, closeModal } = useModal();
   const { formData, resetForm } = useNftForm();
+  const { arrow_down: ArrowDown, arrow_up: ArrowUp } = registerNftIcons;
   const navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const handleLeaveWithoutSave = () => {
     openModal({
       title: "저장하지 않고 나가시겠어요?",
@@ -41,8 +47,26 @@ const RegisterNftConfirmPage = () => {
     });
   };
 
-  const handleSaveNft = () => {
-    navigate("/nft/register/register-loading");
+  const handleSave = () => {
+    openModal({
+      title: "목록에 저장하시겠어요?",
+      sub: "음원이 NFT로 등록됩니다.",
+      primaryButton: {
+        children: "취소",
+        onClick: closeModal,
+      },
+      secondButton: {
+        children: "확인",
+        onClick: () => {
+          closeModal();
+          navigate("/nft/register/register-loading");
+        },
+      },
+    });
+  };
+
+  const handleIconClick = () => {
+    setIsOpen((prev) => !prev);
   };
 
   return (
@@ -63,38 +87,47 @@ const RegisterNftConfirmPage = () => {
         </ImageWrapper>
         <PriceWrapper>
           <ETHPrice>최종 가치: {formData.ethPrice}</ETHPrice>
-          <KRWPrice>한화 가치: {formData.wonPrice}</KRWPrice>
+          <KRWPrice>한화 가치 약 {formData.wonPrice}</KRWPrice>
         </PriceWrapper>
         <InfoWrapper>
-          <DetailTItleWrapper>
-            <DetailTitle>상세 정보</DetailTitle>
-          </DetailTItleWrapper>
-          <InfoTable>
-            <InfoRow label="음원/앨범명">{formData.title}</InfoRow>
-            <InfoRow label="가수 정보">{formData.singers}</InfoRow>
-            <InfoRow label="작곡가 정보">{formData.composers}</InfoRow>
-            <InfoRow label="작사가 정보">{formData.lyricists}</InfoRow>
-          </InfoTable>
-          <InfoTable>
-            <InfoRow label="저작권 등록 여부">
-              {formData.isRegistered
-                ? "저작권이 등록되어 있는 음원"
-                : "저작권이 등록되지 않은 음원"}
-            </InfoRow>
-            <InfoRow label="저작권 등록증">
-              {formData.copyrightFileName ?? "등록된 파일 없음"}
-            </InfoRow>
-          </InfoTable>
-          <InfoTable>
-            <TableRow>
-              <Label>음원 스트리밍 URL</Label>
-            </TableRow>
-            <TableRow>
-              <UrlText>
-                <span>{formData.streamingUrls}</span>
-              </UrlText>
-            </TableRow>
-          </InfoTable>
+          <DetailTable>
+            <DetailTitleWrapper onClick={handleIconClick}>
+              <DetailTitle>상세 정보</DetailTitle>
+              {isOpen ? <ArrowUp /> : <ArrowDown />}
+            </DetailTitleWrapper>
+          </DetailTable>
+          {isOpen && (
+            <>
+              <InfoTable>
+                <InfoRow label="음원/앨범명">{formData.title}</InfoRow>
+                <InfoRow label="가수 정보">{formData.singers}</InfoRow>
+                <InfoRow label="작곡가 정보">{formData.composers}</InfoRow>
+                <InfoRow label="작사가 정보">{formData.lyricists}</InfoRow>
+              </InfoTable>
+              <InfoTable>
+                <InfoRow label="저작권 등록 여부">
+                  {formData.isRegistered
+                    ? "저작권이 등록되어 있는 음원"
+                    : "저작권이 등록되지 않은 음원"}
+                </InfoRow>
+                <InfoRow label="저작권 등록증">
+                  {formData.copyrightFileName ?? "등록된 파일 없음"}
+                </InfoRow>
+                <InfoRow label="mp3 파일">{formData.mp3File?.name}</InfoRow>
+                <InfoRow label="음원 예상 수익">{formData.wonPrice}</InfoRow>
+              </InfoTable>
+              <InfoTable>
+                <TableRow>
+                  <Label>음원 스트리밍 URL</Label>
+                </TableRow>
+                <TableRow>
+                  <UrlText>
+                    <span>{formData.streamingUrls}</span>
+                  </UrlText>
+                </TableRow>
+              </InfoTable>
+            </>
+          )}
         </InfoWrapper>
       </ContentWrapper>
       <ButtonWrapper>
@@ -102,7 +135,7 @@ const RegisterNftConfirmPage = () => {
           children="목록에 저장하기"
           size="big"
           fullWidth
-          onClick={handleSaveNft}
+          onClick={handleSave}
         />
         <Button
           children="저장하지 않고 나가기"
@@ -120,7 +153,8 @@ export default RegisterNftConfirmPage;
 
 const PageContainer = styled.div`
   width: 100%;
-  padding: 40px 37px 24px 37px;
+  min-height: calc(100vh - 56px);
+  padding: 40px 26px 24px 26px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -133,6 +167,7 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0 11px;
 `;
 
 const Title = styled.h2`
@@ -151,13 +186,15 @@ const ImageWrapper = styled.div`
 `;
 
 const PriceWrapper = styled.div`
+  width: 100%;
+  border: 1px solid ${theme.color.neutral.B20};
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  padding: 10px 0;
-  border-radius: 4px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  gap: 6px;
+  padding: 10px;
 `;
 
 const ETHPrice = styled.span`
@@ -179,16 +216,28 @@ const InfoWrapper = styled.div`
   margin-bottom: 24px;
 `;
 
-const DetailTItleWrapper = styled.div`
+const DetailTable = styled.div`
   width: 100%;
-  padding: 0 10px;
+  border: 1px solid ${theme.color.neutral.B20};
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  padding: 10px;
+`;
+
+const DetailTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 `;
 
 const DetailTitle = styled.h2`
   font-size: ${theme.typography["small1-2"].fontSize};
   font-weight: ${theme.typography["small1-2"].fontWeight};
   color: ${theme.color.neutral.B60};
-  margin-bottom: 14px;
 `;
 
 const InfoTable = styled.div`

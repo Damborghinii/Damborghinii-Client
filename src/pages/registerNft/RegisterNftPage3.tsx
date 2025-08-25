@@ -13,28 +13,47 @@ const RegisterNftPage3 = () => {
 
   const { formData, updateForm } = useNftForm();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const mp3InputRef = useRef<HTMLInputElement>(null);
+
   const navigate = useNavigate();
+
   const handleNext = () => {
     if (isFormFilled(formData, ["isRegistered"])) {
       navigate("/nft/register/image-upload");
     }
   };
 
-  const handleUploadClick = () => {
+  const handleCopyrightClick = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMp3Click = () => {
+    mp3InputRef.current?.click();
+  };
+
+  const handleCopyrightChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
     if (file) {
       updateForm({ copyrightFile: file });
     }
+    e.target.value = "";
   };
+
+  const handleMp3Change = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      updateForm({ mp3File: file });
+    }
+    e.target.value = "";
+  };
+
   return (
     <PageContainer>
       <ContentWrapper>
         <ProgressIndicator>
-          <StepIndicator currentStep={3} />
+          <StepIndicator currentStep={2} />
         </ProgressIndicator>
         <Title>음원 추가 정보 입력</Title>
         <InputSection>
@@ -89,7 +108,7 @@ const RegisterNftPage3 = () => {
               children="파일 업로드"
               size="medium"
               variant="line-primary"
-              onClick={handleUploadClick}
+              onClick={handleCopyrightClick}
               disabled={formData.isRegistered !== true}
             />
             <input
@@ -97,7 +116,38 @@ const RegisterNftPage3 = () => {
               ref={fileInputRef}
               style={{ display: "none" }}
               accept=".pdf,.jpg,.png"
-              onChange={handleFileChange}
+              onChange={handleCopyrightChange}
+            />
+          </InputGroup>
+          <InputGroup>
+            <InputTitle>mp3 파일</InputTitle>
+            {formData.mp3File && (
+              <FileContainer>
+                <FiteContent>
+                  <FileName>{formData.mp3File.name}</FileName>
+                  <FileSize>
+                    {(
+                      (formData.mp3File.size as number) /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                    MB
+                  </FileSize>
+                </FiteContent>
+                <File />
+              </FileContainer>
+            )}
+            <Button
+              children="파일 업로드"
+              size="medium"
+              variant="line-primary"
+              onClick={handleMp3Click}
+            />
+            <input
+              type="file"
+              ref={mp3InputRef}
+              style={{ display: "none" }}
+              accept=".mp3"
+              onChange={handleMp3Change}
             />
           </InputGroup>
         </InputSection>
@@ -109,7 +159,8 @@ const RegisterNftPage3 = () => {
         onClick={handleNext}
         disabled={
           !isFormFilled(formData, ["isRegistered"]) ||
-          (formData.isRegistered === true && !formData.copyrightFile)
+          (formData.isRegistered === true && !formData.copyrightFile) ||
+          !isFormFilled(formData, ["mp3File"])
         }
       />
     </PageContainer>

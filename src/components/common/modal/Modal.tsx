@@ -32,16 +32,12 @@ export const MainModal: React.FC<ModalProps> = (props: ModalProps) => {
         <Button
           size="small"
           onClick={primaryButton.onClick}
-          variant="secondary"
           {...primaryButton}
+          variant="line-primary"
         >
           {primaryButton.children}
         </Button>
-        <Button
-          size="small"
-          variant="line-secondary"
-          onClick={secondButton.onClick}
-        >
+        <Button size="small" onClick={secondButton.onClick} variant="primary">
           {secondButton.children}
         </Button>
       </S.ModalButtonContainer>

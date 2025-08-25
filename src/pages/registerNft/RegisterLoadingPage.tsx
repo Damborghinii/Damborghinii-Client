@@ -14,9 +14,6 @@ const RegisterLoadingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const image = nftForm.formData.croppedImage;
-    if (!image) return;
-
     if (!nftForm.formData.croppedImage) {
       navigate("/nft/register/confirm");
       return;
@@ -35,7 +32,7 @@ const RegisterLoadingPage = () => {
         navigate("/myNft");
       },
     });
-  }, [createNftMutate, nftForm, navigate]);
+  }, []);
 
   return (
     <PageContainer>
