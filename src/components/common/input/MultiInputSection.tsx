@@ -12,12 +12,6 @@ const InputTitle = styled.label`
   margin-right: 8px;
 `;
 
-const Explaination = styled.label`
-  font-size: ${theme.typography["small1-3"].fontSize};
-  font-weight: ${theme.typography["small1-3"].fontWeight};
-  color: ${theme.color.neutral.B30};
-`;
-
 const LabelRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -76,7 +70,6 @@ const RemoveButton = styled.button`
 
 export const MultiInputSection = ({
   title,
-  description,
   placeholder,
   values,
   buttonText,
@@ -85,7 +78,6 @@ export const MultiInputSection = ({
   onRemove,
 }: {
   title: string;
-  description: string;
   placeholder: string;
   values: string[];
   buttonText: string;
@@ -97,7 +89,6 @@ export const MultiInputSection = ({
     <InputGroupContainer>
       <LabelRow>
         <InputTitle>{title}</InputTitle>
-        <Explaination>{description}</Explaination>
       </LabelRow>
       {values.map((val, idx) => (
         <RowWrapper key={idx}>

@@ -2,8 +2,8 @@ import { createContext, useContext, useState, ReactNode } from "react";
 import { fileToBase64, base64ToFile } from "../utils/fileConverter";
 
 export type NftFormData = {
-  nftName: string;
-  nftType: "art" | "music" | null;
+  // nftName: string;
+  // nftType: "art" | "music" | null;
   title: string;
   singers: string[];
   composers: string[];
@@ -13,6 +13,7 @@ export type NftFormData = {
   copyrightFile: File | null;
   copyrightFileName: string | null;
   copyrightBase64: string | null;
+  mp3File: File | null;
   image: File | null;
   imageBase64: string | null;
   croppedImage: File | null;
@@ -22,8 +23,8 @@ export type NftFormData = {
 };
 
 const defaultData: NftFormData = {
-  nftName: "",
-  nftType: null,
+  // nftName: "",
+  // nftType: null,
   title: "",
   singers: [""],
   composers: [""],
@@ -33,6 +34,7 @@ const defaultData: NftFormData = {
   copyrightFile: null,
   copyrightBase64: null,
   copyrightFileName: null,
+  mp3File: null,
   image: null,
   imageBase64: null,
   croppedImage: null,
@@ -67,7 +69,7 @@ export const NftFormProvider = ({ children }: { children: ReactNode }) => {
         parsed.copyrightFileName
       );
 
-    return { ...defaultData, ...parsed, ...restored };
+    return { ...defaultData, ...parsed, ...restored, mp3File: null };
   });
 
   const updateForm = async (data: Partial<NftFormData>) => {
@@ -83,7 +85,7 @@ export const NftFormProvider = ({ children }: { children: ReactNode }) => {
     const updated = { ...formData, ...data, ...base64Updates };
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { image, copyrightFile, ...serializable } = updated;
+    const { image, copyrightFile, mp3File, ...serializable } = updated;
     localStorage.setItem("nftFormData", JSON.stringify(serializable));
 
     setFormData(updated);

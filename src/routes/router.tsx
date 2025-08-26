@@ -10,7 +10,7 @@ import MyNftPage from "../pages/myNft/MyNftPage";
 import ContractPage from "../pages/contract/ContractPage";
 
 // NFT
-import RegisterNftPage1 from "../pages/registerNft/RegisterNftPage1";
+// import RegisterNftPage1 from "../pages/registerNft/RegisterNftPage1";
 import RegisterNftPage2 from "../pages/registerNft/RegisterNftPage2";
 import RegisterNftPage3 from "../pages/registerNft/RegisterNftPage3";
 import RegisterNftPage4 from "../pages/registerNft/RegisterNftPage4";
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
     element: <NoBottomBarLayout />,
     children: [
       //NFT 등록
-      { path: "nft/register/basic", element: <RegisterNftPage1 /> },
+      // { path: "nft/register/basic", element: <RegisterNftPage1 /> },
       { path: "nft/register/music-basic", element: <RegisterNftPage2 /> },
       { path: "nft/register/music-extra", element: <RegisterNftPage3 /> },
       { path: "nft/register/image-upload", element: <RegisterNftPage4 /> },

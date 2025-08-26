@@ -51,7 +51,7 @@ const RegisterNftPage4 = () => {
     <PageContainer>
       <ContentWrapper>
         <ProgressIndicator>
-          <StepIndicator currentStep={4} />
+          <StepIndicator currentStep={3} />
         </ProgressIndicator>
         <Title>대표 이미지 업로드</Title>
         <InputSection>
