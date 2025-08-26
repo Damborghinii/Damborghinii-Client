@@ -138,6 +138,6 @@ export const ProgressBarWrapper = styled.div`
 export const ProgressBarFill = styled.div<{ percentage: number }>`
   height: 100%;
   width: ${({ percentage }) => `${percentage}%`};
-  background-color: ${({ theme }) => theme.color.secondary.S60};
+  background-color: ${({ theme }) => theme.color.neutral.B60};
   transition: width 0.3s ease;
 `;

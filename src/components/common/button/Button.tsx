@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import theme from "../../../styles/theme";
 
-type ButtonSize = "big" | "medium" | "small";
+type ButtonSize = "big" | "medium" | "small" | "extra";
 type ButtonVariant =
   | "primary" // Button 1
   | "secondary" // Button 2
@@ -20,6 +20,7 @@ const sizeMap: Record<ButtonSize, { width: string; height: string }> = {
   big: { width: "338px", height: "52px" },
   medium: { width: "230px", height: "42px" },
   small: { width: "148px", height: "36px" },
+  extra: { width: "100%", height: "52px" },
 };
 
 const sizeToTypographyMap: Record<
@@ -29,6 +30,7 @@ const sizeToTypographyMap: Record<
   big: theme.typography["body1-2"],
   medium: theme.typography["body2-2"],
   small: theme.typography["small1-2"],
+  extra: theme.typography["body1-2"],
 };
 
 const styleMap: Record<
