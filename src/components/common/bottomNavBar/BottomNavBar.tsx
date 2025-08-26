@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { bottomAppBarIcons } from "../../../assets/icons";
 import theme from "../../../styles/theme";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "src/contexts/AuthContext";
 
 interface TextProps {
   isSelected?: boolean;
@@ -103,15 +104,19 @@ const NavItem = ({
 const BottomNavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const { requireAuth } = useAuth();
   // 경로와 정확히 일치하는 걸 우선 찾고, 없으면 startsWith 로 fallback
   const currentTab =
     tabItems.find((item) => item.path === location.pathname)?.name ||
     tabItems.find((item) => location.pathname.startsWith(item.path))?.name ||
     "";
 
-  const handleTabClick = (path: string) => {
-    navigate(path);
+  const handleTabClick = (item: TabItem) => {
+    if (item.name === "main") {
+      navigate(item.path);
+    } else {
+      requireAuth(() => navigate(item.path));
+    }
   };
 
   return (
@@ -123,7 +128,7 @@ const BottomNavBar = () => {
           path={item.path}
           Icon={item.icon}
           selected={currentTab === item.name}
-          onClick={() => handleTabClick(item.path)}
+          onClick={() => handleTabClick(item)}
         />
       ))}
     </NavBarContainer>

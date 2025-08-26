@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import BottomNavBar from "../components/common/bottomNavBar/BottomNavBar";
 import theme from "../styles/theme";
@@ -7,30 +7,24 @@ import { useEffect } from "react";
 
 const DefaultLayout = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (location.pathname === "/" && !!!localStorage.getItem("accessToken")) {
-      navigate("/login");
-    }
   }, [location, localStorage.getItem("accessToken")]);
 
-  if (location.pathname === "main" || "myNft" || "contract" || "adjustment") {
-    return (
-      <LayoutContainer>
-        <TopBarWrapper>
-          <TopBar />
-        </TopBarWrapper>
-        <OutletWrapper>
-          <Outlet />
-        </OutletWrapper>
-        <BottomBarWrapper>
-          <BottomNavBar />
-        </BottomBarWrapper>
-      </LayoutContainer>
-    );
-  }
-  return <Outlet />;
+  return (
+    <LayoutContainer>
+      <TopBarWrapper>
+        <TopBar />
+      </TopBarWrapper>
+      <OutletWrapper>
+        <Outlet />
+      </OutletWrapper>
+      <BottomBarWrapper>
+        <BottomNavBar />
+      </BottomBarWrapper>
+    </LayoutContainer>
+  );
 };
 
 export default DefaultLayout;

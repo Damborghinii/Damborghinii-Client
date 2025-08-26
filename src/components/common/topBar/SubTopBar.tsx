@@ -44,7 +44,7 @@ export const SubTopBar = ({ title, isConfirmButton }: SubTopBarProps) => {
   const { resetForm } = useNftForm();
   const { onConfirmClick } = useConfirmButton();
   const handleBack = () => {
-    if (location.pathname === "/nft/register/basic") {
+    if (location.pathname === "/nft/register/music-basic") {
       resetForm();
     }
     if (location.pathname === "/nft/register/confirm") {

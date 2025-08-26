@@ -44,7 +44,7 @@ export const TopBar: React.FC = () => {
         <IcHamburgerButton
           width={20}
           height={20}
-          onClick={() => alert("TODO")}
+          onClick={() => navigate("/menu")}
           style={{
             cursor: "pointer",
           }}
