@@ -1,7 +1,6 @@
 import { IcHamburgerButton, IcHeart } from "@assets/svg";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import theme from "@styles/theme";
 
 const TopBarContainer = styled.nav`
   width: 100%;
@@ -9,8 +8,6 @@ const TopBarContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   z-index: 2;
-
-  border-bottom: 1px solid ${({ theme }) => theme.color.neutral.B10};
 `;
 
 const RightContainer = styled.div`
