@@ -12,3 +12,4 @@ export { default as IcHome } from "./IcHome";
 export { default as IcMyMusic } from "./IcMyMusic";
 export { default as IcWallet } from "./IcWallet";
 export { default as IcHamburgerButton } from "./IcHamburgerButton";
+export { default as IcTitleArrowRight } from "./TitleArrowRight";

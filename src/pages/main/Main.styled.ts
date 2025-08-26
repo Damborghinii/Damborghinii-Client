@@ -10,10 +10,9 @@ export const MainContainer = styled.div`
 export const MainCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 
   width: 100%;
-  padding: 0 1rem;
 `;
 
 export const MainSearchContainer = styled.div`

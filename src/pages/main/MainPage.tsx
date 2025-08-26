@@ -6,6 +6,12 @@ import { MainLoanCard } from "./_components/MainLoanCard";
 import { useEffect, useState } from "react";
 import { Contract, getContracts } from "@apis/investment";
 import { IcSearch } from "@assets/svg";
+import Spacer from "@components/common/spacer/Spacer";
+import { BadgeScroll } from "./_components/BadgeScroll";
+import { Title } from "./_components/Title";
+import { NewLoanCard } from "./_components/NewLoanCard";
+
+import mockImageUrl from "@assets/image/mockImage.png";
 
 export const MainPage: React.FC = () => {
   const navigate = useNavigate();
@@ -35,11 +41,11 @@ export const MainPage: React.FC = () => {
           value={inputValue}
         />
         <IcSearch
-          width={18}
-          height={18}
+          width={20}
+          height={20}
           style={{
             position: "absolute",
-            top: "12px",
+            top: "0.7rem",
             right: "2.5rem",
             cursor: "pointer",
           }}
@@ -50,8 +56,35 @@ export const MainPage: React.FC = () => {
           }
         />
       </S.MainSearchContainer>
+      <Spacer height="0.75rem" />
+      <BadgeScroll />
+      <Spacer height="0.75rem" />
+
+      <Title onClick={() => {}}>많은 사람들이 투자한</Title>
 
       <S.MainCardWrapper>
+        <NewLoanCard imageUrl={mockImageUrl} expiration="2025-08-28" />
+
+        <NewLoanCard imageUrl={mockImageUrl} expiration="2025-08-28" />
+      </S.MainCardWrapper>
+
+      <Spacer height="1.25rem" />
+
+      <Title
+        onClick={() => {
+          alert("연결대기");
+        }}
+      >
+        최근 등록된
+      </Title>
+
+      <S.MainCardWrapper>
+        <NewLoanCard imageUrl={mockImageUrl} expiration="2025-08-28" />
+
+        <NewLoanCard imageUrl={mockImageUrl} expiration="2025-08-28" />
+      </S.MainCardWrapper>
+
+      {/* <S.MainCardWrapper>
         {contracts.map((contract) => (
           <MainLoanCard
             key={contract.contractId}
@@ -68,7 +101,7 @@ export const MainPage: React.FC = () => {
             onClick={() => navigate(`/investment/${contract.contractId}`)}
           />
         ))}
-      </S.MainCardWrapper>
+      </S.MainCardWrapper> */}
     </S.MainContainer>
   );
 };
