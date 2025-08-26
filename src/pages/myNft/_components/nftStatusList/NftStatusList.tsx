@@ -1,21 +1,22 @@
-import { NFT_STATUS } from "@pages/myNft/_hooks/useNftStatusList";
+import {
+  MY_NFT_TAB_LABELS,
+  MyNftTabType,
+} from "@pages/myNft/_hooks/useNftStatusList";
 import * as S from "./NftStatusList.styled";
 
-import { MyNftStatusType } from "@apis/myNft";
-
 interface TabProps {
-  tabStatus: MyNftStatusType;
-  onClick: (key: string) => void;
+  currentTab: MyNftTabType; // 타입 변경
+  onTabChange: (tab: MyNftTabType) => void;
 }
 
-export const NftStatusTab = ({ tabStatus, onClick }: TabProps) => {
+export const NftStatusTab = ({ currentTab, onTabChange }: TabProps) => {
   return (
     <S.NftStatusListWrapper>
-      {Object.entries(NFT_STATUS).map(([key, label]) => (
+      {Object.entries(MY_NFT_TAB_LABELS).map(([key, label]) => (
         <S.NftStatusTab
           key={key}
-          active={key === tabStatus}
-          onClick={() => onClick(key)}
+          active={key === currentTab}
+          onClick={() => onTabChange(key as MyNftTabType)}
         >
           {label}
         </S.NftStatusTab>
