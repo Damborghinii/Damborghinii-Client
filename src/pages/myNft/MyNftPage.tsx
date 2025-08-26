@@ -66,6 +66,9 @@ const MyNftPage = () => {
           })}
         </S.BadgeContainer>
         <MusicCard></MusicCard>
+        <MusicCard></MusicCard>
+        <MusicCard></MusicCard>
+
         <S.NftCardContainer>
           {nftList.length > 0 &&
             nftList.map((nft) => <NftCard key={nft.contractId} {...nft} />)}

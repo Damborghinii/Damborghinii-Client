@@ -12,10 +12,24 @@ export const CardContainer = styled.div`
 
 export const CardInfoWrapper = styled.div`
   display: flex;
+  height: 64px;
+
   flex: 1;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 
   color: ${({ theme }) => theme.color.neutral.B70};
   ${({ theme }) => theme.typography["body2-2"]};
+`;
+
+export const StatusTextWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const StatusText = styled.h2`
+  color: ${({ theme }) => theme.color.neutral.B60};
+  ${({ theme }) => theme.typography["small1-2"]};
 `;
