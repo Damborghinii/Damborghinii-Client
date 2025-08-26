@@ -10,14 +10,19 @@ export const NftRegister: React.FC = () => {
   return (
     <S.NftRegisterWrapper>
       <S.NftTextWrapper>
-        <S.NftMainText>내 NFT 등록</S.NftMainText>
-        <S.NftSubText>
-          내가 보유한 NFT를 등록하고 현재 가치를 알아봐요
-        </S.NftSubText>
+        <S.NftMainText>음원 등록</S.NftMainText>
       </S.NftTextWrapper>
-      <Button variant="line-primary" onClick={handleNavigate}>
-        NFT 등록
+      <Button
+        size="extra"
+        variant="primary"
+        onClick={handleNavigate}
+        style={{
+          width: "100%",
+        }}
+      >
+        등록하기
       </Button>
+      <S.NftSubText>내가 보유한 음원을 등록하고 NFT로 전환해요.</S.NftSubText>
     </S.NftRegisterWrapper>
   );
 };

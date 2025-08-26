@@ -21,4 +21,5 @@ export const NftMainText = styled.h1`
 
 export const NftSubText = styled.h3`
   ${({ theme }) => theme.typography["small1-3"]}
+  color: ${({ theme }) => theme.color.neutral.B70}
 `;
