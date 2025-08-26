@@ -2,20 +2,16 @@ import * as S from "./MyNft.styled";
 import { NftRegister } from "./_components/nftRegister/NftRegister";
 import { NftTitle } from "./_components/nftTitle/NftTitle";
 import { NftStatusTab } from "./_components/nftStatusList/NftStatusList";
-import { MainTitle } from "@pages/main/_components/MainTitle";
 import { NftCard } from "../main/_components/NftCard";
 
 import { MyNftType } from "./type/nft";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMyLftList } from "@apis/myNft";
-import {
-  useTabBar,
-  MyNftTabType,
-  MY_NFT_TAB_LABELS,
-} from "./_hooks/useNftStatusList";
+import { useTabBar } from "./_hooks/useNftStatusList";
 import { MainBadge } from "@components/common/mainBadge/MainBadge";
 import theme from "@styles/theme";
+import { MusicCard } from "./_components/musicCard/MusicCard";
 
 // 필터 상태 타입 정의
 type FilterStatus = "ALL" | "APPLYING" | "REPAYING";
@@ -69,6 +65,7 @@ const MyNftPage = () => {
             );
           })}
         </S.BadgeContainer>
+        <MusicCard></MusicCard>
         <S.NftCardContainer>
           {nftList.length > 0 &&
             nftList.map((nft) => <NftCard key={nft.contractId} {...nft} />)}
