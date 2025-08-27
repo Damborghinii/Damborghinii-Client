@@ -124,7 +124,7 @@ export const LoanInfoInput = () => {
             navigate(`/loan-confirm/${loanId}/${contractId}`);
           }}
         >
-          최종 정보 확인
+          다음
         </Button>
       </SectionWrapper>
     </MainWrapper>

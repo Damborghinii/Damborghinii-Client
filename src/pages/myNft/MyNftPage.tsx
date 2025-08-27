@@ -14,12 +14,13 @@ import theme from "@styles/theme";
 import { MusicCard } from "./_components/musicCard/MusicCard";
 
 // 필터 상태 타입 정의
-type FilterStatus = "ALL" | "APPLYING" | "REPAYING";
+type FilterStatus = "ALL" | "REGISTERED" | "INVESTING" | "COMPLETED";
 
 const FILTER_LABELS: Record<FilterStatus, string> = {
   ALL: "전체",
-  APPLYING: "대출신청중",
-  REPAYING: "상환중",
+  REGISTERED: "등록",
+  INVESTING: "대출신청중",
+  COMPLETED: "상환중",
 };
 
 const MyNftPage = () => {

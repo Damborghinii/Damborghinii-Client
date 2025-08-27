@@ -1,7 +1,6 @@
 import { MenuIcons } from "@assets/icons";
 import styled from "@emotion/styled";
 import theme from "@styles/theme";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "src/contexts/AuthContext";
 

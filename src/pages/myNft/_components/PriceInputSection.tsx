@@ -46,8 +46,8 @@ export const PriceInputSection = ({
         )}
         <UnitText>{unitText}</UnitText>
       </InputWrapper>
-      {hasSubDescription && <SubBottomText>{subDescription}</SubBottomText>}
       <InputBottomText>{description}</InputBottomText>
+      {hasSubDescription && <SubBottomText>{subDescription}</SubBottomText>}
     </PriceInputWrapper>
   );
 };
@@ -103,7 +103,7 @@ const UnitText = styled.span`
 
 const SubBottomText = styled.h2`
   ${({ theme }) => theme.typography["small1-2"]};
-  color: ${({ theme }) => theme.color.primary.P60};
+  color: ${({ theme }) => theme.color.neutral.B50};
   white-space: pre-line;
 `;
 
