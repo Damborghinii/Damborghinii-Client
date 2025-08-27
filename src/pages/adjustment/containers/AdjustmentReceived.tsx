@@ -5,6 +5,7 @@ import { BottomSection } from "../_components/BottomSection";
 import { useEffect, useState } from "react";
 import { RepaymentStatus, useTabBar } from "@pages/_hooks/useTabBar";
 import { getAdjustmentInfo, AdjustmentInfo } from "@apis/adjustment";
+import BottomNavBar from "@components/common/bottomNavBar/BottomNavBar";
 
 export const AdjustmentReceived = () => {
   const { tabstatus, setTabStatus } = useTabBar();
@@ -69,6 +70,9 @@ export const AdjustmentReceived = () => {
             )
           )}
       </BottomWrapper>
+      <BottomBarWrapper>
+        <BottomNavBar />
+      </BottomBarWrapper>
     </Wrapper>
   );
 };
@@ -93,8 +97,6 @@ const BottomWrapper = styled.div`
 
   padding: 0 1.5rem;
   padding-bottom: 2rem;
-
-  background-color: ${({ theme }) => theme.color.neutral.B00};
 `;
 
 const RowInfo = styled.div`
@@ -114,4 +116,13 @@ const BodyText = styled.h2`
   ${({ theme }) => theme.typography["body2-2"]}
 
   color: ${({ theme }) => theme.color.primary.P50}
+`;
+
+const BottomBarWrapper = styled.footer`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 540px;
+  height: 65px;
+  z-index: 10;
 `;

@@ -11,6 +11,7 @@ import {
 } from "@apis/adjustment";
 import { RepaymentStatus, useTabBar } from "@pages/_hooks/useTabBar";
 import { useModal } from "@hooks/useModal";
+import BottomNavBar from "@components/common/bottomNavBar/BottomNavBar";
 
 // import { AdjustmentParamsType } from "@apis/adjustment";
 export const GivingAdjustment = () => {
@@ -106,6 +107,9 @@ export const GivingAdjustment = () => {
             )
           )}
       </BottomWrapper>
+      <BottomBarWrapper>
+        <BottomNavBar />
+      </BottomBarWrapper>
     </Wrapper>
   );
 };
@@ -129,8 +133,15 @@ const BottomWrapper = styled.div`
 
   padding: 0 1.5rem;
   padding-bottom: 2rem;
+`;
 
-  background-color: ${({ theme }) => theme.color.neutral.B00};
+const BottomBarWrapper = styled.footer`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 540px;
+  height: 65px;
+  z-index: 10;
 `;
 
 const RowInfo = styled.div`
