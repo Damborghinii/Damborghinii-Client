@@ -5,9 +5,9 @@ import { NftStatusTab } from "./_components/nftStatusList/NftStatusList";
 import { NftCard } from "../main/_components/NftCard";
 
 import { MyNftType } from "./type/nft";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getMyLftList } from "@apis/myNft";
+// import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+// import { getMyLftList } from "@apis/myNft";
 import { useTabBar } from "./_hooks/useNftStatusList";
 import { MainBadge } from "@components/common/mainBadge/MainBadge";
 import theme from "@styles/theme";
@@ -24,10 +24,10 @@ const FILTER_LABELS: Record<FilterStatus, string> = {
 
 const MyNftPage = () => {
   const { currentTab, setCurrentTab } = useTabBar();
-  const [nftList, setNftList] = useState<MyNftType[]>([]);
+  const [nftList, _] = useState<MyNftType[]>([]);
   const [filterStatus, setFilterStatus] = useState<FilterStatus>("ALL"); // 필터 상태 추가
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // 배지 스타일 함수
   const getBadgeStyle = (status: FilterStatus) => {

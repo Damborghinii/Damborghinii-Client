@@ -1,7 +1,5 @@
 import * as S from "./Main.styled";
-import { useNavigate } from "react-router-dom";
-
-import { MainLoanCard } from "./_components/MainLoanCard";
+// import { useNavigate } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import { Contract, getContracts } from "@apis/investment";
@@ -14,8 +12,8 @@ import { NewLoanCard } from "./_components/NewLoanCard";
 import mockImageUrl from "@assets/image/mockImage.png";
 
 export const MainPage: React.FC = () => {
-  const navigate = useNavigate();
-  const [contracts, setContracts] = useState<Contract[]>([]);
+  // const navigate = useNavigate();
+  const [_, setContracts] = useState<Contract[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const fetchData = async () => {
     const res = await getContracts();

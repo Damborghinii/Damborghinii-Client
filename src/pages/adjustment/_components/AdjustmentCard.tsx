@@ -2,12 +2,14 @@ import styled from "@emotion/styled";
 import { IcMoney } from "@assets/svg";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
 import theme from "@styles/theme";
+import Button from "@components/common/button/Button";
 
 export interface MoneyCardProps {
   balance: string;
   totalContracts: string;
   totalAmount: string;
   isReceivedType?: boolean;
+  onClick?: () => void;
 }
 
 export const AdjustmentCard = ({
@@ -15,6 +17,7 @@ export const AdjustmentCard = ({
   totalContracts,
   totalAmount,
   isReceivedType = true,
+  onClick = () => {},
 }: MoneyCardProps) => {
   return (
     <Wrapper>
@@ -23,6 +26,11 @@ export const AdjustmentCard = ({
           <IcMoney width={16} height={16} />
           보유금액 {balance}
         </MoneyTextSection>
+        {!isReceivedType && (
+          <Button size="small" onClick={onClick}>
+            상환하기
+          </Button>
+        )}
       </MoneySection>
       <DescriptionSection>
         <ColumnTextSection>

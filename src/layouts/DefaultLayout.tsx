@@ -29,6 +29,20 @@ const DefaultLayout = () => {
         </BottomBarWrapper>
       </LayoutContainer>
     );
+  } else if (
+    location.pathname === "servicing-repayment" ||
+    "repayment-received"
+  ) {
+    return (
+      <LayoutContainer>
+        <OutletWrapper>
+          <Outlet />
+        </OutletWrapper>
+        <BottomBarWrapper>
+          <BottomNavBar />
+        </BottomBarWrapper>
+      </LayoutContainer>
+    );
   }
   return <Outlet />;
 };

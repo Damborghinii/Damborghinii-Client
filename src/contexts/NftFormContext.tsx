@@ -2,7 +2,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 import { fileToBase64, base64ToFile } from "../utils/fileConverter";
 
 export type NftFormData = {
-  // nftName: string;
+  nftName?: string;
   // nftType: "art" | "music" | null;
   title: string;
   singers: string[];
