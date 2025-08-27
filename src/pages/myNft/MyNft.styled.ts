@@ -22,7 +22,6 @@ export const EntryWrapper = styled.div`
   flex-grow: 1;
 
   width: 100%;
-  background-color: ${({ theme }) => theme.color.neutral.B00};
 
   padding-bottom: 7.5rem;
 `;
@@ -68,4 +67,12 @@ export const NewSmallText = styled.h2<SmallTextProps>`
   ${({ theme }) => theme.typography["small2-3"]}
   color: ${({ theme, isBlack }) =>
     isBlack ? theme.color.neutral.B70 : theme.color.neutral.B40};
+`;
+
+export const BadgeContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 20px 26px;
+  gap: 12px;
 `;
