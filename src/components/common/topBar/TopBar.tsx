@@ -22,7 +22,7 @@ export const TopBar: React.FC = () => {
   return (
     <TopBarContainer>
       <img
-        src="/src/assets/image/logo.png"
+        src="/logo.png"
         width={40}
         height={40}
         onClick={() => navigate("/main")}
