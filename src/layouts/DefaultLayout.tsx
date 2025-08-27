@@ -12,6 +12,22 @@ const DefaultLayout = () => {
     window.scrollTo(0, 0);
   }, [location, localStorage.getItem("accessToken")]);
 
+if (
+    location.pathname === "servicing-repayment" ||
+    location.pathname === "repayment-received"
+  ) {
+    return (
+      <LayoutContainer>
+        <OutletWrapper>
+          <Outlet />
+        </OutletWrapper>
+        <BottomBarWrapper>
+          <BottomNavBar />
+        </BottomBarWrapper>
+      </LayoutContainer>
+    );
+  }
+
   return (
     <LayoutContainer>
       <TopBarWrapper>

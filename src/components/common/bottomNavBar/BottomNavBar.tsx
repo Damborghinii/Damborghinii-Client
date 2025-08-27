@@ -46,6 +46,7 @@ type TabItem = {
   label: string;
   path: string;
   icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
+  relatedPaths?: string[];
 };
 
 const TAB_LABELS = {
@@ -60,6 +61,7 @@ const tabItems: TabItem[] = [
     label: TAB_LABELS.MAIN,
     path: "/main",
     icon: bottomAppBarIcons.main,
+    relatedPaths: ["/", ""],
   },
   {
     name: "myNft",
@@ -67,14 +69,15 @@ const tabItems: TabItem[] = [
     path: "/myNft",
     icon: bottomAppBarIcons.myMusic,
   },
-
   {
     name: "adjustment",
     label: TAB_LABELS.ADJUSTMENT,
     path: "/adjustment",
     icon: bottomAppBarIcons.wallet,
+    relatedPaths: ["/servicing-repayment", "/repayment-received"],
   },
 ];
+
 const NavItem = ({
   label,
   Icon,
@@ -105,19 +108,46 @@ const BottomNavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { requireAuth } = useAuth();
-  // 경로와 정확히 일치하는 걸 우선 찾고, 없으면 startsWith 로 fallback
-  const currentTab =
-    tabItems.find((item) => item.path === location.pathname)?.name ||
-    tabItems.find((item) => location.pathname.startsWith(item.path))?.name ||
-    "";
+
+  // 개선된 탭 선택 로직
+  const getCurrentTab = (): string => {
+    // 1. 정확히 일치하는 경로 찾기
+    const exactMatch = tabItems.find((item) => item.path === location.pathname);
+    if (exactMatch) return exactMatch.name;
+
+    // 2. startsWith로 매칭되는 경로 찾기
+    const startsWithMatch = tabItems.find((item) =>
+      location.pathname.startsWith(item.path)
+    );
+    if (startsWithMatch) return startsWithMatch.name;
+
+    // 3. relatedPaths에서 매칭되는 경로 찾기
+    const relatedMatch = tabItems.find((item) =>
+      item.relatedPaths?.includes(location.pathname)
+    );
+    if (relatedMatch) return relatedMatch.name;
+
+    return "";
+  };
+
+  const currentTab = getCurrentTab();
 
   const handleTabClick = (item: TabItem) => {
+    const isOnRelatedPath = tabItems.find((t) =>
+      t.relatedPaths?.includes(location.pathname)
+    );
+    if (isOnRelatedPath && isOnRelatedPath.name === item.name) {
+      return;
+    }
+
     if (item.name === "main") {
       navigate(item.path);
     } else {
       requireAuth(() => navigate(item.path));
     }
   };
+
+
 
   return (
     <NavBarContainer>

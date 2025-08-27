@@ -15,7 +15,7 @@ const Adjustment = () => {
           <IcArrowRight width={16} height={16} />
         </RowContainer>
       </CardWrapper>
-      <Spacer height="2.5rem" />
+      <Spacer height="1rem" />
       <CardWrapper onClick={() => navigate("/servicing-repayment")}>
         <RowContainer>
           <Text>내가 상환해요</Text>
@@ -45,7 +45,7 @@ const TitleWrapper = styled.div`
 
 const CardWrapper = styled.div`
   width: 100%;
-  height: 13.75rem;
+  height: 56px;
   padding: 1rem;
   border-radius: 0.25rem;
   border: 1px solid ${({ theme }) => theme.color.neutral.B10};
