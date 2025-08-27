@@ -6,7 +6,7 @@ import { useEffect, useState, useCallback } from "react";
 import {
   AdjustmentInfo,
   getAdjustmentInfo,
-  patchRepaymentContract,
+  // patchRepaymentContract,
 } from "@apis/adjustment";
 import { RepaymentStatus, useTabBar } from "@pages/_hooks/useTabBar";
 import { useModal } from "@hooks/useModal";
