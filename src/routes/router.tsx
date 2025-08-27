@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 // layouts
 import DefaultLayout from "../layouts/DefaultLayout";
 import NoBottomBarLayout from "../layouts/NoBottomBarLayout";
+import RootWrapper from "../layouts/RootWrapper";
 
 // pages
 import { MainPage } from "../pages/main/MainPage";
@@ -37,82 +38,82 @@ import { AdjustmentReceived } from "@pages/adjustment/containers/AdjustmentRecei
 import { GivingAdjustment } from "@pages/adjustment/containers/AdjustmentGiving";
 import RegisterLoadingPage from "@pages/registerNft/RegisterLoadingPage";
 import NftDetailPage from "@pages/myNft/pages/NftDetailPage";
+import MyNftDetailPage from "@pages/myNft/MyNftDetailPage";
+import MenuPage from "@pages/menu/MenuPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <DefaultLayout />,
+    element: <RootWrapper />,
     children: [
-      { path: "", element: <MainPage /> },
-      { path: "main", element: <MainPage /> },
-      { path: "myNft", element: <MyNftPage /> },
-      { path: "contract", element: <ContractPage /> },
-      { path: "adjustment", element: <Adjustment /> },
-    ],
-  },
-  {
-    path: "/",
-    element: <NoBottomBarLayout />,
-    children: [
-      //NFT 등록
-      // { path: "nft/register/basic", element: <RegisterNftPage1 /> },
-      { path: "nft/register/music-basic", element: <RegisterNftPage2 /> },
-      { path: "nft/register/music-extra", element: <RegisterNftPage3 /> },
-      { path: "nft/register/image-upload", element: <RegisterNftPage4 /> },
       {
-        path: "nft/register/evaluate-loading",
-        element: <EvaluateLoadingPage />,
-      },
-      { path: "nft/register/confirm", element: <RegisterNftConfirmPage /> },
-      { path: "nft/image-crop", element: <ImageCropPage /> },
-      {
-        path: "nft/register/register-loading",
-        element: <RegisterLoadingPage />,
+        path: "",
+        element: <DefaultLayout />,
+        children: [
+          { index: true, element: <MainPage /> },
+          { path: "main", element: <MainPage /> },
+          { path: "myNft", element: <MyNftPage /> },
+          { path: "contract", element: <ContractPage /> },
+          { path: "adjustment", element: <Adjustment /> },
+        ],
       },
 
-      //회원가입
-      { path: "signup/basic", element: <SignUpPage1 /> },
-      { path: "signup/extra", element: <SignUpPage2 /> },
-      { path: "signup/nickname", element: <SignUpPage3 /> },
-      { path: "signup/complete", element: <SignUpPage4 /> },
+      {
+        path: "",
+        element: <NoBottomBarLayout />,
+        children: [
+          // NFT 등록
+          { path: "nft/register/music-basic", element: <RegisterNftPage2 /> },
+          { path: "nft/register/music-extra", element: <RegisterNftPage3 /> },
+          { path: "nft/register/image-upload", element: <RegisterNftPage4 /> },
+          {
+            path: "nft/register/evaluate-loading",
+            element: <EvaluateLoadingPage />,
+          },
+          { path: "nft/register/confirm", element: <RegisterNftConfirmPage /> },
+          {
+            path: "nft/register/register-loading",
+            element: <RegisterLoadingPage />,
+          },
+          { path: "nft/image-crop", element: <ImageCropPage /> },
 
-      {
-        path: "/investment/:investmentId",
-        element: <InvestmentInfo />,
-      },
-      {
-        path: "/investment-input/:investmentId",
-        element: <InvestmentInfoInput />,
-      },
-      {
-        path: "loan-apply/:loanId/:contractId",
-        element: <LoanApply />,
-      },
-      {
-        path: "loan-info-input/:loanId/:contractId",
-        element: <LoanInfoInput />,
-      },
-      {
-        path: "loan-confirm/:loanId/:contractId",
-        element: <LoanConfirm />,
-      },
-      {
-        path: "repayment-received",
-        element: <AdjustmentReceived />,
-      },
-      {
-        path: "servicing-repayment",
-        element: <GivingAdjustment />,
-      },
-      {
-        path: "nft/detail/:nftId",
-        element: <NftDetailPage />,
+          // 메뉴
+          { path: "menu", element: <MenuPage /> },
+
+          // 로그인/회원가입
+          { path: "login", element: <LoginPage /> },
+          { path: "signup/basic", element: <SignUpPage1 /> },
+          { path: "signup/extra", element: <SignUpPage2 /> },
+          { path: "signup/nickname", element: <SignUpPage3 /> },
+          { path: "signup/complete", element: <SignUpPage4 /> },
+
+          // 투자/대출
+          { path: "investment/:investmentId", element: <InvestmentInfo /> },
+          {
+            path: "investment-input/:investmentId",
+            element: <InvestmentInfoInput />,
+          },
+          { path: "loan-apply/:loanId/:contractId", element: <LoanApply /> },
+          {
+            path: "loan-info-input/:loanId/:contractId",
+            element: <LoanInfoInput />,
+          },
+          {
+            path: "loan-confirm/:loanId/:contractId",
+            element: <LoanConfirm />,
+          },
+
+          // 정산 상세
+          { path: "repayment-received", element: <AdjustmentReceived /> },
+          { path: "servicing-repayment", element: <GivingAdjustment /> },
+
+          // NFT 상세
+          { path: "nft/detail/:nftId", element: <NftDetailPage /> },
+          { path: "myNft/detail", element: <MyNftDetailPage /> },
+        ],
       },
     ],
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
   },
 ]);
+
 export default router;

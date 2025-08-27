@@ -5,6 +5,7 @@ import useLogin from "@hooks/queries/useLogin";
 import theme from "@styles/theme";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "src/contexts/AuthContext";
 
 const LoginPage = () => {
   const [loginId, setLoginId] = useState<string>("");
@@ -12,6 +13,8 @@ const LoginPage = () => {
 
   const { mutate: loginMutate } = useLogin();
   const [isError, setIsError] = useState<boolean>(false);
+
+  const { setLoggedIn } = useAuth();
 
   const navigate = useNavigate();
 
@@ -22,6 +25,7 @@ const LoginPage = () => {
         onSuccess: (response) => {
           localStorage.setItem("accessToken", response.data.accessToken);
           localStorage.setItem("refreshToken", response.data.refreshToken);
+          setLoggedIn(true);
           navigate("/main");
         },
         onError: (error) => {
@@ -82,7 +86,7 @@ const PageContainer = styled.div`
   justify-content: center;
   width: 100%;
   max-width: 540px;
-  height: 100vh;
+  height: calc(100vh - 3.5rem);
   background-color: ${theme.color.neutral.white};
   padding: 0 22px 0 22px;
   overflow-y: hidden;

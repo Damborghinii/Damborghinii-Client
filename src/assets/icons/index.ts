@@ -10,6 +10,7 @@ import SignUpComplete from "../icons/signup_complete.svg?react";
 import Logo from "../icons/logo.svg?react";
 import ArrowDown from "../icons/arrow_down.svg?react";
 import ArrowUp from "../icons/arrow_up.svg?react";
+import Wallet from "../icons/wallet.svg?react";
 import { IcHome, IcMyMusic, IcWallet } from "@assets/svg";
 
 export const commonIcons = {
@@ -43,4 +44,8 @@ export const signUpIcons = {
 
 export const LogoIcons = {
   logo: Logo,
+};
+
+export const MenuIcons = {
+  wallet: Wallet,
 };

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { bottomAppBarIcons } from "../../../assets/icons";
 import theme from "../../../styles/theme";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "src/contexts/AuthContext";
 
 interface TextProps {
   isSelected?: boolean;
@@ -106,6 +107,7 @@ const NavItem = ({
 const BottomNavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { requireAuth } = useAuth();
 
   // 개선된 탭 선택 로직
   const getCurrentTab = (): string => {
@@ -130,25 +132,22 @@ const BottomNavBar = () => {
 
   const currentTab = getCurrentTab();
 
-  const handleTabClick = (path: string) => {
-    // related path에서는 해당 탭으로의 이동 막기
-    const isOnRelatedPath = tabItems.some((item) =>
-      item.relatedPaths?.includes(location.pathname)
+  const handleTabClick = (item: TabItem) => {
+    const isOnRelatedPath = tabItems.find((t) =>
+      t.relatedPaths?.includes(location.pathname)
     );
-
-    if (isOnRelatedPath) {
-      // related path에 있을 때는 해당 메인 탭으로 이동 금지
-      const relatedTabItem = tabItems.find((item) =>
-        item.relatedPaths?.includes(location.pathname)
-      );
-
-      if (relatedTabItem?.path === path) {
-        return;
-      }
+    if (isOnRelatedPath && isOnRelatedPath.name === item.name) {
+      return;
     }
 
-    navigate(path);
+    if (item.name === "main") {
+      navigate(item.path);
+    } else {
+      requireAuth(() => navigate(item.path));
+    }
   };
+
+
 
   return (
     <NavBarContainer>
@@ -159,7 +158,7 @@ const BottomNavBar = () => {
           path={item.path}
           Icon={item.icon}
           selected={currentTab === item.name}
-          onClick={() => handleTabClick(item.path)}
+          onClick={() => handleTabClick(item)}
         />
       ))}
     </NavBarContainer>

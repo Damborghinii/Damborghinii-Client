@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import Spacer from "@components/common/spacer/Spacer";
 import { useState } from "react";
 
 interface ButtonProps {
@@ -10,43 +9,45 @@ interface NoticeProps {
   onClick: () => void;
 }
 
+const notices: { title: string; sub?: string }[] = [
+  {
+    title:
+      "투자 시작일로부터 한 달 이내에 투자자를 통해 희망 대출금이 모두 모일 경우 실제 대출이 자동으로 시작되어요.",
+    sub: "*한 달 이내에 희망 대출금이 모이지 않을 경우, 혹은 차입자에 의해 대출 신청이 취소될 경우 작성한 투자 신청건과 계약서는 삭제 처리",
+  },
+  {
+    title: "대출이 시작된 날 기준, 한 달 간격으로 매달 상환을 진행해요.",
+    sub: "*대출 시작일이 매달 마지막 날(29,30,31)인 경우에는 매달 마지막 날 상환 진행",
+  },
+  {
+    title:
+      "정해진 상환일에 이자를 납부하지 않을 경우, 연체율 기준으로 매일 연체금이 추가돼요.",
+  },
+  {
+    title:
+      "마지막 회차에 남은 이자 및 원금을 모두 납부한 후 담보를 돌려받을 수 있어요.",
+  },
+  {
+    title:
+      "남은 이자 및 원금을 모두 납부하지 않을 경우 NFT 담보는 경매로 넘어가요.",
+  },
+];
+
 export const ConfirmNoticeSection = ({ onClick }: NoticeProps) => {
   const [checked, setChecked] = useState(false);
 
   return (
     <NoticeWrapper>
       <Title>대출 진행 방식을 확인해 주세요.</Title>
-      <NoticeList>
-        <li>투자자를 통한 희망 대출금이 모두 모였을 경우 대출이 시작되어요.</li>
-        <Spacer height="0.75rem" />
-        <li>
-          이후 대출이 시작된 날 기준으로 매달 상환을 진행해요. (상환일이 매달
-          마지막 날(29,30,31)일 경우에는 매달 마지막 날로 통일하여 진행)
-        </li>
-        <Spacer height="0.75rem" />
-
-        <li>
-          마지막 회차에 남은 이자 및 원금을 모두 납부한 후 담보를 돌려받을 수
-          있어요.
-        </li>
-        <Spacer height="0.75rem" />
-
-        <li>
-          정해진 이자상환일에 이자를 납부하지 않을 경우 연체율 5%로 매일 이자에
-          연체금이 추가돼요.
-        </li>
-        <Spacer height="0.75rem" />
-
-        <li>
-          대출자가 정해진 상환일에 이자를 납부하지 않을 경우, 연체율 5%로 매일
-          이자에 연체금이 추가되며 투자자의 지분대로 지급되어요.
-        </li>
-        <Spacer height="0.75rem" />
-
-        <li>
-          남은 이자 및 원금을 모두 납부하지 않을 경우 NFT담보는 경매로 넘어가요.
-        </li>
-      </NoticeList>
+      <NoticeGroups>
+        {notices.map(({ title, sub }, idx) => (
+          <NoticeGroup key={idx}>
+            <GroupTitle>{title}</GroupTitle>
+            {sub && <GroupSub>{sub}</GroupSub>}
+            {idx !== notices.length - 1 && <Divider />}
+          </NoticeGroup>
+        ))}
+      </NoticeGroups>
       <CheckWrapper>
         <CheckBox
           type="checkbox"
@@ -59,7 +60,7 @@ export const ConfirmNoticeSection = ({ onClick }: NoticeProps) => {
         </CheckLabel>
       </CheckWrapper>
       <Button disabled={!checked} onClick={onClick}>
-        대출 신청하기
+        계약 작성
       </Button>
     </NoticeWrapper>
   );
@@ -75,22 +76,39 @@ const Title = styled.h1`
   color: ${({ theme }) => theme.color.neutral.B60};
 `;
 
+const NoticeGroups = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const NoticeGroup = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
+
+const GroupTitle = styled.p`
+  ${({ theme }) => theme.typography["body2-2"]};
+  color: ${({ theme }) => theme.color.neutral.B60};
+`;
+
+const GroupSub = styled.p`
+  ${({ theme }) => theme.typography["small1-3"]};
+  color: ${({ theme }) => theme.color.neutral.B60};
+`;
+
+const Divider = styled.div`
+  width: 2px;
+  height: 24px;
+  margin: 0.5rem 0;
+  background: ${({ theme }) => theme.color.neutral.B20};
+`;
+
 const NoticeWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: 2.5rem 1.875rem;
   gap: 2rem;
-`;
-
-const NoticeList = styled.ul`
-  list-style: disc;
-  padding-left: 1rem;
-
-  & > li {
-    color: ${({ theme }) => theme.color.neutral.B60};
-    ${({ theme }) => theme.typography["small1-3"]};
-  }
 `;
 
 const CheckBox = styled.input`

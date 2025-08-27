@@ -39,8 +39,8 @@ const Badge = styled.div`
 export const BadgeScroll = () => {
   return (
     <Container>
-      {BADGE_TYPE.map((text) => (
-        <Badge>{text}</Badge>
+      {BADGE_TYPE.map((text, idx) => (
+        <Badge key={idx}>{text}</Badge>
       ))}
     </Container>
   );
