@@ -113,7 +113,7 @@ const RegisterNftConfirmPage = () => {
                 <InfoRow label="저작권 등록증">
                   {formData.copyrightFileName ?? "등록된 파일 없음"}
                 </InfoRow>
-                <InfoRow label="mp3 파일">{formData.mp3File?.name}</InfoRow>
+                <InfoRow label="mp3 파일">{formData.audio?.name}</InfoRow>
                 <InfoRow label="음원 예상 수익">{formData.wonPrice}</InfoRow>
               </InfoTable>
               <InfoTable>
