@@ -26,6 +26,13 @@ export const GivingAdjustment = () => {
     },
   });
 
+  // totalAmount를 계산된 값으로 관리
+  const totalAmount =
+    adjustmentInfo.repaymentSchedules.repaymentScheduleList.reduce(
+      (acc, cur) => acc + cur.repaymentAmount,
+      0
+    );
+
   // fetchData를 useCallback으로 감싸서 의존성 문제 해결
   const fetchData = useCallback(async () => {
     try {
@@ -35,6 +42,19 @@ export const GivingAdjustment = () => {
       });
       if (res.success && res.data) {
         setAdjustmentInfo(res.data);
+
+        // 디버깅용 로그
+        const calculatedTotal =
+          res.data.repaymentSchedules.repaymentScheduleList.reduce(
+            (acc, cur) => acc + cur.repaymentAmount,
+            0
+          );
+        console.log("LENDER 탭 상태:", tabstatus);
+        console.log(
+          "LENDER 스케줄 리스트:",
+          res.data.repaymentSchedules.repaymentScheduleList
+        );
+        console.log("LENDER 계산된 총액:", calculatedTotal);
       }
     } catch (error) {
       console.error("Failed to fetch adjustment info:", error);
@@ -96,9 +116,7 @@ export const GivingAdjustment = () => {
             : tabstatus === "OVERDUE"
             ? "미상환"
             : "상환완료"}
-          <BodyText>
-            총 {adjustmentInfo?.totalAmount.toLocaleString()}원
-          </BodyText>
+          <BodyText>총 {totalAmount?.toLocaleString()}원</BodyText>
         </RowInfo>
         {adjustmentInfo.repaymentSchedules.repaymentScheduleList.length > 0 &&
           adjustmentInfo.repaymentSchedules.repaymentScheduleList.map(
@@ -132,7 +150,6 @@ const BottomWrapper = styled.div`
   flex-direction: column;
   gap: 1.25rem;
   flex-grow: 1;
-  padding: 0 1.5rem;
   padding-bottom: 2rem;
 `;
 
@@ -150,6 +167,7 @@ const RowInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  padding: 0 20px;
   padding-top: 1.25rem;
   ${({ theme }) => theme.typography["body1-2"]}
 `;
