@@ -31,7 +31,7 @@ const NoBottomBarLayout = () => {
     : isGivingCase
     ? "내가 상환해요"
     : isLoanApply
-    ? "대출신청"
+    ? "대출신청건"
     : isLoanInput
     ? "정보 입력"
     : isLoanConfirm

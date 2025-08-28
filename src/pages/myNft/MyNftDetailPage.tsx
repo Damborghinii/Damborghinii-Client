@@ -39,7 +39,7 @@ const MyNftDetailPage = () => {
   return (
     <PageWrapper>
       <NftInfoWrapper>
-        <NftPictureWrapper></NftPictureWrapper>
+        <NftPicture src="/logo.svg" />
         <TextWrapper>
           <Title>음원 제목</Title>
           <Singers>가수들</Singers>
@@ -113,11 +113,10 @@ const NftInfoWrapper = styled.div`
   padding: 40px 26px;
 `;
 
-const NftPictureWrapper = styled.div`
+const NftPicture = styled.img`
   width: 156px;
   height: 156px;
   border-radius: 8px;
-  background-color: black;
   margin-bottom: 30px;
 `;
 
