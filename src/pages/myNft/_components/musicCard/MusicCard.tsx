@@ -3,7 +3,6 @@ import {
   ProgressBarWrapper,
 } from "@pages/main/_components/MainLoanCard";
 import * as S from "./MusicCard.styled";
-import mockImage from "@assets/image/mockImage.png";
 
 type Status = "ALL" | "REGISTERED" | "INVESTING" | "COMPLETED";
 
