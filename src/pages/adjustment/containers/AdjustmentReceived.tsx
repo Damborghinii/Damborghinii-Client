@@ -9,8 +9,6 @@ import BottomNavBar from "@components/common/bottomNavBar/BottomNavBar";
 
 export const AdjustmentReceived = () => {
   const { tabstatus, setTabStatus } = useTabBar();
-  const [totalAmount, setTotalAmount] = useState<number>(0);
-
   const [adjustmentInfo, setAdjustmentInfo] = useState<AdjustmentInfo>({
     cash: 0,
     totalContracts: 0,
@@ -19,22 +17,42 @@ export const AdjustmentReceived = () => {
       repaymentScheduleList: [],
     },
   });
+
+  // totalAmount를 계산된 값으로 관리
+  const totalAmount =
+    adjustmentInfo.repaymentSchedules.repaymentScheduleList.reduce(
+      (acc, cur) => acc + cur.repaymentAmount,
+      0
+    );
+
   const fetchData = async () => {
-    const res = await getAdjustmentInfo({
-      status: tabstatus,
-      role: "BORROWER",
-    });
-    if (res.success && res.data) {
-      setAdjustmentInfo(res.data);
-      const totalRepaymentAmount =
-        adjustmentInfo.repaymentSchedules.repaymentScheduleList.reduce(
-          (acc, cur) => acc + cur.repaymentAmount,
-          0
+    try {
+      const res = await getAdjustmentInfo({
+        status: tabstatus,
+        role: "BORROWER",
+      });
+
+      if (res.success && res.data) {
+        setAdjustmentInfo(res.data);
+
+        // 디버깅용 로그
+        const calculatedTotal =
+          res.data.repaymentSchedules.repaymentScheduleList.reduce(
+            (acc, cur) => acc + cur.repaymentAmount,
+            0
+          );
+        console.log("탭 상태:", tabstatus);
+        console.log(
+          "스케줄 리스트:",
+          res.data.repaymentSchedules.repaymentScheduleList
         );
-      console.log(totalRepaymentAmount);
-      setTotalAmount(totalRepaymentAmount);
+        console.log("계산된 총액:", calculatedTotal);
+      }
+    } catch (error) {
+      console.error("데이터 가져오기 실패:", error);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, [tabstatus]);
@@ -77,25 +95,20 @@ export const AdjustmentReceived = () => {
   );
 };
 
+// 스타일 컴포넌트들은 동일
 const Wrapper = styled.div`
   width: 100%;
   min-height: 100dvh;
-
   display: flex;
   flex-direction: column;
 `;
 
 const BottomWrapper = styled.div`
   width: 100%;
-
   display: flex;
   flex-direction: column;
-
   gap: 1.25rem;
-
   flex-grow: 1;
-
-  padding: 0 1.5rem;
   padding-bottom: 2rem;
 `;
 
@@ -103,18 +116,15 @@ const RowInfo = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-
   gap: 0.75rem;
-
+  padding: 0 20px;
   padding-top: 1.25rem;
-
   ${({ theme }) => theme.typography["body1-2"]}
 `;
 
 const BodyText = styled.h2`
   padding-top: 0.1rem;
   ${({ theme }) => theme.typography["body2-2"]}
-
   color: ${({ theme }) => theme.color.primary.P50}
 `;
 

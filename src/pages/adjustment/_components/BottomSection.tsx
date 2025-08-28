@@ -8,6 +8,10 @@ import theme from "@styles/theme";
 
 interface TextProps {
   color?: string;
+  size?: {
+    fontSize: string;
+    fontWeight: number;
+  };
 }
 
 // export interface BottomSectionProp {
@@ -25,39 +29,41 @@ export const BottomSection = ({
   status,
   onClick,
 }: BottomSectionProps) => {
+  const isOverdue = (repaymentDate: string): boolean => {
+    const today = new Date();
+    const repayDate = new Date(repaymentDate);
+
+    // 시간 부분을 제거하고 날짜만 비교
+    today.setHours(0, 0, 0, 0);
+    repayDate.setHours(0, 0, 0, 0);
+
+    return repayDate < today;
+  };
+
   return (
     <CardWrapper onClick={onClick}>
+      <NftCardWrapper>
+        <img
+          src={schedule.nftImageUrl || cardImage}
+          alt="담보 카드"
+          width={20}
+          height={20}
+          style={{
+            borderRadius: "2px",
+          }}
+        />
+        <NftText>{schedule.nftName}</NftText>
+        {/* 내 지분<NftText>{schedule.ethPrice}</NftText> */}
+      </NftCardWrapper>
+      <Spacer height="0.5rem" />
+
       <RowTextWrapper>
-        <BodyText color={theme.color.neutral.B70}>총 상환금액</BodyText>
-        <BodyText color={theme.color.neutral.B70}>
-          {schedule.totalRepaymentAmount.toLocaleString()}원
-        </BodyText>
-      </RowTextWrapper>
-      <Spacer height="0.625rem" />
-      <RowTextWrapper>
-        <SmallText color={theme.color.neutral.B40}>상환액</SmallText>
-        <SmallText color={theme.color.neutral.B40}>
-          {schedule.repaymentAmount.toLocaleString()}원 / 연이율
-          {schedule.interestRate}%
-        </SmallText>
-      </RowTextWrapper>
-      <Spacer height="0.625rem" />
-      {status === "OVERDUE" && (
-        <>
-          <RowTextWrapper>
-            <SmallText color={theme.color.neutral.B40}>연체금</SmallText>
-            <SmallText color={theme.color.neutral.B40}>
-              {schedule.lateFee?.toLocaleString()}원 / 연체율
-              {schedule.interestRate}%
-            </SmallText>
-          </RowTextWrapper>
-          <Spacer height="0.625rem" />
-        </>
-      )}
-      <HorizontalDivider />
-      <Spacer height="0.625rem" />
-      <RowTextWrapper>
-        <SmallText color={theme.color.neutral.B70}>회차</SmallText>
+        <SmallTitle
+          color={theme.color.neutral.B50}
+          // size={theme.typography["small1-3"]}
+        >
+          회차
+        </SmallTitle>
         <SmallText
           color={
             status === "OVERDUE"
@@ -68,7 +74,8 @@ export const BottomSection = ({
           {schedule.round}회차
         </SmallText>
       </RowTextWrapper>
-      <Spacer height="0.625rem" />
+
+      <Spacer height="0.5rem" />
       <RowTextWrapper>
         <div
           style={{
@@ -77,10 +84,15 @@ export const BottomSection = ({
             gap: "0.5rem",
           }}
         >
-          <SmallText color={theme.color.neutral.B70}>상환일</SmallText>
+          <SmallTitle
+            color={theme.color.neutral.B50}
+            // size={theme.typography["small1-3"]}
+          >
+            상환일
+          </SmallTitle>
           <SmallText
             color={
-              status === "OVERDUE"
+              isOverdue(schedule.repaymentDate)
                 ? theme.color.warning.R30
                 : theme.color.primary.P60
             }
@@ -90,7 +102,7 @@ export const BottomSection = ({
         </div>
         <SmallText
           color={
-            status === "OVERDUE"
+            isOverdue(schedule.repaymentDate)
               ? theme.color.warning.R30
               : theme.color.primary.P60
           }
@@ -98,18 +110,44 @@ export const BottomSection = ({
           {schedule.repaymentDate}
         </SmallText>
       </RowTextWrapper>
-      <Spacer height="0.625rem" />
-      <NftCardWrapper>
-        <img
-          src={schedule.nftImageUrl || cardImage}
-          alt="담보 카드"
-          width={16}
-          height={16}
-        />
-        담보
-        <NftText>{schedule.nftName}</NftText>
-        {/* 내 지분<NftText>{schedule.ethPrice}</NftText> */}
-      </NftCardWrapper>
+
+      <Spacer height="1rem" />
+      <HorizontalDivider />
+      <Spacer height="1rem" />
+
+      <RowTextWrapper>
+        <SmallTitle color={theme.color.neutral.B50}>상환액</SmallTitle>
+        <SmallText color={theme.color.neutral.B40}>
+          {schedule.repaymentAmount.toLocaleString()}원 / 연이율
+          {schedule.interestRate}%
+        </SmallText>
+      </RowTextWrapper>
+      {status === "OVERDUE" && (
+        <>
+          <RowTextWrapper>
+            <SmallText color={theme.color.neutral.B40}>연체금</SmallText>
+            <SmallText color={theme.color.neutral.B40}>
+              {schedule.lateFee?.toLocaleString()}원 / 연체율
+              {schedule.interestRate}%
+            </SmallText>
+          </RowTextWrapper>
+        </>
+      )}
+      <Spacer height="0.5rem" />
+      <RowTextWrapper>
+        <BodyText color={theme.color.neutral.B70}>총 상환금액</BodyText>
+        <BodyText
+          color={
+            isOverdue(schedule.repaymentDate)
+              ? theme.color.warning.R30
+              : status === "UPCOMING"
+              ? theme.color.secondary.S60
+              : theme.color.neutral.B70
+          }
+        >
+          {schedule.totalRepaymentAmount.toLocaleString()}원
+        </BodyText>
+      </RowTextWrapper>
     </CardWrapper>
   );
 };
@@ -125,11 +163,15 @@ const SmallText = styled.h3<TextProps>`
   color: ${({ color }) => color}
 `;
 
+const SmallTitle = styled.h3<TextProps>`
+  ${({ theme }) => theme.typography["small1-3"]}
+  color: ${({ color }) => color}
+`;
 const CardWrapper = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.color.neutral.white};
 
-  border-radius: 1rem;
+  border-radius: 1.5rem;
   padding: 1rem;
 `;
 
@@ -155,6 +197,6 @@ const NftCardWrapper = styled.div`
 `;
 
 const NftText = styled.h3<TextProps>`
-  ${({ theme }) => theme.typography["small2-2"]}
+  ${({ theme }) => theme.typography["small1-2"]}
   color: ${({ theme }) => theme.color.neutral.B70};
 `;
