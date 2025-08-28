@@ -19,6 +19,11 @@ const RegisterLoadingPage = () => {
       return;
     }
 
+    if (!nftForm.formData.audio) {
+      navigate("/nft/register/confirm");
+      return;
+    }
+
     createNftMutate(nftForm.formData, {
       onSuccess: (data) => {
         if (data.success) {

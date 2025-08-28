@@ -40,6 +40,7 @@ import RegisterLoadingPage from "@pages/registerNft/RegisterLoadingPage";
 import NftDetailPage from "@pages/myNft/pages/NftDetailPage";
 import MyNftDetailPage from "@pages/myNft/MyNftDetailPage";
 import MenuPage from "@pages/menu/MenuPage";
+import MyNftContract from "@pages/myNft/pages/MyNftContract";
 
 const router = createBrowserRouter([
   {
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
           {
             path: "loan-confirm/:loanId/:contractId",
             element: <LoanConfirm />,
+          },
+          {
+            path: "myNft/loan-contract/:loanId/:contractId",
+            element: <MyNftContract />,
           },
 
           // 정산 상세
