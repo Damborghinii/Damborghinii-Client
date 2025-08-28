@@ -3,6 +3,7 @@ import {
   ProgressBarWrapper,
 } from "@pages/main/_components/MainLoanCard";
 import * as S from "./MusicCard.styled";
+import { useNavigate } from "react-router-dom";
 
 type Status = "ALL" | "REGISTERED" | "INVESTING" | "COMPLETED";
 
@@ -11,6 +12,7 @@ type MusicCardProps = {
   title: string;
   status: Status;
   progress?: number | null;
+  copyrightId: number;
 };
 
 const statusLabelMap: Record<Status, string> = {
@@ -25,10 +27,15 @@ export const MusicCard = ({
   title,
   status,
   progress,
+  copyrightId,
 }: MusicCardProps) => {
   const pct = progress ? progress : 0;
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/myNft/detail/${copyrightId}`);
+  };
   return (
-    <S.CardContainer>
+    <S.CardContainer onClick={handleClick}>
       <img src={imageUrl} alt="NFT 대표사진" width={64} height={64} />
       <S.CardInfoWrapper>
         <>{title}</>

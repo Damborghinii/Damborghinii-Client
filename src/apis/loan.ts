@@ -1,3 +1,4 @@
+import { API_PATH } from "@constants/path";
 import axiosInstance, { BaseResponse } from "./axios";
 
 export type CopyrightDetail = {
@@ -13,6 +14,7 @@ export type CopyrightDetail = {
   streamingUrls: string;
   isRegistered: string;
   registrationDoc: string;
+  audioUrl: string;
 };
 
 export type LoanCondition = {
@@ -34,11 +36,13 @@ export type LoanConditionConfirm = {
   repaymentCount: string;
 };
 
-export type Copyright = {
-  imageUrl: string;
-  title: string;
-  ethPrice: string;
-  wonPrice: string;
+export const getLoanInformation = async (contractId: number) => {
+  const url = API_PATH.LOAN.LOAN_INFO.replace(
+    "{contractId}",
+    String(contractId)
+  );
+  const res = await axiosInstance.get<BaseResponse<LoanCondition>>(url);
+  return res.data;
 };
 
 export const getLoanInfo = async (
@@ -52,16 +56,12 @@ export const getLoanInfo = async (
     interestCalculationRatio: number;
   }>
 > => {
-  try {
-    const res = await axiosInstance.get(
-      `/api/v1/contracts/${contractId}/loans`
-    );
-    console.log(res);
-
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
+  const url = API_PATH.LOAN.LOAN_INFO.replace(
+    "{contractId}",
+    String(contractId)
+  );
+  const res = await axiosInstance.get(url);
+  return res.data;
 };
 
 export const getLoanConfirm = async (

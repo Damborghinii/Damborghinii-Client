@@ -4,7 +4,9 @@ import styled from "@emotion/styled";
 import theme from "@styles/theme";
 import React, { useState } from "react";
 import { NoticeSection } from "./_components/NoticeSection";
-// import { LoanCondition } from "@apis/loan";
+import { useNavigate, useParams } from "react-router-dom";
+import { useMyNftDetail } from "@hooks/queries/useMyNftDetail";
+import { useLoanInfo } from "@hooks/queries/useLoanInfo";
 
 const InfoRow = ({
   label,
@@ -20,29 +22,40 @@ const InfoRow = ({
 );
 
 const MyNftDetailPage = () => {
+  const { copyrightId } = useParams<{ copyrightId: string }>();
+  const id = Number(copyrightId);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const { data: nftDetailRes } = useMyNftDetail(id);
+  const nftData = nftDetailRes?.data;
+
+  const contractId = Number(nftData?.contractId);
+  const { data: loanRes } = useLoanInfo(contractId);
+  const loanData = loanRes?.data;
 
   const handleIconClick = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const { arrow_up: ArrowUp, arrow_down: ArrowDown } = registerNftIcons;
+  const navigate = useNavigate();
 
-  // const [condition, setCondition] = useState<LoanCondition>({
-  //   loanType: "",
-  //   loanPeriod: "",
-  //   loanAmount: "",
-  //   interestRate: "",
-  //   overdueRate: "",
-  // });
+  const handleLoanApply = () => {
+    if (!contractId) return;
+    navigate(`/loan-info-input/${copyrightId}/${contractId}`);
+  };
+
+  console.log(loanData);
+
+  const { arrow_up: ArrowUp, arrow_down: ArrowDown } = registerNftIcons;
 
   return (
     <PageWrapper>
       <NftInfoWrapper>
-        <NftPictureWrapper></NftPictureWrapper>
+        <NftPictureWrapper src={nftData?.imageUrl} />
         <TextWrapper>
-          <Title>음원 제목</Title>
-          <Singers>가수들</Singers>
+          <Title>{nftData?.title}</Title>
+          <Singers>{nftData?.singers}</Singers>
         </TextWrapper>
         <InfoWrapper>
           <DetailTable>
@@ -54,18 +67,24 @@ const MyNftDetailPage = () => {
           {isOpen && (
             <>
               <InfoTable>
-                <InfoRow label="음원/앨범명">음원명이시고</InfoRow>
-                <InfoRow label="가수 정보">가수시고</InfoRow>
-                <InfoRow label="작곡가 정보">작곡가시고</InfoRow>
-                <InfoRow label="작사가 정보">작사가시고</InfoRow>
+                <InfoRow label="음원/앨범명">{nftData?.title}</InfoRow>
+                <InfoRow label="가수 정보">{nftData?.singers}</InfoRow>
+                <InfoRow label="작곡가 정보">{nftData?.composers}</InfoRow>
+                <InfoRow label="작사가 정보">{nftData?.lyricists}</InfoRow>
               </InfoTable>
               <InfoTable>
                 <InfoRow label="저작권 등록 여부">
-                  "저작권이 등록되어 있는 음원"
+                  {nftData?.isRegisterd
+                    ? nftData.isRegisterd
+                    : "저작권이 등록되지 않은 음원"}
                 </InfoRow>
-                <InfoRow label="저작권 등록증">등록된 파일 없음</InfoRow>
+                <InfoRow label="저작권 등록증">
+                  {nftData?.isRegisterd
+                    ? nftData?.registrationDoc
+                    : "등록된 파일 없음"}
+                </InfoRow>
                 <InfoRow label="mp3 파일">mp3 파일 없음</InfoRow>
-                <InfoRow label="음원 예상 수익">100원</InfoRow>
+                <InfoRow label="음원 예상 수익">{nftData?.wonPrice}</InfoRow>
               </InfoTable>
               <InfoTable>
                 <TableRow>
@@ -73,7 +92,7 @@ const MyNftDetailPage = () => {
                 </TableRow>
                 <TableRow>
                   <UrlText>
-                    <span>url들</span>
+                    <span>{nftData.streamingUrls}</span>
                   </UrlText>
                 </TableRow>
               </InfoTable>
@@ -81,8 +100,8 @@ const MyNftDetailPage = () => {
           )}
         </InfoWrapper>
         <PriceWrapper>
-          <ETHPrice>최종 가치: 100</ETHPrice>
-          <KRWPrice>한화 가치 약 100</KRWPrice>
+          <ETHPrice>최종 가치: {nftData?.ethPrice}</ETHPrice>
+          <KRWPrice>한화 가치 약 {nftData?.wonPrice}</KRWPrice>
         </PriceWrapper>
         <Button
           size="big"
@@ -91,7 +110,15 @@ const MyNftDetailPage = () => {
           children="가치 재평가"
         />
       </NftInfoWrapper>
-      <NoticeSection isFullScreen />
+      <NoticeSection isFullScreen condition={loanData?.loanCondition} />
+      <ButtonWrapper>
+        <Button
+          size="big"
+          fullWidth
+          children="대출 신청"
+          onClick={handleLoanApply}
+        />
+      </ButtonWrapper>
     </PageWrapper>
   );
 };
@@ -113,11 +140,11 @@ const NftInfoWrapper = styled.div`
   padding: 40px 26px;
 `;
 
-const NftPictureWrapper = styled.div`
+const NftPictureWrapper = styled.img`
   width: 156px;
   height: 156px;
   border-radius: 8px;
-  background-color: black;
+  border: 1px solid ${theme.color.neutral.B00};
   margin-bottom: 30px;
 `;
 
@@ -252,4 +279,10 @@ const UrlText = styled.span`
     font-size: ${theme.typography["small2-2"].fontSize};
     font-weight: ${theme.typography["small2-2"].fontWeight};
   }
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  padding: 0 1.875rem;
+  margin-bottom: 40px;
 `;

@@ -96,15 +96,19 @@ const router = createBrowserRouter([
           },
           { path: "loan-apply/:loanId/:contractId", element: <LoanApply /> },
           {
-            path: "loan-info-input/:loanId/:contractId",
+            path: "loan-info-input/:copyrightId/:contractId",
             element: <LoanInfoInput />,
           },
           {
-            path: "loan-confirm/:loanId/:contractId",
+            path: "loan-confirm/:copyrightId/:contractId",
             element: <LoanConfirm />,
           },
           {
             path: "myNft/loan-contract/:loanId/:contractId",
+            element: <MyNftContract />,
+          },
+          {
+            path: "loan-agreement/:copyrightId/:contractId",
             element: <MyNftContract />,
           },
 
@@ -114,7 +118,7 @@ const router = createBrowserRouter([
 
           // NFT 상세
           { path: "nft/detail/:nftId", element: <NftDetailPage /> },
-          { path: "myNft/detail", element: <MyNftDetailPage /> },
+          { path: "myNft/detail/:copyrightId", element: <MyNftDetailPage /> },
         ],
       },
     ],
