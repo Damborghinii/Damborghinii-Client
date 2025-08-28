@@ -143,8 +143,7 @@ export const MainPage: React.FC = () => {
                   key={`filtered-${contract.contractId}`}
                   contract={contract}
                   onClick={() => {
-                    // navigate(`/investment/${contract.contractId}`);
-                    alert(`계약 ID: ${contract.contractId} 상세보기`);
+                    navigate(`/loan-apply/progress/${contract.contractId}`);
                   }}
                 />
               ))
@@ -192,8 +191,7 @@ export const MainPage: React.FC = () => {
                   key={`recent-${contract.contractId}`}
                   contract={contract}
                   onClick={() => {
-                    // navigate(`/investment/${contract.contractId}`);
-                    alert(`계약 ID: ${contract.contractId} 상세보기`);
+                    navigate(`/loan-apply/progress/${contract.contractId}`);
                   }}
                 />
               ))
