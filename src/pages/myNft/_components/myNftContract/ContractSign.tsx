@@ -17,6 +17,10 @@ export const ContractSign = () => {
         </InfoWrapper>
       </InfoGroup>
       <SignContainer />
+      <InfoWrapperWithMargin>
+        <InfoTitle>투자자</InfoTitle>
+        <InfoValue>복수의 투자자 기재 예정</InfoValue>
+      </InfoWrapperWithMargin>
     </PageContainer>
   );
 };
@@ -73,4 +77,8 @@ const InputSection = styled.input`
   &::placeholder {
     color: ${theme.color.neutral.B30};
   }
+`;
+
+const InfoWrapperWithMargin = styled(InfoWrapper)`
+  margin-top: 24px;
 `;

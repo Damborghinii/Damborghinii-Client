@@ -5,8 +5,47 @@ import ContractNftInfoSection from "../_components/myNftContract/ContractNftInfo
 import ContractCondition from "../_components/myNftContract/ContractCondition";
 import ContractTextBox from "../_components/myNftContract/ContractTextBox";
 import { ContractSign } from "../_components/myNftContract/ContractSign";
+import { useNavigate, useParams } from "react-router-dom";
+import { useLoanAgreement } from "@hooks/queries/useLoanAgreement";
+import Button from "@components/common/button/Button";
+import { useSubmitLoan } from "@hooks/queries/useSubmitLoan";
 
 const MyNftContract = () => {
+  const { contractId: contractIdParam } = useParams<{ contractId: string }>();
+  const contractId = Number(contractIdParam);
+
+  const amountStr = localStorage.getItem("amount");
+  const countStr = localStorage.getItem("count");
+  const amount = amountStr ? Number(amountStr) : undefined;
+  const count = countStr ? Number(countStr) : undefined;
+
+  const { data } = useLoanAgreement(contractId, amount, count);
+
+  const agreementData = data?.data;
+
+  const { mutate } = useSubmitLoan();
+
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    if (!contractId || !amount || !count) return;
+    mutate(
+      {
+        contractId,
+        loanAmount: amount,
+        repaymentCount: count,
+      },
+      {
+        onSuccess: () => {
+          navigate("/myNft");
+        },
+        onError: (e) => {
+          console.error(e);
+        },
+      }
+    );
+  };
+
   return (
     <PageWrapper>
       <ContractHeader>
@@ -20,8 +59,8 @@ const MyNftContract = () => {
       <Divider />
       <InfoWrapper>
         <ContractPartySection />
-        <ContractNftInfoSection />
-        <ContractCondition />
+        <ContractNftInfoSection copyright={agreementData?.copyright ?? {}} />
+        <ContractCondition loanCondition={agreementData?.loanCondition ?? {}} />
         <ContractTextBox
           title="제4조 (상환 방식)"
           items={[
@@ -85,6 +124,16 @@ const MyNftContract = () => {
       />
       <Divider withTopMargin />
       <ContractSign />
+      <ButtonWrapper>
+        {" "}
+        <Button
+          size="big"
+          children="제출"
+          fullWidth
+          onClick={handleSubmit}
+          disabled={!amount || !count}
+        />
+      </ButtonWrapper>
     </PageWrapper>
   );
 };
@@ -132,4 +181,10 @@ const InfoWrapper = styled.div`
   flex-direction: column;
   gap: 48px;
   margin-bottom: 40px;
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  margin-top: 50px;
+  padding: 0 26px;
 `;

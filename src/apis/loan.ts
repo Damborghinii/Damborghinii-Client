@@ -36,6 +36,32 @@ export type LoanConditionConfirm = {
   repaymentCount: string;
 };
 
+export type AgreementLoanCondition = {
+  loanType: string;
+  loanPeriod: string;
+  loanAmount: string;
+  interestRate: string;
+  overdueRate: string;
+  monthlyInterest: string;
+};
+
+export type AgreementCopyright = {
+  title: string;
+  singers: string;
+  isRegistered: string;
+  wonPrice: string;
+  streamingUrls: string;
+};
+
+export type CreationDate = {
+  creationDate: string;
+};
+
+type Copyright = Pick<
+  CopyrightDetail,
+  "imageUrl" | "title" | "ethPrice" | "wonPrice"
+>;
+
 export const getLoanInformation = async (contractId: number) => {
   const url = API_PATH.LOAN.LOAN_INFO.replace(
     "{contractId}",
@@ -74,15 +100,12 @@ export const getLoanConfirm = async (
     copyright: Copyright;
   }>
 > => {
-  try {
+  {
     const res = await axiosInstance.get(
       `/api/v1/contracts/${contractId}/loans/check?amount=${amount}&count=${count}`
     );
 
-    console.log(res);
     return res.data;
-  } catch (err) {
-    throw err;
   }
 };
 
@@ -91,14 +114,29 @@ export const postLoan = async (
   loanAmount: number,
   repaymentCount: number
 ): Promise<BaseResponse<null>> => {
-  try {
-    const res = await axiosInstance.post(`/api/v1/contracts/${contractId}`, {
-      loanAmount,
-      repaymentCount,
-    });
-    console.log(res);
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
+  const url = API_PATH.LOAN.SUBMIT_AGREEMENT.replace(
+    "{contractId}",
+    String(contractId)
+  );
+  const res = await axiosInstance.post(url, { loanAmount, repaymentCount });
+  return res.data;
+};
+
+export const concludeLoan = async (
+  contractId: number,
+  amount: number,
+  count: number
+): Promise<
+  BaseResponse<{
+    loanCondition: AgreementLoanCondition;
+    copyright: AgreementCopyright;
+    creationDate: CreationDate;
+  }>
+> => {
+  const url = API_PATH.LOAN.LOAN_AGREEMENT.replace(
+    "{contractId}",
+    String(contractId)
+  );
+  const res = await axiosInstance.get(`${url}?amount=${amount}&count=${count}`);
+  return res.data;
 };

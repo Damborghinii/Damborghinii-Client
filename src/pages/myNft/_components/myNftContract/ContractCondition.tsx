@@ -4,19 +4,29 @@ import React from "react";
 
 type InfoField = {
   label: string;
-  value: string;
+  value: string | undefined;
 };
 
-const fields: InfoField[] = [
-  { label: "대출 방식", value: "value" },
-  { label: "대출 금액", value: "value" },
-  { label: "대출 기간", value: "value" },
-  { label: "연이율", value: "value" },
-  { label: "월 이자", value: "value" },
-  { label: "연체이율", value: "value" },
-];
+type Props = {
+  loanCondition: {
+    loanType?: string;
+    loanAmount?: string;
+    loanPeriod?: string;
+    interestRate?: string;
+    monthlyInterest?: string;
+    overdueRate?: string;
+  };
+};
 
-const ContractCondition = () => {
+const ContractCondition = ({ loanCondition }: Props) => {
+  const fields: InfoField[] = [
+    { label: "대출 방식", value: loanCondition?.loanType },
+    { label: "대출 금액", value: loanCondition?.loanAmount },
+    { label: "대출 기간", value: loanCondition?.loanPeriod },
+    { label: "연이율", value: loanCondition?.interestRate },
+    { label: "월 이자", value: loanCondition?.monthlyInterest },
+    { label: "연체이율", value: loanCondition?.overdueRate },
+  ];
   return (
     <PageContainer>
       <Title>제3조 (대출조건)</Title>

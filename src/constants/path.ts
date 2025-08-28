@@ -18,5 +18,7 @@ export const API_PATH = {
 
   LOAN: {
     LOAN_INFO: "/api/v1/contracts/{contractId}/loans",
+    LOAN_AGREEMENT: "/api/v1/contracts/{contractId}/loans/conclusion",
+    SUBMIT_AGREEMENT: "/api/v1/contracts/{contractId}",
   },
 };
