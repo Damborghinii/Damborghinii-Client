@@ -3,8 +3,7 @@ import { MainBadge } from "@components/common/mainBadge/MainBadge";
 import styled from "@emotion/styled";
 import theme from "@styles/theme";
 import { useEffect, useState } from "react";
-
-const text = "test";
+import { NewContract } from "@apis/getMain";
 
 const calculateTimeLeft = (expirationDate: string): string => {
   const now = new Date();
@@ -34,8 +33,8 @@ const calculateTimeLeft = (expirationDate: string): string => {
 };
 
 type NewLoanCardProps = {
-  imageUrl: string;
-  expiration?: string;
+  contract: NewContract;
+  onClick?: () => void;
 };
 
 const CardContainer = styled.div`
@@ -44,6 +43,7 @@ const CardContainer = styled.div`
   display: flex;
   gap: 12px;
   align-items: center;
+  cursor: pointer;
 `;
 
 const CardImage = styled.div<{ imageUrl: string }>`
@@ -53,6 +53,7 @@ const CardImage = styled.div<{ imageUrl: string }>`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  border-radius: 8px;
 `;
 
 const ColumnWrapper = styled.div`
@@ -94,40 +95,60 @@ const BadgeWrapper = styled.div`
   gap: 4px;
 `;
 
-export const NewLoanCard = ({ imageUrl, expiration }: NewLoanCardProps) => {
+// 이자율을 퍼센트로 변환
+const formatInterestRate = (rate: string): string => {
+  const numRate = parseFloat(rate) * 100;
+  return `연이율 ${Math.trunc(numRate)}%`;
+};
+
+// 진행률에 따라 배지 색상 결정
+const getProgressBadgeColor = (progress: string) => {
+  const progressNum = parseFloat(progress.replace("%", ""));
+  if (progressNum >= 50) {
+    return {
+      borderColor: theme.color.secondary.S30,
+      textColor: theme.color.secondary.S60,
+    };
+  }
+  return {
+    borderColor: theme.color.warning.W10,
+    textColor: theme.color.warning.W30,
+  };
+};
+
+export const NewLoanCard = ({ contract, onClick }: NewLoanCardProps) => {
   const [timeLeft, setTimeLeft] = useState<string>("");
 
   useEffect(() => {
-    if (!expiration) return;
+    if (!contract.expirationTime) return;
 
     // 초기 시간 설정
-    setTimeLeft(calculateTimeLeft(expiration));
+    setTimeLeft(calculateTimeLeft(contract.expirationTime));
 
-    // 1초마다 업데이트
     const timer = setInterval(() => {
-      const newTimeLeft = calculateTimeLeft(expiration);
+      const newTimeLeft = calculateTimeLeft(contract.expirationTime);
       setTimeLeft(newTimeLeft);
 
-      // 종료되면 타이머 정리
       if (newTimeLeft === "종료됨") {
         clearInterval(timer);
       }
     }, 1000);
 
-    // 컴포넌트 언마운트 시 타이머 정리
     return () => clearInterval(timer);
-  }, [expiration]);
+  }, [contract.expirationTime]);
+
+  const progressBadgeColor = getProgressBadgeColor(contract.progress);
 
   return (
-    <CardContainer>
-      <CardImage imageUrl={imageUrl} />
+    <CardContainer onClick={onClick}>
+      <CardImage imageUrl={contract.copyright.imageUrl.trim()} />
       <ColumnWrapper>
         <RowWrapper>
           <TitleWrapper>
-            {text}
+            {contract.copyright.name}
             <SubTitleWrapper>
-              {text}
-              {expiration && timeLeft && (
+              {contract.loanAmount}
+              {contract.expirationTime && timeLeft && (
                 <ExpirationText>{timeLeft}</ExpirationText>
               )}
             </SubTitleWrapper>
@@ -139,20 +160,19 @@ export const NewLoanCard = ({ imageUrl, expiration }: NewLoanCardProps) => {
             borderColor={theme.color.neutral.B20}
             textColor={theme.color.neutral.B40}
           >
-            12회차
+            {contract.repaymentCount}회차
           </MainBadge>
           <MainBadge
             borderColor={theme.color.neutral.B20}
             textColor={theme.color.neutral.B40}
           >
-            연이율 5%
+            {formatInterestRate(contract.interestRate)}
           </MainBadge>
-
           <MainBadge
-            borderColor={theme.color.secondary.S30}
-            textColor={theme.color.secondary.S60}
+            borderColor={progressBadgeColor.borderColor}
+            textColor={progressBadgeColor.textColor}
           >
-            연이율 5%
+            진행률 {contract.progress}
           </MainBadge>
         </BadgeWrapper>
       </ColumnWrapper>
