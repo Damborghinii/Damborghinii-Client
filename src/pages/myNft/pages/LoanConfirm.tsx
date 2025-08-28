@@ -6,13 +6,11 @@ import Spacer from "@components/common/spacer/Spacer";
 import { ConfirmNoticeSection } from "../_components/ConfirmNoticeSection";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getLoanConfirm, postLoan } from "@apis/loan";
-import { useModal } from "@hooks/useModal";
+import { getLoanConfirm } from "@apis/loan";
 
 export const LoanConfirm = () => {
   const navigate = useNavigate();
-  const { loanId, contractId } = useParams();
-  const { openModal, closeModal } = useModal();
+  const { copyrightId, contractId } = useParams();
   const [loanInfo, setLoanInfo] = useState<LoanInfoProps>({
     loanAmount: "",
     monthlyInterest: "",
@@ -62,30 +60,8 @@ export const LoanConfirm = () => {
   }, [contractId]);
 
   const handleClick = () => {
-    if (!loanId) return;
-
-    openModal({
-      title: "정말 대출을 신청하시겠습니까?",
-      sub: "신청 후에는 수정이 불가능합니다.",
-      primaryButton: {
-        children: "취소",
-        onClick: closeModal,
-      },
-      secondButton: {
-        children: "확인",
-        onClick: async () => {
-          closeModal();
-
-          await postLoan(
-            Number(contractId),
-            Number(localStorage.getItem("amount")) ?? 10000,
-            Number(localStorage.getItem("count")) ?? 12
-          );
-
-          navigate("/myNft");
-        },
-      },
-    });
+    if (!copyrightId) return;
+    navigate(`/myNft/loan-contract/${copyrightId}/${contractId}`);
   };
 
   return (

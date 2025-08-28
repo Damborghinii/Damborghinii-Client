@@ -118,6 +118,7 @@ const MyNftPage = () => {
             title={item.title}
             status={item.status}
             progress={item.progress ?? 0}
+            copyrightId={item.copyrightId}
           />
         ))}
       </S.EntryWrapper>

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import theme from "@styles/theme";
 import { useState } from "react";
 
 interface ButtonProps {
@@ -69,7 +70,6 @@ export const ConfirmNoticeSection = ({ onClick }: NoticeProps) => {
 const Title = styled.h1`
   width: 100%;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
 
   ${({ theme }) => theme.typography["body1-1"]}
@@ -109,6 +109,7 @@ const NoticeWrapper = styled.div`
   flex-direction: column;
   padding: 2.5rem 1.875rem;
   gap: 2rem;
+  background-color: ${theme.color.neutral.B00};
 `;
 
 const CheckBox = styled.input`
@@ -118,7 +119,7 @@ const CheckBox = styled.input`
   border-radius: 0.2rem;
   appearance: none;
   cursor: pointer;
-  position: relative; /* ⬅️ ::after 기준점 */
+  position: relative;
 
   &:checked {
     background-color: ${({ theme }) => theme.color.primary.P50};

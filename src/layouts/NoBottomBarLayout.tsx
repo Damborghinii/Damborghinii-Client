@@ -19,6 +19,7 @@ const NoBottomBarLayout = () => {
   const isNftDetail = location.pathname.startsWith("/nft/detail/");
   const isMenu = location.pathname.startsWith("/menu");
   const isLogin = location.pathname.startsWith("/login");
+  const isMyNftDetail = location.pathname.startsWith("/myNft/detail");
 
   const title = isRegisterRoute
     ? "NFT 등록"
@@ -33,15 +34,17 @@ const NoBottomBarLayout = () => {
     : isLoanApply
     ? "대출신청"
     : isLoanInput
-    ? "정보 입력"
+    ? "대출 신청"
     : isLoanConfirm
-    ? "대출 확정"
+    ? "정보 입력"
     : isNftDetail
     ? "등록된 NFT"
     : isMenu
     ? "더보기"
     : isLogin
     ? "로그인"
+    : isMyNftDetail
+    ? "내 음원"
     : "";
   const isConfirmButton = isImageCropPage;
 
