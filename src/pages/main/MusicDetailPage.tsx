@@ -2,7 +2,7 @@ import { registerNftIcons } from "@assets/icons";
 import styled from "@emotion/styled";
 import theme from "@styles/theme";
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getCopyrightDetail, ContractDetailResponse } from "@apis/musicDetail";
 import Spacer from "@components/common/spacer/Spacer";
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
@@ -13,7 +13,6 @@ import {
   ProgressBarWrapper,
 } from "./_components/MainLoanCard";
 import Button from "@components/common/button/Button";
-
 const INVEST_INFO_TEXT = [
   "투자 시 내 보유금액이 입력한 투자금액만큼 자동으로 인출되어요.",
   "투자시작일로부터 한 달 이내에 투자가 진행되지 않을 경우, 혹은 차입자에 의해 대출신청이 취소될 경우 인출되었던 투자금액은 시스템이 다시 자동으로 지급해요.",
@@ -48,6 +47,8 @@ const InfoRow = ({
 );
 
 const MusicDetailPage = () => {
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [copyrightData, setCopyrightData] =
     useState<ContractDetailResponse | null>(null);
@@ -126,19 +127,6 @@ const MusicDetailPage = () => {
           <Title>{copyrightData.copyright.title}</Title>
           <Singers>{copyrightData.copyright.singers}</Singers>
         </TextWrapper>
-
-        {/* 진행률 정보 추가 */}
-        {/* <ProgressWrapper>
-          <ProgressText>투자 진행률</ProgressText>
-          <ProgressInfo>
-            <CurrentProgress>
-              {copyrightData.progress.currentProgress}
-            </CurrentProgress>
-            <RemainingAmount>
-              잔여 투자금 {copyrightData.progress.remainingInvestingMoney}
-            </RemainingAmount>
-          </ProgressInfo>
-        </ProgressWrapper> */}
 
         <InfoWrapper>
           <DetailTable>
@@ -228,18 +216,6 @@ const MusicDetailPage = () => {
             <SmallText color={theme.color.neutral.B40}>2025-08-30</SmallText>
           </RowTextWrapper>
         </InfoWrapper>
-
-        {/*
-        <Button
-          size="big"
-          variant="line-primary"
-          fullWidth
-          children="투자하기"
-          onClick={() => {
-            // 투자 로직 추가
-            alert(`${copyrightData.copyright.title}에 투자합니다.`);
-          }}
-        /> */}
       </NftInfoWrapper>
       <HorizontalDivider height="3px" />
       <ContentWrapper>
@@ -361,7 +337,10 @@ const MusicDetailPage = () => {
           </InfoList>
         </InfoContainer>
 
-        <Button size="extra" onClick={() => alert("Todo")}>
+        <Button
+          size="extra"
+          onClick={() => navigate(`/loan-apply-detail/${contractId}`)}
+        >
           투자하기
         </Button>
       </ContentWrapper>

@@ -13,7 +13,9 @@ const NoBottomBarLayout = () => {
   const isInvestmentRoute = location.pathname.startsWith("/investment");
   const isRepayment = location.pathname.startsWith("/repayment");
   const isGivingCase = location.pathname.startsWith("/servicing");
-  const isLoanApply = location.pathname.startsWith("/loan-apply");
+  const isLoanApply =
+    location.pathname.startsWith("/loan-apply") ||
+    location.pathname.startsWith("/loan-apply-detail");
   const isLoanInput = location.pathname.startsWith("/loan-info-input");
   const isLoanConfirm = location.pathname.startsWith("/loan-confirm");
   const isNftDetail = location.pathname.startsWith("/nft/detail/");

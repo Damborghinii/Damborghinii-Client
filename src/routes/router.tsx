@@ -41,6 +41,7 @@ import NftDetailPage from "@pages/myNft/pages/NftDetailPage";
 import MyNftDetailPage from "@pages/myNft/MyNftDetailPage";
 import MenuPage from "@pages/menu/MenuPage";
 import MusicDetailPage from "@pages/main/MusicDetailPage";
+import { MusicApplyDetail } from "@pages/main/MusicApplyPage";
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,10 @@ const router = createBrowserRouter([
           {
             path: "loan-apply/progress/:contractId",
             element: <MusicDetailPage />,
+          },
+          {
+            path: "loan-apply-detail/:contractId",
+            element: <MusicApplyDetail />,
           },
         ],
       },
