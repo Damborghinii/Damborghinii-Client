@@ -49,13 +49,18 @@ const CardWrapper = styled.div`
   padding: 1rem;
   border-radius: 0.25rem;
   border: 1px solid ${({ theme }) => theme.color.neutral.B10};
+  display: flex;
+  align-items: center;
 `;
 const RowContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const Text = styled.h2`
   ${({ theme }) => theme.typography["body1-2"]};
+  display: flex;
+  align-items: center;
 `;

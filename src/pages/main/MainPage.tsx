@@ -1,5 +1,5 @@
 import * as S from "./Main.styled";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import { IcSearch } from "@assets/svg";
@@ -15,7 +15,7 @@ import {
 } from "@apis/getMain";
 
 export const MainPage: React.FC = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [contracts, setContracts] = useState<NewContract[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -143,8 +143,7 @@ export const MainPage: React.FC = () => {
                   key={`filtered-${contract.contractId}`}
                   contract={contract}
                   onClick={() => {
-                    // navigate(`/investment/${contract.contractId}`);
-                    alert(`계약 ID: ${contract.contractId} 상세보기`);
+                    navigate(`/loan-apply/progress/${contract.contractId}`);
                   }}
                 />
               ))
@@ -166,8 +165,7 @@ export const MainPage: React.FC = () => {
                   key={`popular-${contract.contractId}`}
                   contract={contract}
                   onClick={() => {
-                    // navigate(`/investment/${contract.contractId}`);
-                    alert(`계약 ID: ${contract.contractId} 상세보기`);
+                    navigate(`/loan-apply/progress/${contract.contractId}`);
                   }}
                 />
               ))
@@ -193,8 +191,7 @@ export const MainPage: React.FC = () => {
                   key={`recent-${contract.contractId}`}
                   contract={contract}
                   onClick={() => {
-                    // navigate(`/investment/${contract.contractId}`);
-                    alert(`계약 ID: ${contract.contractId} 상세보기`);
+                    navigate(`/loan-apply/progress/${contract.contractId}`);
                   }}
                 />
               ))
