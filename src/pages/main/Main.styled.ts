@@ -3,7 +3,7 @@ import theme from "@styles/theme";
 
 export const MainContainer = styled.div`
   min-height: calc(100dvh);
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   padding-bottom: 7rem;
 `;
 

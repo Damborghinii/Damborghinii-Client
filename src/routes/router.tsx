@@ -40,6 +40,8 @@ import RegisterLoadingPage from "@pages/registerNft/RegisterLoadingPage";
 import NftDetailPage from "@pages/myNft/pages/NftDetailPage";
 import MyNftDetailPage from "@pages/myNft/MyNftDetailPage";
 import MenuPage from "@pages/menu/MenuPage";
+import MusicDetailPage from "@pages/main/MusicDetailPage";
+import { MusicApplyDetail } from "@pages/main/MusicApplyPage";
 import MyNftContract from "@pages/myNft/pages/MyNftContract";
 
 const router = createBrowserRouter([
@@ -118,6 +120,16 @@ const router = createBrowserRouter([
 
           // NFT 상세
           { path: "nft/detail/:nftId", element: <NftDetailPage /> },
+          { path: "myNft/detail", element: <MyNftDetailPage /> },
+
+          {
+            path: "loan-apply/progress/:contractId",
+            element: <MusicDetailPage />,
+          },
+          {
+            path: "loan-apply-detail/:contractId",
+            element: <MusicApplyDetail />,
+          },
           { path: "myNft/detail/:copyrightId", element: <MyNftDetailPage /> },
         ],
       },

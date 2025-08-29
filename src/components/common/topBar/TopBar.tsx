@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const TopBarContainer = styled.nav`
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   z-index: 2;
@@ -22,9 +22,8 @@ export const TopBar: React.FC = () => {
   return (
     <TopBarContainer>
       <img
-        src="/logo.png"
-        width={40}
-        height={40}
+        src="/logo.svg"
+        width={130}
         onClick={() => navigate("/main")}
         style={{
           cursor: "pointer",
