@@ -57,11 +57,6 @@ export type CreationDate = {
   creationDate: string;
 };
 
-type Copyright = Pick<
-  CopyrightDetail,
-  "imageUrl" | "title" | "ethPrice" | "wonPrice"
->;
-
 // // 실제 응답 구조
 // interface Copyright {
 //   title: string;           // "똥마려"
