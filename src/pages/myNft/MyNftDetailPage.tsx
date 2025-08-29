@@ -74,16 +74,17 @@ const MyNftDetailPage = () => {
               </InfoTable>
               <InfoTable>
                 <InfoRow label="저작권 등록 여부">
-                  {nftData?.isRegisterd
+                  {/* {nftData?.isRegisterd
                     ? nftData.isRegisterd
-                    : "저작권이 등록되지 않은 음원"}
+                    : "저작권이 등록되지 않은 음원"} */}
+                  강남스타일.pdf
                 </InfoRow>
                 <InfoRow label="저작권 등록증">
                   {nftData?.isRegisterd
                     ? nftData?.registrationDoc
                     : "등록된 파일 없음"}
                 </InfoRow>
-                <InfoRow label="mp3 파일">mp3 파일 없음</InfoRow>
+                <InfoRow label="mp3 파일">강남스타일.mp3</InfoRow>
                 <InfoRow label="음원 예상 수익">{nftData?.wonPrice}</InfoRow>
               </InfoTable>
               <InfoTable>
