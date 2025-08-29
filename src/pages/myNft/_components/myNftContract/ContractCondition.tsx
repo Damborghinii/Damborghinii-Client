@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import theme from "@styles/theme";
-import React from "react";
 
 type InfoField = {
   label: string;
