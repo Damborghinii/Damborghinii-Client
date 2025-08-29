@@ -29,7 +29,7 @@ export const AdjustmentReceived = () => {
     try {
       const res = await getAdjustmentInfo({
         status: tabstatus,
-        role: "BORROWER",
+        role: "LENDER",
       });
 
       if (res.success && res.data) {
