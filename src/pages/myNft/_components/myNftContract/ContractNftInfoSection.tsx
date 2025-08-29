@@ -3,19 +3,30 @@ import theme from "@styles/theme";
 
 type InfoField = {
   label: string;
-  value: string;
+  value: string | undefined;
 };
 
-const fields: InfoField[] = [
-  { label: "NFT 명", value: "value" },
-  { label: "아티스트", value: "value" },
-  { label: "저작권 등록 여부", value: "value" },
-  { label: "저작권 등록증", value: "value" },
-  { label: "음원 예상 수익", value: "value" },
-  { label: "음원 스트리밍 URL", value: "value" },
-];
+type Props = {
+  copyright: {
+    title?: string;
+    singers?: string;
+    isRegistered?: string;
+    registrationDoc?: string;
+    wonPrice?: string;
+    streamingUrls?: string;
+  };
+};
 
-const ContractNftInfoSection = () => {
+const ContractNftInfoSection = ({ copyright }: Props) => {
+  const fields: InfoField[] = [
+    { label: "NFT 명", value: copyright?.title },
+    { label: "아티스트", value: copyright?.singers },
+    { label: "저작권 등록 여부", value: copyright?.isRegistered },
+    { label: "저작권 등록증", value: copyright?.registrationDoc },
+    { label: "음원 예상 수익", value: copyright?.wonPrice },
+    { label: "음원 스트리밍 URL", value: copyright?.streamingUrls },
+  ];
+
   return (
     <PageContainer>
       <Title>제2조 (대출 대상 NFT)</Title>

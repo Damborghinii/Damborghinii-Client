@@ -25,7 +25,6 @@ export const LoanConfirm = () => {
     nftPrice: "",
     realPrice: "",
   });
-  console.log(loanInfo);
 
   useEffect(() => {
     const fetchData = async () => {
