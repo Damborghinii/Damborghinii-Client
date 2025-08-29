@@ -38,7 +38,7 @@ export const GivingAdjustment = () => {
     try {
       const res = await getAdjustmentInfo({
         status: tabstatus,
-        role: "LENDER",
+        role: "BORROWER",
       });
       if (res.success && res.data) {
         setAdjustmentInfo(res.data);

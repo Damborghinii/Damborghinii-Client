@@ -1,10 +1,11 @@
 import { HorizontalDivider } from "@components/common/horizontalDivider/HorizontalDivider";
 import Spacer from "@components/common/spacer/Spacer";
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useModal } from "@hooks/useModal";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getContractAmount, InvestmentLimitInfo } from "@apis/investment";
+import { useInvestContract } from "@hooks/queries/useInvestContract";
 
 interface MainContentProps {
   isBlack?: boolean;
@@ -17,6 +18,7 @@ interface ButtonProps {
 export const MusicApplyDetail = () => {
   const [rule, setRule] = useState<InvestmentLimitInfo | null>(null);
   const [investorAmount, setInvestorAmount] = useState<number>(0);
+  const navigate = useNavigate();
 
   const { contractId } = useParams();
 
@@ -45,7 +47,7 @@ export const MusicApplyDetail = () => {
     };
 
     fetchRule();
-  }, []);
+  }, [contractId]);
 
   const [checked, setChecked] = useState(false);
 
@@ -66,6 +68,47 @@ export const MusicApplyDetail = () => {
   const interestCalculationRatio = rule?.interestCalculationRatio ?? 0;
   const sharePercent = investorAmount * shareCalculationRatio;
   const monthlyProfit = investorAmount * interestCalculationRatio;
+
+  const { mutateAsync: investMutate } = useInvestContract();
+
+  const handleConfirmInvest = useCallback(async () => {
+    if (!contractId) return;
+    if (!investorAmount || investorAmount <= 0) return;
+
+    try {
+      await investMutate({
+        contractId: Number(contractId),
+        investment: investorAmount,
+      });
+
+      openModal({
+        title: "투자 완료",
+        sub: "투자 신청이 완료되었습니다.",
+        primaryButton: {
+          children: "취소",
+          onClick: () => {
+            closeModal();
+          },
+        },
+        secondButton: {
+          children: "확인",
+          onClick: () => {
+            closeModal();
+            setTimeout(() => {
+              navigate("/main");
+            }, 0);
+          },
+        },
+      });
+    } catch (e) {
+      console.log(e);
+      openModal({
+        title: "오류",
+        sub: "투자 처리 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+        primaryButton: { children: "확인", onClick: closeModal },
+      });
+    }
+  }, [contractId, investorAmount, investMutate, openModal, closeModal]);
 
   return (
     <PageWrapper>
@@ -130,32 +173,7 @@ export const MusicApplyDetail = () => {
             위 내용을 모두 확인했습니다.
           </CheckLabel>
         </CheckWrapper>
-        <Button
-          disabled={!checked}
-          onClick={async () => {
-            openModal({
-              title: "정말 대출을 신청하시겠습니까?",
-              sub: "신청 후에는 수정이 불가능합니다.",
-              primaryButton: {
-                children: "취소",
-                onClick: closeModal,
-              },
-              secondButton: {
-                children: "확인",
-                onClick: async () => {
-                  closeModal();
-
-                  //   await postContractInvest(
-                  //     Number(investmentId),
-                  //     investorAmount
-                  //   );
-                  //   await new Promise((resolve) => setTimeout(resolve, 2000));
-                  //   navigate("/");
-                },
-              },
-            });
-          }}
-        >
+        <Button disabled={!checked} onClick={handleConfirmInvest}>
           계약 작성
         </Button>
       </NoticeWrapper>
