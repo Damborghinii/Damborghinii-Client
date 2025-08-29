@@ -10,4 +10,13 @@ export const API_PATH = {
     EVALUATE_NFT_VALUE: "/api/v1/copyrights/predict",
     NFT_DETAIL: "/api/v1/copyrights/{copyrightId}",
   },
+
+  MYNFT: {
+    MY_NFT_LIST: "/api/v1/me/copyrights",
+    MY_INVEST_NFT_LIST: "/api/v1/me/invest/copyrights",
+  },
+
+  LOAN: {
+    LOAN_INFO: "/api/v1/contracts/{contractId}/loans",
+  },
 };

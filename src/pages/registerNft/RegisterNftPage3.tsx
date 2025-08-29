@@ -44,7 +44,7 @@ const RegisterNftPage3 = () => {
   const handleMp3Change = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      updateForm({ mp3File: file });
+      updateForm({ audio: file });
     }
     e.target.value = "";
   };
@@ -121,15 +121,14 @@ const RegisterNftPage3 = () => {
           </InputGroup>
           <InputGroup>
             <InputTitle>mp3 파일</InputTitle>
-            {formData.mp3File && (
+            {formData.audio && (
               <FileContainer>
                 <FiteContent>
-                  <FileName>{formData.mp3File.name}</FileName>
+                  <FileName>{formData.audio.name}</FileName>
                   <FileSize>
-                    {(
-                      (formData.mp3File.size as number) /
-                      (1024 * 1024)
-                    ).toFixed(2)}{" "}
+                    {((formData.audio.size as number) / (1024 * 1024)).toFixed(
+                      2
+                    )}{" "}
                     MB
                   </FileSize>
                 </FiteContent>
@@ -160,7 +159,7 @@ const RegisterNftPage3 = () => {
         disabled={
           !isFormFilled(formData, ["isRegistered"]) ||
           (formData.isRegistered === true && !formData.copyrightFile) ||
-          !isFormFilled(formData, ["mp3File"])
+          !isFormFilled(formData, ["audio"])
         }
       />
     </PageContainer>

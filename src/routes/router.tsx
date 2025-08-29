@@ -42,6 +42,7 @@ import MyNftDetailPage from "@pages/myNft/MyNftDetailPage";
 import MenuPage from "@pages/menu/MenuPage";
 import MusicDetailPage from "@pages/main/MusicDetailPage";
 import { MusicApplyDetail } from "@pages/main/MusicApplyPage";
+import MyNftContract from "@pages/myNft/pages/MyNftContract";
 
 const router = createBrowserRouter([
   {
@@ -97,12 +98,20 @@ const router = createBrowserRouter([
           },
           { path: "loan-apply/:loanId/:contractId", element: <LoanApply /> },
           {
-            path: "loan-info-input/:loanId/:contractId",
+            path: "loan-info-input/:copyrightId/:contractId",
             element: <LoanInfoInput />,
           },
           {
-            path: "loan-confirm/:loanId/:contractId",
+            path: "loan-confirm/:copyrightId/:contractId",
             element: <LoanConfirm />,
+          },
+          {
+            path: "myNft/loan-contract/:loanId/:contractId",
+            element: <MyNftContract />,
+          },
+          {
+            path: "loan-agreement/:copyrightId/:contractId",
+            element: <MyNftContract />,
           },
 
           // 정산 상세
@@ -121,6 +130,7 @@ const router = createBrowserRouter([
             path: "loan-apply-detail/:contractId",
             element: <MusicApplyDetail />,
           },
+          { path: "myNft/detail/:copyrightId", element: <MyNftDetailPage /> },
         ],
       },
     ],

@@ -10,7 +10,7 @@ interface ButtonProps {
 }
 
 export const LoanInfoInput = () => {
-  const { loanId, contractId } = useParams();
+  const { copyrightId, contractId } = useParams();
   const navigate = useNavigate();
   const [loanAmount, setLoanAmount] = useState<number>(0);
   const [round, setRound] = useState<string>("");
@@ -90,7 +90,7 @@ export const LoanInfoInput = () => {
           title="예상 월 이자"
           priceAmount={
             calculatedMonthlyInterest === 0
-              ? ""
+              ? "0"
               : calculatedMonthlyInterest.toLocaleString()
           }
           description={`이율 ${
@@ -121,7 +121,7 @@ export const LoanInfoInput = () => {
           onClick={() => {
             localStorage.setItem("amount", loanAmount.toString());
             localStorage.setItem("count", round.toString());
-            navigate(`/loan-confirm/${loanId}/${contractId}`);
+            navigate(`/loan-confirm/${copyrightId}/${contractId}`);
           }}
         >
           다음

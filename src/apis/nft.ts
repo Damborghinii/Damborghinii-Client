@@ -13,8 +13,11 @@ export const createNft = async (formData: NftFormData) => {
     form.append("image", formData.croppedImage);
   }
 
+  if (formData.audio) {
+    form.append("audio", formData.audio);
+  }
+
   const nftCreateRequest = {
-    nftName: formData.nftName,
     title: formData.title,
     singers: formData.singers,
     composers: formData.composers,
@@ -30,6 +33,14 @@ export const createNft = async (formData: NftFormData) => {
       type: "application/json",
     })
   );
+  for (const [k, v] of form.entries()) {
+    console.log(
+      k,
+      v instanceof File ? `[File] ${v.name} (${v.type}, ${v.size})` : v
+    );
+  }
+
+  console.log(nftCreateRequest);
 
   const response = await axiosInstance.post(API_PATH.NFT.REGISTER_NFT, form, {
     headers: {
@@ -53,7 +64,6 @@ export const evaluateNftValue = async (
 ): Promise<EvaluationResponse> => {
   console.log(API_PATH.NFT.EVALUATE_NFT_VALUE);
   const body = {
-    nftName: formData.nftName,
     title: formData.title,
     singers: formData.singers,
     composers: formData.composers,
