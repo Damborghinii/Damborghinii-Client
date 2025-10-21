@@ -11,6 +11,10 @@ const MenuPage = () => {
     navigate("/login");
   };
 
+  const goWallet = () => {
+    navigate("/wallet/withdraw");
+  };
+
   const { isLoggedIn, logout } = useAuth();
 
   return (
@@ -20,7 +24,7 @@ const MenuPage = () => {
       ) : (
         <MyProfilWrapper>로그인이 필요한 서비스입니다.</MyProfilWrapper>
       )}
-      <WalletWrapper>
+      <WalletWrapper onClick={goWallet}>
         <Wallet />
         지갑
       </WalletWrapper>
@@ -57,10 +61,12 @@ const WalletWrapper = styled.div`
   flex-direction: row;
   gap: 8px;
   align-items: center;
+  cursor: pointer;
 `;
 
 const LoginWrapper = styled.div`
   font-size: ${theme.typography["body1-2"].fontSize};
   font-weight: ${theme.typography["body1-2"].fontWeight};
   color: ${theme.color.neutral.B60};
+  cursor: pointer;
 `;
