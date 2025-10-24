@@ -3,12 +3,15 @@ import styled from "@emotion/styled";
 import theme from "@styles/theme";
 import { IcArrowDown } from "@assets/svg";
 import Button from "@components/common/button/Button";
+import { useNavigate } from "react-router-dom";
 
 const WithdrawPage = () => {
   const [selectedBank, setSelectedBank] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [showBankDropdown, setShowBankDropdown] = useState(false);
+
+  const navigate = useNavigate();
 
   const banks = [
     "농협",
@@ -98,6 +101,7 @@ const WithdrawPage = () => {
         onClick={() => {
           // TODO: 인출 신청 API 호출
           alert("인출 신청이 완료되었습니다.");
+          navigate("/wallet/detail");
         }}
       >
         신청하기
