@@ -93,15 +93,16 @@ export const WalletDetailPage = () => {
     <PageContainer>
       <ContentContainer>
         <WalletInfoSectionD>
-          {/* <WalletIcon>👛</WalletIcon> */}
+          <img src="/src/assets/icons/money.svg" sizes="16" />
           <WalletText>
-            보유금액 <WalletAmount>0원</WalletAmount>
+            보유 금액 <WalletAmount>1,600원</WalletAmount>
           </WalletText>
         </WalletInfoSectionD>
         <Spacer height="12px" />
         <WalletInfoSectionG>
+          <img src="/src/assets/icons/arr.svg" sizes="14" />
           인출 대기
-          <WalletAmountG>0원</WalletAmountG>
+          <WalletAmountG>1,600원</WalletAmountG>
         </WalletInfoSectionG>
       </ContentContainer>
       <Spacer height="24px" />
@@ -132,8 +133,12 @@ export const WalletDetailPage = () => {
 
       {/* 하단 버튼 */}
       <ButtonContainer>
-        <ActionButton primary>충전하기</ActionButton>
-        <ActionButton>인출하기</ActionButton>
+        <ActionButton primary onClick={() => alert("todo something")}>
+          충전하기
+        </ActionButton>
+        <ActionButton onClick={() => alert("todo something")}>
+          인출하기
+        </ActionButton>
       </ButtonContainer>
     </PageContainer>
   );
@@ -141,7 +146,7 @@ export const WalletDetailPage = () => {
 
 const PageContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 3.5rem);
   background-color: ${theme.color.neutral.white};
   display: flex;
   flex-direction: column;
@@ -166,24 +171,25 @@ const WalletInfoSectionD = styled.div`
   border-radius: 0.5rem;
 `;
 
-const WalletIcon = styled.span`
-  font-size: 1.25rem;
-`;
-
 const WalletText = styled.span`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  ${({ theme }) => theme.typography["body2-2"]}
 `;
 
 const WalletAmount = styled.span`
+  display: flex;
+  align-items: center;
   color: ${({ theme }) => theme.color.neutral.B60};
-  font-weight: 600;
+  ${({ theme }) => theme.typography["title1-1"]}
 `;
 
 const WalletAmountG = styled.span`
+  display: flex;
+  align-items: center;
   color: ${({ theme }) => theme.color.secondary.S60};
-  font-weight: 600;
+  ${({ theme }) => theme.typography["title1-1"]}
 `;
 
 const WalletInfoSectionG = styled.div`
