@@ -44,6 +44,7 @@ import MusicDetailPage from "@pages/main/MusicDetailPage";
 import { MusicApplyDetail } from "@pages/main/MusicApplyPage";
 import MyNftContract from "@pages/myNft/pages/MyNftContract";
 import WithdrawPage from "@pages/wallet/WithdrawPage";
+import { WalletDetailPage } from "@pages/wallet/WalletDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,7 @@ const router = createBrowserRouter([
 
           // 지갑
           { path: "wallet/withdraw", element: <WithdrawPage /> },
+          { path: "wallet/detail", element: <WalletDetailPage /> },
 
           // 로그인/회원가입
           { path: "login", element: <LoginPage /> },
