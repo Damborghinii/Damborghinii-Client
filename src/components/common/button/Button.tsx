@@ -62,12 +62,12 @@ const styleMap: Record<
   },
   secondary: {
     enabled: {
-      backgroundColor: theme.color.neutral.B50,
+      backgroundColor: theme.color.primary.P50,
       textColor: theme.color.neutral.white,
       borderColor: theme.color.neutral.B50,
     },
     disabled: {
-      backgroundColor: theme.color.neutral.B20,
+      backgroundColor: theme.color.primary.P20,
       textColor: theme.color.neutral.B10,
       borderColor: "transparent",
     },
