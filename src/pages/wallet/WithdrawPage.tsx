@@ -3,9 +3,17 @@ import styled from "@emotion/styled";
 import theme from "@styles/theme";
 import { IcArrowDown } from "@assets/svg";
 import Button from "@components/common/button/Button";
+import { useNavigate } from "react-router-dom";
 import { useModal } from "@hooks/useModal";
 
 const WithdrawPage = () => {
+  const [selectedBank, setSelectedBank] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [withdrawAmount, setWithdrawAmount] = useState("");
+  const [showBankDropdown, setShowBankDropdown] = useState(false);
+
+  const navigate = useNavigate();
+
   const banks = [
     "농협",
     "신한은행",
@@ -144,6 +152,7 @@ const WithdrawPage = () => {
         variant="secondary"
         disabled={isButtonDisabled}
         onClick={handleButtonClick}
+
       >
         신청하기
       </Button>

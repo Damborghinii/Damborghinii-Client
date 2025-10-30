@@ -22,7 +22,8 @@ const NoBottomBarLayout = () => {
   const isMenu = location.pathname.startsWith("/menu");
   const isLogin = location.pathname.startsWith("/login");
   const isMyNftDetail = location.pathname.startsWith("/myNft/detail");
-  const isWallet = location.pathname.startsWith("/wallet");
+  const isWallet = location.pathname.startsWith("/wallet/withdraw");
+  const isWalletDetail = location.pathname.startsWith("/wallet/detail");
 
   const title = isRegisterRoute
     ? "NFT 등록"
@@ -50,6 +51,8 @@ const NoBottomBarLayout = () => {
     ? "내 음원"
     : isWallet
     ? "인출 신청"
+    : isWalletDetail
+    ? "지갑"
     : "";
   const isConfirmButton = isImageCropPage;
 
