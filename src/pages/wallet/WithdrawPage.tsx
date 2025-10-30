@@ -1,15 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import theme from "@styles/theme";
 import { IcArrowDown } from "@assets/svg";
 import Button from "@components/common/button/Button";
+import { useModal } from "@hooks/useModal";
 
 const WithdrawPage = () => {
-  const [selectedBank, setSelectedBank] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-  const [withdrawAmount, setWithdrawAmount] = useState("");
-  const [showBankDropdown, setShowBankDropdown] = useState(false);
-
   const banks = [
     "농협",
     "신한은행",
@@ -17,11 +13,46 @@ const WithdrawPage = () => {
     "우리은행",
     "하나은행",
     "기업은행",
+    "토스뱅크",
+    "카카오뱅크",
   ];
+
+  const [selectedBank, setSelectedBank] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [withdrawAmount, setWithdrawAmount] = useState("");
+  const [showBankDropdown, setShowBankDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setShowBankDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  //임시 값
   const maxWithdrawAmount = 1600;
+
+  const handleAccountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9-]/g, "").replace(/(-)+/g, "-");
+    setAccountNumber(value);
+  };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
+    if (value == "") {
+      setWithdrawAmount("");
+      return;
+    }
     const formattedValue = Number(value).toLocaleString();
     setWithdrawAmount(formattedValue);
   };
@@ -30,13 +61,29 @@ const WithdrawPage = () => {
     Number(withdrawAmount.replace(/,/g, "")) > maxWithdrawAmount;
   const isButtonDisabled = isAmountExceeded || withdrawAmount === "";
 
+  const { openModal, closeModal } = useModal();
+
+  const handleButtonClick = () => {
+    openModal({
+      title: "신청하시겠어요?",
+      sub: "신청한 금액은 1영업일 이내 계좌로 입금됩니다.",
+      primaryButton: {
+        children: "취소",
+        onClick: closeModal,
+      },
+      secondButton: {
+        children: "확인",
+      },
+    });
+  };
+
   return (
     <PageContainer>
       <ContentContainer>
         <AccountSection>
           <SectionTitle>돈을 송금받을 계좌번호를 입력해주세요.</SectionTitle>
 
-          <BankSelectContainer>
+          <BankSelectContainer ref={dropdownRef}>
             <BankSelectButton
               onClick={() => setShowBankDropdown(!showBankDropdown)}
               isOpen={showBankDropdown}
@@ -65,7 +112,8 @@ const WithdrawPage = () => {
 
           <AccountInput
             value={accountNumber}
-            onChange={(e) => setAccountNumber(e.target.value)}
+            placeholder="계좌번호를 입력해주세요."
+            onChange={handleAccountChange}
           />
         </AccountSection>
 
@@ -74,7 +122,7 @@ const WithdrawPage = () => {
 
           <AmountInputContainer>
             <AmountInput
-              placeholder="금액을 입력해주세요"
+              placeholder="금액을 입력해주세요."
               value={withdrawAmount}
               onChange={handleAmountChange}
               isError={isAmountExceeded}
@@ -95,10 +143,7 @@ const WithdrawPage = () => {
         fullWidth
         variant="secondary"
         disabled={isButtonDisabled}
-        onClick={() => {
-          // TODO: 인출 신청 API 호출
-          alert("인출 신청이 완료되었습니다.");
-        }}
+        onClick={handleButtonClick}
       >
         신청하기
       </Button>
@@ -187,6 +232,7 @@ const BankDropdown = styled.div`
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   z-index: 10;
   margin-top: 4px;
+  animation: dropdown 0.4s ease;
 `;
 
 const BankOption = styled.div`
@@ -220,6 +266,10 @@ const AccountInput = styled.input`
   font-size: ${theme.typography["body1-2"].fontSize};
   font-weight: ${theme.typography["body1-2"].fontWeight};
   color: ${theme.color.neutral.B70};
+
+  &::placeholder {
+    color: ${theme.color.neutral.B30};
+  }
 
   &:focus {
     outline: none;
